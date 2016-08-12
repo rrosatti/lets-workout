@@ -1,7 +1,9 @@
-package com.example.rodri.letsworkout;
+package com.example.rodri.letsworkout.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.rodri.letsworkout.R;
 
 public class MainActivity extends AppCompatActivity {
 
