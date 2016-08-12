@@ -148,6 +148,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
     }
 
+    /**
+     *
+     * Populate the muscle_groups table with the values found in strings.xml
+     *
+     * @param db
+     */
     public void populateTableMuscleGroups(SQLiteDatabase db) {
         for (int i = 0; i < muscleGroups.length; i++) {
             db.execSQL("INSERT INTO " + TABLE_MUSCLE_GROUPS + "(" + KEY_ID + ", " + KEY_NAME + ") " +
@@ -155,6 +161,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * Populate the days table with the values found in strings.xml
+     *
+     * @param db
+     */
     public void populateTableDays(SQLiteDatabase db) {
         for (int i = 0; i < days.length; i++) {
             db.execSQL("INSERT INTO " + TABLE_DAYS + "(" + KEY_ID + ", " + KEY_NAME + ") " +
