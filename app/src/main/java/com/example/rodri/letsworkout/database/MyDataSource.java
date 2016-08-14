@@ -258,6 +258,27 @@ public class MyDataSource {
         database.update(MySQLiteHelper.TABLE_ROUTINE, values, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 
+    /** ----------  DELETE  ---------- */
+    public void deleteExercise(long id) {
+        System.out.println("The exercise with the id " + id + " will be deleted!");
+        database.delete(MySQLiteHelper.TABLE_EXERCISES, MySQLiteHelper.KEY_ID + " = " + id, null);
+    }
+
+    public void deleteExerciseRepetition(long id) {
+        System.out.println("The exercise repetition with the id " + id + " will be deleted!");
+        database.delete(MySQLiteHelper.TABLE_EXERCISE_REPETITIONS, MySQLiteHelper.KEY_ID + " = " + id, null);
+    }
+
+    public void deleteBodyMeasure(long id) {
+        System.out.println("The body measure with the id " + id + " will be deleted!");
+        database.delete(MySQLiteHelper.TABLE_BODY_MEASURES, MySQLiteHelper.KEY_ID + " = " + id, null);
+    }
+
+    public void deleteRoutine(long id) {
+        System.out.println("The routine with the id " + id + " will be deleted!");
+        database.delete(MySQLiteHelper.TABLE_ROUTINE, MySQLiteHelper.KEY_ID + " = " + id, null);
+    }
+
     /** ----------  OTHER  ---------- */
 
     public boolean isCursorEmpty(Cursor cursor) {
