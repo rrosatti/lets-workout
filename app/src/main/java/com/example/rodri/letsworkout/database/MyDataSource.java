@@ -217,6 +217,47 @@ public class MyDataSource {
         return routine;
     }
 
+    /** ----------  UPDATE  ---------- */
+    public void updateExercise(long id, long muscleGroupId, String name) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_MUSCLE_GROUP_ID, muscleGroupId);
+        values.put(MySQLiteHelper.KEY_NAME, name);
+        database.update(MySQLiteHelper.TABLE_EXERCISES, values, MySQLiteHelper.KEY_ID + " =" + id, null);
+    }
+
+    public void updateExerciseRepetition(long id, long exerciseId, int sets, int reps) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_EXERCISE_ID, exerciseId);
+        values.put(MySQLiteHelper.COLUMN_SETS, sets);
+        values.put(MySQLiteHelper.COLUMN_REPS, reps);
+        database.update(MySQLiteHelper.TABLE_EXERCISE_REPETITIONS, values, MySQLiteHelper.KEY_ID + " = " + id, null);
+    }
+
+    public void updateBodyMeasure(long id, double rightUpperArm, double leftUpperArm, double rightForearm, double leftForearm,
+                                  double chest, double rightThigh, double leftThigh, double rightCalf, double leftCalf,
+                                  double waist, double shoulder) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_RIGHT_UPPER_ARM, rightUpperArm);
+        values.put(MySQLiteHelper.COLUMN_LEFT_UPPER_ARM, leftUpperArm);
+        values.put(MySQLiteHelper.COLUMN_RIGHT_FOREARM, rightForearm);
+        values.put(MySQLiteHelper.COLUMN_LEFT_FOREARM, leftForearm);
+        values.put(MySQLiteHelper.COLUMN_CHEST, chest);
+        values.put(MySQLiteHelper.COLUMN_RIGHT_THIGH, rightThigh);
+        values.put(MySQLiteHelper.COLUMN_LEFT_THIGH, leftThigh);
+        values.put(MySQLiteHelper.COLUMN_RIGHT_CALF, rightCalf);
+        values.put(MySQLiteHelper.COLUMN_LEFT_CALF, leftCalf);
+        values.put(MySQLiteHelper.COLUMN_WAIST, waist);
+        values.put(MySQLiteHelper.COLUMN_SHOULDER, shoulder);
+        database.update(MySQLiteHelper.TABLE_BODY_MEASURES, values, MySQLiteHelper.KEY_ID + " = " + id, null);
+    }
+
+    public void updateRoutine(long id, long dayId, long exerciseRepetitionId){
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_DAY_ID, dayId);
+        values.put(MySQLiteHelper.COLUMN_EXERCISE_REPETITIONS_ID, exerciseRepetitionId);
+        database.update(MySQLiteHelper.TABLE_ROUTINE, values, MySQLiteHelper.KEY_ID + " = " + id, null);
+    }
+
     /** ----------  OTHER  ---------- */
 
     public boolean isCursorEmpty(Cursor cursor) {
