@@ -6,9 +6,11 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.rodri.letsworkout.model.BodyMeasure;
 import com.example.rodri.letsworkout.model.Exercise;
 import com.example.rodri.letsworkout.model.ExerciseRepetition;
 import com.example.rodri.letsworkout.model.MuscleGroup;
+import com.example.rodri.letsworkout.model.Routine;
 
 /**
  * Created by rodri on 8/12/2016.
@@ -116,6 +118,61 @@ public class MyDataSource {
 
     }
 
+    public BodyMeasure createBodyMeasure(double rightUpperArm, double leftUpperArm, double rightForearm, double leftForearm,
+                                         double chest, double rightThigh, double leftThigh, double rightCalf, double leftCalf,
+                                         double waist, double shoulder) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_RIGHT_UPPER_ARM, rightUpperArm);
+        values.put(MySQLiteHelper.COLUMN_LEFT_UPPER_ARM, leftUpperArm);
+        values.put(MySQLiteHelper.COLUMN_RIGHT_FOREARM, rightForearm);
+        values.put(MySQLiteHelper.COLUMN_LEFT_FOREARM, leftForearm);
+        values.put(MySQLiteHelper.COLUMN_CHEST, chest);
+        values.put(MySQLiteHelper.COLUMN_RIGHT_THIGH, rightThigh);
+        values.put(MySQLiteHelper.COLUMN_LEFT_THIGH, leftThigh);
+        values.put(MySQLiteHelper.COLUMN_RIGHT_CALF, rightCalf);
+        values.put(MySQLiteHelper.COLUMN_LEFT_CALF, leftCalf);
+        values.put(MySQLiteHelper.COLUMN_WAIST, waist);
+        values.put(MySQLiteHelper.COLUMN_SHOULDER, shoulder);
+
+        long insertId = database.insert(MySQLiteHelper.TABLE_BODY_MEASURES, null, values);
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_BODY_MEASURES, bodyMeasuresColumns,
+                MySQLiteHelper.KEY_ID + " = " + insertId, null, null, null, null, null);
+
+        if (isCursorEmpty(cursor)) {
+            System.out.println("ERROR! Cursor is empty!");
+            cursor.close();
+            return null;
+        }
+        cursor.moveToFirst();
+
+        BodyMeasure newBodyMeasure = cursorToBodyMeasure(cursor);
+        cursor.close();
+
+        return newBodyMeasure;
+    }
+
+    public Routine createRoutine(long dayId, long exerciseRepetitionId) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_DAY_ID, dayId);
+        values.put(MySQLiteHelper.COLUMN_EXERCISE_REPETITIONS_ID, exerciseRepetitionId);
+
+        long insertId = database.insert(MySQLiteHelper.TABLE_ROUTINE, null, values);
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_ROUTINE, routineColumns,
+                MySQLiteHelper.KEY_ID + " = " + insertId, null, null, null, null, null);
+
+        if (isCursorEmpty(cursor)) {
+            System.out.println("ERROR! Cursor is empty!");
+            cursor.close();
+            return null;
+        }
+        cursor.moveToFirst();
+
+        Routine newRoutine = cursorToRoutine(cursor);
+        cursor.close();
+
+        return newRoutine;
+    }
+
     /** ---------  CURSOR TO  ---------- */
 
     public Exercise cursorToExercise(Cursor cursor) {
@@ -133,6 +190,31 @@ public class MyDataSource {
         exerciseRepetition.setSets(cursor.getInt(2));
         exerciseRepetition.setReps(cursor.getInt(3));
         return exerciseRepetition;
+    }
+
+    public BodyMeasure cursorToBodyMeasure(Cursor cursor) {
+        BodyMeasure bodyMeasure = new BodyMeasure();
+        bodyMeasure.setId(cursor.getLong(0));
+        bodyMeasure.setRightUpperArm(cursor.getDouble(1));
+        bodyMeasure.setLeftUpperArm(cursor.getDouble(2));
+        bodyMeasure.setRightForearm(cursor.getDouble(3));
+        bodyMeasure.setLeftForearm(cursor.getDouble(4));
+        bodyMeasure.setChest(cursor.getDouble(5));
+        bodyMeasure.setRightThigh(cursor.getDouble(6));
+        bodyMeasure.setLeftThigh(cursor.getDouble(7));
+        bodyMeasure.setRightCalf(cursor.getDouble(8));
+        bodyMeasure.setLeftCalf(cursor.getDouble(9));
+        bodyMeasure.setWaist(cursor.getDouble(10));
+        bodyMeasure.setShoulder(cursor.getDouble(11));
+        return bodyMeasure;
+    }
+
+    public Routine cursorToRoutine(Cursor cursor) {
+        Routine routine = new Routine();
+        routine.setId(cursor.getLong(0));
+        routine.setDayId(cursor.getLong(1));
+        routine.setExerciseRepetitionId(cursor.getLong(2));
+        return routine;
     }
 
     /** ----------  OTHER  ---------- */
