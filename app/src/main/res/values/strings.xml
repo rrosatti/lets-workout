@@ -34,11 +34,11 @@
 
     <!-- Navigation Drawer Menu Icons -->
     <array name="nav_drawer_icons">
-        <item>@drawable/house</item>
-        <item>@drawable/balance</item>
-        <item>@drawable/time</item>
-        <item>@drawable/graphic</item>
-        <item>@drawable/clock</item>
+        <item>@drawable/ic_house</item>
+        <item>@drawable/ic_balance</item>
+        <item>@drawable/ic_time</item>
+        <item>@drawable/ic_graphic</item>
+        <item>@drawable/ic_clock</item>
     </array>
 
 </resources>
