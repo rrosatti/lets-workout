@@ -22,5 +22,23 @@
         <item>Saturday</item>
         <item>Sunday</item>
     </string-array>
+    
+    <!-- Navigation Drawer Menu Items -->
+    <string-array name="nav_drawer_items">
+        <item>Home</item>
+        <item>My Body</item>
+        <item>Schedule</item>
+        <item>Statistics</item>
+        <item>Timer</item>
+    </string-array>
+
+    <!-- Navigation Drawer Menu Icons -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/house</item>
+        <item>@drawable/balance</item>
+        <item>@drawable/time</item>
+        <item>@drawable/graphic</item>
+        <item>@drawable/clock</item>
+    </array>
 
 </resources>
