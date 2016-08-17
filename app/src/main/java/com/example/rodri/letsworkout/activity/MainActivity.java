@@ -1,13 +1,17 @@
 package com.example.rodri.letsworkout.activity;
 
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -112,5 +116,69 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        this.title = title;
+        getSupportActionBar().setTitle(title);
+    }
+
+    /**
+     * Will be called when using the ActionBarDrawerToggle
+     * - Sync the toggle state after onRestoreInstanceState occurred
+     * @param savedInstanceState
+     */
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        drawerToggle.syncState();
+    }
+
+    /**
+     * Will be called when using the ActionBarDrawerToggle
+     * - Pass the new configuration changes to the DrawerToggle
+     * @param newConfig
+     */
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        drawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    /**
+     * Update the fragment according to the given position
+     *
+     *  0 - Home
+     *  1 - My Body
+     *  2 - Schedule
+     *  3 - Statistics
+     *  4 - Timer
+     *
+     * @param position
+     */
+    public void displayView(int position) {
+        Fragment fragment = null;
+
+        switch (position) {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            default:
+                break;
+        }
+
+        if (fragment != null) {
+            // Here we create the proper methods to "update" the fragment
+        } else {
+            Log.e("MainActivity", "Error while trying to create fragment.");
+        }
     }
 }
