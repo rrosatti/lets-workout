@@ -41,4 +41,7 @@
         <item>@drawable/ic_clock</item>
     </array>
 
+    <!-- Home message -->
+    <string name="home_message">Just do it!</string>
+
 </resources>

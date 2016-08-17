@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,10 +16,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.rodri.letsworkout.R;
 import com.example.rodri.letsworkout.adapter.DrawerItemAdapter;
+import com.example.rodri.letsworkout.fragment.HomeFragment;
 import com.example.rodri.letsworkout.model.DrawerItem;
 
 import java.util.ArrayList;
@@ -84,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             displayView(0);
         }
+
+        drawerListView.setOnItemClickListener(new SlideMenuClickListener());
     }
 
     public void initialize() {
@@ -162,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (position) {
             case 0:
+                fragment = new HomeFragment();
                 break;
             case 1:
                 break;
@@ -177,8 +183,32 @@ public class MainActivity extends AppCompatActivity {
 
         if (fragment != null) {
             // Here we create the proper methods to "update" the fragment
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, fragment).commit();
+
+            // Set Drawer Item as checked/selected (the list_selector.xml will set the proper events)
+            drawerListView.setItemChecked(position, true);
+            drawerListView.setSelection(position);
+            // change the ActionBar's title
+            setTitle(menuTitles[position]);
+            // close the Navigation Drawer
+            drawerLayout.closeDrawer(drawerListView);
         } else {
             Log.e("MainActivity", "Error while trying to create fragment.");
+        }
+    }
+
+    /**
+     *
+     * When the user clicks in the NavigationDrawer Item, it will call the displayView() method
+     * passing the item's position
+     *
+     */
+    private class SlideMenuClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            displayView(position);
         }
     }
 }
