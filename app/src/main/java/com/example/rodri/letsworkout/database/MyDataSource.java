@@ -57,6 +57,19 @@ public class MyDataSource {
             MySQLiteHelper.COLUMN_DAY_ID,
             MySQLiteHelper.COLUMN_EXERCISE_REPETITIONS_ID
     };
+    private String[] usersColumns = {
+            MySQLiteHelper.KEY_ID,
+            MySQLiteHelper.KEY_NAME,
+            MySQLiteHelper.COLUMN_LOGIN,
+            MySQLiteHelper.COLUMN_PASSWORD
+    };
+    private String[] bodyColumns = {
+            MySQLiteHelper.KEY_ID,
+            MySQLiteHelper.COLUMN_USER_ID,
+            MySQLiteHelper.COLUMN_BODY_MEASURES_ID,
+            MySQLiteHelper.COLUMN_WEIGHT,
+            MySQLiteHelper.COLUMN_HEIGHT
+    };
 
     public MyDataSource(Context context) {
         dbHelper = new MySQLiteHelper(context);
