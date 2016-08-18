@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/imgMenuItemIcon"
         android:layout_centerVertical="true"
-        android:layout_marginStart="12dp" />
+        android:layout_marginStart="12dp"
+        android:textColor="@color/text_view_text_color"/>
 
 </RelativeLayout>

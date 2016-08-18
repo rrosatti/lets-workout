@@ -20,7 +20,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "lets_workout_project.db";
 
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Table Names
     public static final String TABLE_EXERCISES = "exercises";
@@ -29,6 +29,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String TABLE_BODY_MEASURES = "body_measures";
     public static final String TABLE_DAYS = "days";
     public static final String TABLE_ROUTINE = "routine";
+    public static final String TABLE_USERS = "users";
+    public static final String TABLE_BODY = "body";
 
     // Common column names
     public static final String KEY_ID = "id";
@@ -63,6 +65,16 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     // routine column names = { id, day_id, exercise_repetitions_id }
     public static final String COLUMN_DAY_ID = "day_id";
     public static final String COLUMN_EXERCISE_REPETITIONS_ID = "exercise_repetitions_id";
+
+    // users column names = { id, name, login, password }
+    public static final String COLUMN_LOGIN = "login";
+    public static final String COLUMN_PASSWORD = "password";
+
+    // body column names = { id, user_id, body_measures_id, weight, height }
+    public static final String COLUMN_USER_ID = "user_id";
+    public static final String COLUMN_BODY_MEASURES_ID = "body_measures_id";
+    public static final String COLUMN_WEIGHT = "weight";
+    public static final String COLUMN_HEIGHT = "height";
 
 
     // --- CREATE TABLES --- //
@@ -122,6 +134,21 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             + "FOREIGN KEY (" + COLUMN_EXERCISE_REPETITIONS_ID + ") REFERENCES "
                     + TABLE_EXERCISE_REPETITIONS + "(" + KEY_ID + "));";
 
+    private static final String CREATE_TABLE_USERS =
+            "CREATE TABLE " + TABLE_USERS + "("
+            + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + KEY_NAME + " TEXT NOT NULL, "
+            + COLUMN_LOGIN + " TEXT NOT NULL, "
+            + COLUMN_PASSWORD + " TEXT NOT NULL);";
+
+    private static final String CREATE_TABLE_BODY =
+            "CREATE TABLE " + TABLE_BODY + "("
+            + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COLUMN_USER_ID + " INTEGER NOT NULL, "
+            + COLUMN_BODY_MEASURES_ID + " INTEGER NOT NULL, "
+            + COLUMN_WEIGHT + " REAL NOT NULL, "
+            + COLUMN_HEIGHT + " REAL NOT NULL);";
+
 
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -139,12 +166,20 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_ROUTINE);
         populateTableMuscleGroups(db);
         populateTableDays(db);
+        // add after version 2
+        db.execSQL(CREATE_TABLE_USERS);
+        db.execSQL(CREATE_TABLE_BODY);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.w(MySQLiteHelper.class.getName(), "Upgrading database from version " + oldVersion + " to " + newVersion
                 + ", which will destroy all old data.");
+
+        if (newVersion > oldVersion) {
+            db.execSQL(CREATE_TABLE_USERS);
+            db.execSQL(CREATE_TABLE_BODY);
+        }
 
     }
 
