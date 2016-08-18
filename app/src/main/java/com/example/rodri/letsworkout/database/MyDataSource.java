@@ -6,11 +6,13 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.rodri.letsworkout.model.Body;
 import com.example.rodri.letsworkout.model.BodyMeasure;
 import com.example.rodri.letsworkout.model.Exercise;
 import com.example.rodri.letsworkout.model.ExerciseRepetition;
 import com.example.rodri.letsworkout.model.MuscleGroup;
 import com.example.rodri.letsworkout.model.Routine;
+import com.example.rodri.letsworkout.model.User;
 
 /**
  * Created by rodri on 8/12/2016.
@@ -186,6 +188,56 @@ public class MyDataSource {
         return newRoutine;
     }
 
+    public User createUser(long id, String name, String login, String password) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.KEY_NAME, name);
+        values.put(MySQLiteHelper.COLUMN_LOGIN, login);
+        values.put(MySQLiteHelper.COLUMN_PASSWORD, password);
+
+        long insertId = database.insert(MySQLiteHelper.TABLE_USERS, null, values);
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_USERS, usersColumns,
+                MySQLiteHelper.KEY_ID + " = " + insertId, null, null, null, null, null);
+
+        if (isCursorEmpty(cursor)) {
+            System.out.println("ERROR! Cursor is empty!");
+            cursor.close();
+            return null;
+        }
+        cursor.moveToFirst();
+
+        User newUser = cursorToUser(cursor);
+        cursor.close();
+
+        return newUser;
+    }
+
+    public Body createBody(long id, long userId, long bodyMeasureId, double weight, double height, BodyMeasure bodyMeasure) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_USER_ID, userId);
+        values.put(MySQLiteHelper.COLUMN_BODY_MEASURES_ID, bodyMeasureId);
+        values.put(MySQLiteHelper.COLUMN_WEIGHT, weight);
+        values.put(MySQLiteHelper.COLUMN_HEIGHT, height);
+
+        long insertId = database.insert(MySQLiteHelper.TABLE_BODY, null, values);
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_BODY, bodyColumns,
+                MySQLiteHelper.KEY_ID + " = " + insertId, null, null, null, null, null);
+
+        if (isCursorEmpty(cursor)) {
+            System.out.println("ERROR! Cursor is empty!");
+            cursor.close();
+            return null;
+        }
+        cursor.moveToFirst();
+
+        Body newBody = cursorToBody(cursor);
+        bodyMeasure = getBodyMeasure(bodyMeasureId);
+        newBody.setBodyMeasure(bodyMeasure);
+
+        cursor.close();
+
+        return newBody;
+    }
+
     /** ---------  CURSOR TO  ---------- */
 
     public Exercise cursorToExercise(Cursor cursor) {
@@ -228,6 +280,25 @@ public class MyDataSource {
         routine.setDayId(cursor.getLong(1));
         routine.setExerciseRepetitionId(cursor.getLong(2));
         return routine;
+    }
+
+    public User cursorToUser(Cursor cursor) {
+        User user = new User();
+        user.setId(cursor.getLong(0));
+        user.setName(cursor.getString(1));
+        user.setLogin(cursor.getString(2));
+        user.setPassword(cursor.getString(3));
+        return user;
+    }
+
+    public Body cursorToBody(Cursor cursor) {
+        Body body = new Body();
+        body.setId(cursor.getLong(0));
+        body.setUserId(cursor.getLong(1));
+        body.setBodyMeasuresId(cursor.getLong(2));
+        body.setWeight(cursor.getDouble(3));
+        body.setHeight(cursor.getDouble(4));
+        return body;
     }
 
     /** ----------  UPDATE  ---------- */

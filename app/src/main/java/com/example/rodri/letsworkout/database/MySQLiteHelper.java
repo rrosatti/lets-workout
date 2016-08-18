@@ -147,7 +147,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             + COLUMN_USER_ID + " INTEGER NOT NULL, "
             + COLUMN_BODY_MEASURES_ID + " INTEGER NOT NULL, "
             + COLUMN_WEIGHT + " REAL NOT NULL, "
-            + COLUMN_HEIGHT + " REAL NOT NULL);";
+            + COLUMN_HEIGHT + " REAL NOT NULL, "
+            + "FOREIGN KEY (" + COLUMN_USER_ID + ") REFERENCES " + TABLE_USERS + "(" + KEY_ID + "), "
+            + "FOREIGN KEY (" + COLUMN_BODY_MEASURES_ID + ") REFERENCES " + TABLE_BODY_MEASURES + "(" + KEY_ID + "));";
 
 
     public MySQLiteHelper(Context context) {

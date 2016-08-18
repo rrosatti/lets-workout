@@ -6,8 +6,8 @@ package com.example.rodri.letsworkout.model;
 public class Body {
 
     private long id;
-    private long user_id;
-    private long body_measures_id;
+    private long userId;
+    private long bodyMeasuresId;
     private double weight;
     private double height;
     private BodyMeasure bodyMeasure;
@@ -15,10 +15,10 @@ public class Body {
 
     public Body() {}
 
-    public Body(long id, long user_id, long body_measures_id, double weight, double height, BodyMeasure bodyMeasure) {
+    public Body(long id, long userId, long bodyMeasuresId, double weight, double height, BodyMeasure bodyMeasure) {
         this.id = id;
-        this.user_id = user_id;
-        this.body_measures_id = body_measures_id;
+        this.userId = userId;
+        this.bodyMeasuresId = bodyMeasuresId;
         this.weight = weight;
         this.height = height;
         this.bodyMeasure  = bodyMeasure;
@@ -28,12 +28,12 @@ public class Body {
         return id;
     }
 
-    public long getUser_id() {
-        return user_id;
+    public long getUserId() {
+        return userId;
     }
 
-    public long getBody_measures_id() {
-        return body_measures_id;
+    public long getBodyMeasuresId() {
+        return bodyMeasuresId;
     }
 
     public double getWeight() {
@@ -52,12 +52,12 @@ public class Body {
         this.id = id;
     }
 
-    public void setUser_id(long user_id) {
-        this.user_id = user_id;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
-    public void setBody_measures_id(long body_measures_id) {
-        this.body_measures_id = body_measures_id;
+    public void setBodyMeasuresId(long bodyMeasuresId) {
+        this.bodyMeasuresId = bodyMeasuresId;
     }
 
     public void setWeight(double weight) {
