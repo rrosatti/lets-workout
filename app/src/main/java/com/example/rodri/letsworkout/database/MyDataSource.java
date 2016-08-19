@@ -3,6 +3,7 @@ package com.example.rodri.letsworkout.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -72,6 +73,7 @@ public class MyDataSource {
             MySQLiteHelper.COLUMN_WEIGHT,
             MySQLiteHelper.COLUMN_HEIGHT
     };
+
 
     public MyDataSource(Context context) {
         dbHelper = new MySQLiteHelper(context);
@@ -299,6 +301,124 @@ public class MyDataSource {
         body.setWeight(cursor.getDouble(3));
         body.setHeight(cursor.getDouble(4));
         return body;
+    }
+
+    /** ----------  GET DATA  ---------- */
+
+    // Exercise, ExerciseRepetition, BodyMeasure, Routine, User, Body
+
+    public Exercise getExercise(long id) {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_EXERCISES, exercisesColumns,
+                MySQLiteHelper.KEY_ID + " = " + id, null, null, null, null, null);
+
+        try {
+            cursor.moveToFirst();
+
+            Exercise exercise = cursorToExercise(cursor);
+            cursor.close();
+            return exercise;
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            cursor.close();
+        }
+
+        return null;
+    }
+
+    public ExerciseRepetition getExerciseRepetition(long id) {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_EXERCISE_REPETITIONS, exerciseRepetitionsColumns,
+                MySQLiteHelper.KEY_ID + " = " + id, null, null, null, null, null);
+
+        try {
+            cursor.moveToFirst();
+
+            ExerciseRepetition exerciseRepetition = cursorToExerciseRepetition(cursor);
+            cursor.close();
+            return exerciseRepetition;
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            cursor.close();
+        }
+
+        return null;
+    }
+
+    public BodyMeasure getBodyMeasure(long id) {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_BODY_MEASURES, bodyMeasuresColumns,
+                MySQLiteHelper.KEY_ID + " = " + id, null, null, null, null, null);
+
+        try {
+            cursor.moveToFirst();
+
+            BodyMeasure bodyMeasure = cursorToBodyMeasure(cursor);
+            cursor.close();
+            return bodyMeasure;
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            cursor.close();
+        }
+
+        return null;
+    }
+
+    public Routine getRoutine(long id) {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_ROUTINE, routineColumns,
+                MySQLiteHelper.KEY_ID + " = " + id, null, null, null, null, null);
+
+        try {
+            cursor.moveToFirst();
+
+            Routine routine = cursorToRoutine(cursor);
+            cursor.close();
+            return routine;
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            cursor.close();
+        }
+
+        return null;
+    }
+
+    public User getUser(long id) {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_USERS, usersColumns,
+                MySQLiteHelper.KEY_ID + " = " + id, null, null, null, null, null);
+
+        try {
+            cursor.moveToFirst();
+
+            User user = cursorToUser(cursor);
+            cursor.close();
+            return user;
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            cursor.close();
+        }
+
+        return null;
+    }
+
+    public Body getBody(long id) {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_BODY, bodyColumns,
+                MySQLiteHelper.KEY_ID + " = " + id, null, null, null, null, null);
+
+        try {
+            cursor.moveToFirst();
+
+            Body body = cursorToBody(cursor);
+            cursor.close();
+            return body;
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            cursor.close();
+        }
+
+        return null;
     }
 
     /** ----------  UPDATE  ---------- */
