@@ -48,4 +48,11 @@
     <string name="toast_login_success">Welcome!</string>
     <string name="toast_login_failure">The username or password are incorrect!</string>
 
+    <!-- Hints -->
+    <string name="hint_username">username</string>
+    <string name="hint_password">password</string>
+
+    <!-- Buttons -->
+    <string name="button_login">Login</string>
+
 </resources>
