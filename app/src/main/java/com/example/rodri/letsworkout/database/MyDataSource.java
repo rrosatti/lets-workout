@@ -321,9 +321,9 @@ public class MyDataSource {
         } catch (NullPointerException e) {
             e.printStackTrace();
             cursor.close();
+            return null;
         }
 
-        return null;
     }
 
     public ExerciseRepetition getExerciseRepetition(long id) {
@@ -340,9 +340,9 @@ public class MyDataSource {
         } catch (NullPointerException e) {
             e.printStackTrace();
             cursor.close();
+            return null;
         }
 
-        return null;
     }
 
     public BodyMeasure getBodyMeasure(long id) {
@@ -359,9 +359,9 @@ public class MyDataSource {
         } catch (NullPointerException e) {
             e.printStackTrace();
             cursor.close();
+            return null;
         }
 
-        return null;
     }
 
     public Routine getRoutine(long id) {
@@ -378,9 +378,9 @@ public class MyDataSource {
         } catch (NullPointerException e) {
             e.printStackTrace();
             cursor.close();
+            return null;
         }
 
-        return null;
     }
 
     public User getUser(long id) {
@@ -397,9 +397,29 @@ public class MyDataSource {
         } catch (NullPointerException e) {
             e.printStackTrace();
             cursor.close();
+            return null;
         }
 
-        return null;
+    }
+
+    public User getUser(String login, String password) {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_USERS, usersColumns,
+                MySQLiteHelper.COLUMN_LOGIN + " = " + login + " AND " + MySQLiteHelper.COLUMN_PASSWORD + " = " + password,
+                null, null, null, null, null);
+
+        try {
+            cursor.moveToFirst();
+
+            User user = cursorToUser(cursor);
+            cursor.close();
+            return user;
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            cursor.close();
+            return null;
+        }
+
     }
 
     public Body getBody(long id) {
@@ -416,9 +436,9 @@ public class MyDataSource {
         } catch (NullPointerException e) {
             e.printStackTrace();
             cursor.close();
+            return null;
         }
 
-        return null;
     }
 
     /** ----------  UPDATE  ---------- */
