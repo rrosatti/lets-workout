@@ -35,6 +35,15 @@
             android:hint="@string/button_login"
             android:padding="4dp"/>
 
+        <Button
+            android:id="@+id/btSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btLogin"
+            android:layout_marginTop="15dp"
+            android:hint="@string/button_sign_up"
+            android:padding="4dp"/>
+
     </RelativeLayout>
 
 
