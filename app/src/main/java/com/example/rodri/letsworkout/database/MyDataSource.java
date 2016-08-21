@@ -99,7 +99,6 @@ public class MyDataSource {
                 MySQLiteHelper.KEY_ID + " = " + insertId, null, null, null, null, null);
 
         if (isCursorEmpty(cursor)) {
-            System.out.println("ERROR! Cursor is empty!");
             cursor.close();
             return null;
         }
@@ -122,7 +121,6 @@ public class MyDataSource {
                 MySQLiteHelper.KEY_ID  + " = " + insertId, null, null, null, null, null);
 
         if (isCursorEmpty(cursor)) {
-            System.out.println("ERROR! Cursor is empty!");
             cursor.close();
             return null;
         }
@@ -156,7 +154,6 @@ public class MyDataSource {
                 MySQLiteHelper.KEY_ID + " = " + insertId, null, null, null, null, null);
 
         if (isCursorEmpty(cursor)) {
-            System.out.println("ERROR! Cursor is empty!");
             cursor.close();
             return null;
         }
@@ -178,7 +175,6 @@ public class MyDataSource {
                 MySQLiteHelper.KEY_ID + " = " + insertId, null, null, null, null, null);
 
         if (isCursorEmpty(cursor)) {
-            System.out.println("ERROR! Cursor is empty!");
             cursor.close();
             return null;
         }
@@ -201,7 +197,6 @@ public class MyDataSource {
                 MySQLiteHelper.KEY_ID + " = " + insertId, null, null, null, null, null);
 
         if (isCursorEmpty(cursor)) {
-            System.out.println("ERROR! Cursor is empty!");
             cursor.close();
             return null;
         }
@@ -225,7 +220,6 @@ public class MyDataSource {
                 MySQLiteHelper.KEY_ID + " = " + insertId, null, null, null, null, null);
 
         if (isCursorEmpty(cursor)) {
-            System.out.println("ERROR! Cursor is empty!");
             cursor.close();
             return null;
         }
@@ -311,15 +305,14 @@ public class MyDataSource {
         Cursor cursor = database.query(MySQLiteHelper.TABLE_EXERCISES, exercisesColumns,
                 MySQLiteHelper.KEY_ID + " = " + id, null, null, null, null, null);
 
-        try {
+        if (!isCursorEmpty(cursor)) {
             cursor.moveToFirst();
 
             Exercise exercise = cursorToExercise(cursor);
             cursor.close();
             return exercise;
 
-        } catch (NullPointerException e) {
-            e.printStackTrace();
+        } else {
             cursor.close();
             return null;
         }
@@ -330,15 +323,14 @@ public class MyDataSource {
         Cursor cursor = database.query(MySQLiteHelper.TABLE_EXERCISE_REPETITIONS, exerciseRepetitionsColumns,
                 MySQLiteHelper.KEY_ID + " = " + id, null, null, null, null, null);
 
-        try {
+        if (!isCursorEmpty(cursor)) {
             cursor.moveToFirst();
 
             ExerciseRepetition exerciseRepetition = cursorToExerciseRepetition(cursor);
             cursor.close();
             return exerciseRepetition;
 
-        } catch (NullPointerException e) {
-            e.printStackTrace();
+        } else {
             cursor.close();
             return null;
         }
@@ -349,15 +341,14 @@ public class MyDataSource {
         Cursor cursor = database.query(MySQLiteHelper.TABLE_BODY_MEASURES, bodyMeasuresColumns,
                 MySQLiteHelper.KEY_ID + " = " + id, null, null, null, null, null);
 
-        try {
+        if (!isCursorEmpty(cursor)) {
             cursor.moveToFirst();
 
             BodyMeasure bodyMeasure = cursorToBodyMeasure(cursor);
             cursor.close();
             return bodyMeasure;
 
-        } catch (NullPointerException e) {
-            e.printStackTrace();
+        } else {
             cursor.close();
             return null;
         }
@@ -368,15 +359,14 @@ public class MyDataSource {
         Cursor cursor = database.query(MySQLiteHelper.TABLE_ROUTINE, routineColumns,
                 MySQLiteHelper.KEY_ID + " = " + id, null, null, null, null, null);
 
-        try {
+        if (!isCursorEmpty(cursor)) {
             cursor.moveToFirst();
 
             Routine routine = cursorToRoutine(cursor);
             cursor.close();
             return routine;
 
-        } catch (NullPointerException e) {
-            e.printStackTrace();
+        } else {
             cursor.close();
             return null;
         }
@@ -387,15 +377,14 @@ public class MyDataSource {
         Cursor cursor = database.query(MySQLiteHelper.TABLE_USERS, usersColumns,
                 MySQLiteHelper.KEY_ID + " = " + id, null, null, null, null, null);
 
-        try {
+        if (!isCursorEmpty(cursor)) {
             cursor.moveToFirst();
 
             User user = cursorToUser(cursor);
             cursor.close();
             return user;
 
-        } catch (NullPointerException e) {
-            e.printStackTrace();
+        } else {
             cursor.close();
             return null;
         }
@@ -424,18 +413,17 @@ public class MyDataSource {
         Cursor cursor = database.query(MySQLiteHelper.TABLE_BODY, bodyColumns,
                 MySQLiteHelper.KEY_ID + " = " + id, null, null, null, null, null);
 
-        try {
+        if (!isCursorEmpty(cursor)) {
             cursor.moveToFirst();
 
             Body body = cursorToBody(cursor);
             cursor.close();
             return body;
-
-        } catch (NullPointerException e) {
-            e.printStackTrace();
+        } else {
             cursor.close();
             return null;
         }
+
 
     }
 
