@@ -190,7 +190,7 @@ public class MyDataSource {
         return newRoutine;
     }
 
-    public User createUser(long id, String name, String login, String password) {
+    public User createUser(String name, String login, String password) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.KEY_NAME, name);
         values.put(MySQLiteHelper.COLUMN_LOGIN, login);
@@ -404,18 +404,16 @@ public class MyDataSource {
 
     public User getUser(String login, String password) {
         Cursor cursor = database.query(MySQLiteHelper.TABLE_USERS, usersColumns,
-                MySQLiteHelper.COLUMN_LOGIN + " = " + login + " AND " + MySQLiteHelper.COLUMN_PASSWORD + " = " + password,
+                MySQLiteHelper.COLUMN_LOGIN + " = '" + login + "' AND " + MySQLiteHelper.COLUMN_PASSWORD + " = '" + password + "'",
                 null, null, null, null, null);
 
-        try {
+        if (!isCursorEmpty(cursor)) {
             cursor.moveToFirst();
 
             User user = cursorToUser(cursor);
             cursor.close();
             return user;
-
-        } catch (NullPointerException e) {
-            e.printStackTrace();
+        } else {
             cursor.close();
             return null;
         }
@@ -509,6 +507,7 @@ public class MyDataSource {
         if (cursor.moveToFirst()) {
             return false;
         } else {
+            System.out.println("Error! Cursor is empty!");
             return true;
         }
     }

@@ -47,6 +47,9 @@
     <!-- Toast Messages -->
     <string name="toast_login_success">Welcome!</string>
     <string name="toast_login_failure">The username or password are incorrect!</string>
+    <string name="toast_name_field_empty">The name field cannot be empty!</string>
+    <string name="toast_login_field_empty">The login field cannot be empty!</string>
+    <string name="toast_password_field_empty">The password field cannot be empty!</string>
 
     <!-- Hints -->
     <string name="hint_username">username</string>

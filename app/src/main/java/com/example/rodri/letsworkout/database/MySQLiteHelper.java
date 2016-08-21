@@ -193,8 +193,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
      */
     public void populateTableMuscleGroups(SQLiteDatabase db) {
         for (int i = 0; i < muscleGroups.length; i++) {
-            db.execSQL("INSERT INTO " + TABLE_MUSCLE_GROUPS + "(" + KEY_ID + ", " + KEY_NAME + ") " +
-                    "VALUES(" + (i + 1) + ", " + muscleGroups[i] + ")");
+            db.execSQL("INSERT INTO " + TABLE_MUSCLE_GROUPS + " (" + KEY_NAME + ") " +
+                    " VALUES('" + muscleGroups[i] + "');");
         }
     }
 
@@ -205,8 +205,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
      */
     public void populateTableDays(SQLiteDatabase db) {
         for (int i = 0; i < days.length; i++) {
-            db.execSQL("INSERT INTO " + TABLE_DAYS + "(" + KEY_ID + ", " + KEY_NAME + ") " +
-            "VALUES(" + (i + 1) + ", " + days[i] + ")");
+            db.execSQL("INSERT INTO " + TABLE_DAYS + " (" + KEY_NAME + ")" +
+            "VALUES('" + days[i] + "');");
         }
     }
 }
