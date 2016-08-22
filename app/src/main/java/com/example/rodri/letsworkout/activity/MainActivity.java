@@ -22,6 +22,7 @@ import android.widget.ListView;
 import com.example.rodri.letsworkout.R;
 import com.example.rodri.letsworkout.adapter.DrawerItemAdapter;
 import com.example.rodri.letsworkout.fragment.HomeFragment;
+import com.example.rodri.letsworkout.model.Authentication;
 import com.example.rodri.letsworkout.model.DrawerItem;
 
 import java.util.ArrayList;

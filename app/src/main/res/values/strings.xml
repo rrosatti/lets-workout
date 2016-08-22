@@ -62,4 +62,21 @@
     <string name="button_sign_up">Sign Up</string>
     <string name="button_confirm">Confirm</string>
 
+    <!-- TextView -->
+    <string name="text_view_weight">Weight: </string>
+    <string name="text_view_height">Height: </string>
+    <string name="text_view_right_upper_arm">Right Upper Arm: </string>
+    <string name="text_view_left_upper_arm">Left Upper Arm: </string>
+    <string name="text_view_right_forearm">Right Forearm: </string>
+    <string name="text_view_left_forearm">Left Forearm: </string>
+    <string name="text_view_right_thigh">Right Thigh: </string>
+    <string name="text_view_left_thigh">Left Thigh: </string>
+    <string name="text_view_right_calf">Right Calf: </string>
+    <string name="text_view_left_calf">Left Calf: </string>
+    <string name="text_view_waist">Waist: </string>
+    <string name="text_view_shoulder">Shoulder: </string>
+    <string name="text_view_chest">Chest: </string>
+    <string name="text_view_new_body_description">Write down your body measurements. (no need to fill all the fields)\n
+The values are in centimeters.</string>
+
 </resources>

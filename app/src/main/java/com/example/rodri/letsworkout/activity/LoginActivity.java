@@ -43,7 +43,13 @@ public class LoginActivity extends AppCompatActivity {
                 String password = etPassword.getText().toString();
 
                 Authentication.getInstance().init(username, password, getApplicationContext());
-                Authentication.getInstance().login();
+                boolean authenticated = Authentication.getInstance().login();
+
+                if (authenticated) {
+                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(i);
+                    finish();
+                }
 
             }
         });

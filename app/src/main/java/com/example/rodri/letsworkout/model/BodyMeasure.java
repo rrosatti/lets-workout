@@ -18,7 +18,20 @@ public class BodyMeasure {
     private double waist;
     private double shoulder;
 
-    public BodyMeasure() {}
+    public BodyMeasure() {
+        id = 0;
+        rightUpperArm = 0.00;
+        leftUpperArm = 0.00;
+        rightForearm = 0.00;
+        leftForearm = 0.00;
+        chest = 0.00;
+        rightThigh = 0.00;
+        leftThigh = 0.00;
+        rightCalf = 0.00;
+        leftCalf = 0.00;
+        waist = 0.00;
+        shoulder = 0.00;
+    }
 
     public BodyMeasure(long id, double rightUpperArm, double leftUpperArm, double rightForearm, double leftForearm,
                        double chest, double rightThigh, double leftThigh, double rightCalf, double leftCalf,
