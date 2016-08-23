@@ -13,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,7 +20,9 @@ import android.widget.ListView;
 
 import com.example.rodri.letsworkout.R;
 import com.example.rodri.letsworkout.adapter.DrawerItemAdapter;
+import com.example.rodri.letsworkout.database.MyDataSource;
 import com.example.rodri.letsworkout.fragment.HomeFragment;
+import com.example.rodri.letsworkout.fragment.NewBodyFragment;
 import com.example.rodri.letsworkout.model.Authentication;
 import com.example.rodri.letsworkout.model.DrawerItem;
 
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
     private List<DrawerItem> drawerItems;
     private DrawerItemAdapter adapter;
+
+    private MyDataSource dataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,6 +174,12 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new HomeFragment();
                 break;
             case 1:
+                boolean res = checkIfIsThereABodyRegistered(Authentication.getInstance().getUser().getId());
+                if (res) {
+                    //fragment = new BodyFragment();
+                } else {
+                    fragment = new NewBodyFragment();
+                }
                 break;
             case 2:
                 break;
@@ -210,6 +219,21 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             displayView(position);
+        }
+    }
+
+    public boolean checkIfIsThereABodyRegistered(long userId) {
+        dataSource = new MyDataSource(getApplicationContext());
+        try {
+            dataSource.open();
+
+            boolean res = dataSource.isThereAnyBodyRegistered(userId);
+            dataSource.close();
+            return res;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }

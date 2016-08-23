@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_margin="40dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="15dp">
+
+            <TextView
+                android:id="@+id/fragmentBody_txtWeightLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/text_view_weight"
+                android:textSize="@dimen/text_view_size"/>
+
+            <TextView
+                android:id="@+id/fragmentBody_txtWeightValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_vertical"
+                android:text="60.21"
+                android:textSize="@dimen/text_view_size"/>
+
+            <TextView
+                android:id="@+id/fragmentBody_txtHeightLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/text_view_height"
+                android:textSize="@dimen/text_view_size"/>
+
+            <TextView
+                android:id="@+id/fragmentBody_txtHeightValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_vertical"
+                android:text="1.90"
+                android:textSize="@dimen/text_view_size"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="15dp">
+
+            <TextView
+                android:id="@+id/fragmentBody_txtRightUpperArmLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/text_view_right_upper_arm"
+                android:textSize="@dimen/text_view_size"/>
+
+            <TextView
+                android:id="@+id/fragmentBody_txtRightUpperArmValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_vertical"
+                android:text="60.21"
+                android:textSize="@dimen/text_view_size"/>
+
+            <TextView
+                android:id="@+id/fragmentBody_txtLeftUpperArmLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/text_view_left_upper_arm"
+                android:textSize="@dimen/text_view_size"/>
+
+            <TextView
+                android:id="@+id/fragmentBody_txtLeftUpperArmValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_vertical"
+                android:text="1.90"
+                android:textSize="@dimen/text_view_size"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="15dp">
+
+            <TextView
+                android:id="@+id/fragmentBody_txtRightForearmLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/text_view_right_forearm"
+                android:textSize="@dimen/text_view_size"/>
+
+            <TextView
+                android:id="@+id/fragmentBody_txtRightForearmValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_vertical"
+                android:text="60.21"
+                android:textSize="@dimen/text_view_size"/>
+
+            <TextView
+                android:id="@+id/fragmentBody_txtLeftForearmLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/text_view_left_forearm"
+                android:textSize="@dimen/text_view_size"/>
+
+            <TextView
+                android:id="@+id/fragmentBody_txtLeftForearmValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_vertical"
+                android:text="1.90"
+                android:textSize="@dimen/text_view_size"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="15dp">
+
+            <TextView
+                android:id="@+id/fragmentBody_txtRightThighLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/text_view_right_thigh"
+                android:textSize="@dimen/text_view_size"/>
+
+            <TextView
+                android:id="@+id/fragmentBody_txtRightThighValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_vertical"
+                android:text="60.21"
+                android:textSize="@dimen/text_view_size"/>
+
+            <TextView
+                android:id="@+id/fragmentBody_txtLeftThighLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/text_view_left_thigh"
+                android:textSize="@dimen/text_view_size"/>
+
+            <TextView
+                android:id="@+id/fragmentBody_txtLeftThighValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_vertical"
+                android:text="1.90"
+                android:textSize="@dimen/text_view_size"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="15dp">
+
+            <TextView
+                android:id="@+id/fragmentBody_txtRightCalfLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/text_view_right_calf"
+                android:textSize="@dimen/text_view_size"/>
+
+            <TextView
+                android:id="@+id/fragmentBody_txtRightCalfValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_vertical"
+                android:text="60.21"
+                android:textSize="@dimen/text_view_size"/>
+
+            <TextView
+                android:id="@+id/fragmentBody_txtLeftCalfLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/text_view_left_calf"
+                android:textSize="@dimen/text_view_size"/>
+
+            <TextView
+                android:id="@+id/fragmentBody_txtLeftCalfValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_vertical"
+                android:text="1.90"
+                android:textSize="@dimen/text_view_size"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="15dp">
+
+            <TextView
+                android:id="@+id/fragmentBody_txtWaistLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/text_view_waist"
+                android:textSize="@dimen/text_view_size"/>
+
+            <TextView
+                android:id="@+id/fragmentBody_txtWaistValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_vertical"
+                android:text="60.21"
+                android:textSize="@dimen/text_view_size"/>
+
+            <TextView
+                android:id="@+id/fragmentBody_txtShoulderLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/text_view_shoulder"
+                android:textSize="@dimen/text_view_size"/>
+
+            <TextView
+                android:id="@+id/fragmentBody_txtShoulderValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_vertical"
+                android:text="1.90"
+                android:textSize="@dimen/text_view_size"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="40dp">
+
+            <TextView
+                android:id="@+id/fragmentBody_txtChestLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/text_view_chest"
+                android:textSize="@dimen/text_view_size"/>
+
+            <TextView
+                android:id="@+id/fragmentBody_txtChestValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_vertical"
+                android:text="60.21"
+                android:textSize="@dimen/text_view_size"/>
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+</ScrollView>

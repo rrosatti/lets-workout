@@ -500,4 +500,17 @@ public class MyDataSource {
         }
     }
 
+    public boolean isThereAnyBodyRegistered(long userId) {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_BODY, bodyColumns,
+                MySQLiteHelper.COLUMN_USER_ID + " = " + userId, null, null, null, null, null);
+
+        if (!isCursorEmpty(cursor)) {
+            cursor.close();
+            return true;
+        } else {
+            cursor.close();
+            return false;
+        }
+    }
+
 }
