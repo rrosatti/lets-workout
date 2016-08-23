@@ -21,6 +21,7 @@ import android.widget.ListView;
 import com.example.rodri.letsworkout.R;
 import com.example.rodri.letsworkout.adapter.DrawerItemAdapter;
 import com.example.rodri.letsworkout.database.MyDataSource;
+import com.example.rodri.letsworkout.fragment.BodyFragment;
 import com.example.rodri.letsworkout.fragment.HomeFragment;
 import com.example.rodri.letsworkout.fragment.NewBodyFragment;
 import com.example.rodri.letsworkout.model.Authentication;
@@ -174,9 +175,10 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new HomeFragment();
                 break;
             case 1:
+                // Get user the authenticated user ID
                 boolean res = checkIfIsThereABodyRegistered(Authentication.getInstance().getUser().getId());
-                if (res) {
-                    //fragment = new BodyFragment();
+                if (!res) {
+                    fragment = new BodyFragment();
                 } else {
                     fragment = new NewBodyFragment();
                 }
@@ -222,6 +224,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     *
+     * Call the method isThereAnyBodyRegistered from MyDataSource and return its result
+     *
+     * @param userId
+     * @return
+     */
     public boolean checkIfIsThereABodyRegistered(long userId) {
         dataSource = new MyDataSource(getApplicationContext());
         try {
