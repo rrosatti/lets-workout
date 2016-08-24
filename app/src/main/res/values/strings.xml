@@ -76,7 +76,7 @@
     <string name="text_view_waist">Waist: </string>
     <string name="text_view_shoulder">Shoulder: </string>
     <string name="text_view_chest">Chest: </string>
-    <string name="text_view_new_body_description">Write down your body measurements. (no need to fill all the fields)\n
+    <string name="text_view_new_body_description">Write down your userBody measurements. (no need to fill all the fields)\n
 The values are in centimeters.</string>
 
 </resources>

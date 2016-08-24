@@ -16,6 +16,7 @@ public class Authentication {
     private String userName;
     private String password;
     private User user;
+    private long userId;
     private boolean isConnected;
     private MyDataSource dataSource;
     private Context context;
@@ -23,6 +24,7 @@ public class Authentication {
     private Authentication(){
         userName = "";
         password = "";
+        userId = 0;
         context = null;
         isConnected = false;
     }
@@ -65,6 +67,7 @@ public class Authentication {
             dataSource.close();
             if (user != null) {
                 Toast.makeText(context, R.string.toast_login_success, Toast.LENGTH_SHORT).show();
+                userId = user.getId();
                 isConnected = true;
                 return true;
             } else {
@@ -82,5 +85,7 @@ public class Authentication {
     public boolean isConnected() {
         return isConnected;
     }
+
+    public long getUserId() { return userId; }
 
 }

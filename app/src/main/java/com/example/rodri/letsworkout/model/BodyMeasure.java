@@ -17,6 +17,9 @@ public class BodyMeasure {
     private double leftCalf;
     private double waist;
     private double shoulder;
+    private double weight;
+    private double height;
+    private int date;
 
     public BodyMeasure() {
         id = 0;
@@ -31,11 +34,14 @@ public class BodyMeasure {
         leftCalf = 0.00;
         waist = 0.00;
         shoulder = 0.00;
+        weight = 0.00;
+        height = 0.00;
+        date = 0;
     }
 
     public BodyMeasure(long id, double rightUpperArm, double leftUpperArm, double rightForearm, double leftForearm,
                        double chest, double rightThigh, double leftThigh, double rightCalf, double leftCalf,
-                       double waist, double shoulder) {
+                       double waist, double shoulder, double weight, double height, int date) {
         this.id = id;
         this.rightUpperArm = rightUpperArm;
         this.leftUpperArm = leftUpperArm;
@@ -48,6 +54,9 @@ public class BodyMeasure {
         this.leftCalf = leftCalf;
         this.waist = waist;
         this.shoulder = shoulder;
+        this.weight = weight;
+        this.height = height;
+        this.date = date;
     }
 
     public long getId() {
@@ -98,6 +107,12 @@ public class BodyMeasure {
         return shoulder;
     }
 
+    public double getWeight() { return weight; }
+
+    public double getHeight() { return height; }
+
+    public int getDate() { return date; }
+
     public void setShoulder(double shoulder) {
         this.shoulder = shoulder;
     }
@@ -144,5 +159,17 @@ public class BodyMeasure {
 
     public void setWaist(double waist) {
         this.waist = waist;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public void setDate(int date) {
+        this.date = date;
     }
 }

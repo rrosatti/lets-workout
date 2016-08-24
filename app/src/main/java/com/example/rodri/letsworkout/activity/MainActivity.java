@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
      * Update the fragment according to the given position
      *
      *  0 - Home
-     *  1 - My Body
+     *  1 - My UserBody
      *  2 - Schedule
      *  3 - Statistics
      *  4 - Timer
@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
             case 1:
                 // Get user the authenticated user ID
                 boolean res = checkIfIsThereABodyRegistered(Authentication.getInstance().getUser().getId());
-                if (!res) {
+                if (res) {
                     fragment = new BodyFragment();
                 } else {
                     fragment = new NewBodyFragment();

@@ -3,15 +3,13 @@ package com.example.rodri.letsworkout.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.CursorIndexOutOfBoundsException;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.rodri.letsworkout.model.Body;
+import com.example.rodri.letsworkout.model.UserBody;
 import com.example.rodri.letsworkout.model.BodyMeasure;
 import com.example.rodri.letsworkout.model.Exercise;
 import com.example.rodri.letsworkout.model.ExerciseRepetition;
-import com.example.rodri.letsworkout.model.MuscleGroup;
 import com.example.rodri.letsworkout.model.Routine;
 import com.example.rodri.letsworkout.model.User;
 
@@ -49,7 +47,10 @@ public class MyDataSource {
             MySQLiteHelper.COLUMN_RIGHT_CALF,
             MySQLiteHelper.COLUMN_LEFT_CALF,
             MySQLiteHelper.COLUMN_WAIST,
-            MySQLiteHelper.COLUMN_SHOULDER
+            MySQLiteHelper.COLUMN_SHOULDER,
+            MySQLiteHelper.COLUMN_WEIGHT,
+            MySQLiteHelper.COLUMN_HEIGHT,
+            MySQLiteHelper.COLUMN_DATE
     };
     private String[] daysColumns = {
             MySQLiteHelper.KEY_ID,
@@ -66,12 +67,10 @@ public class MyDataSource {
             MySQLiteHelper.COLUMN_LOGIN,
             MySQLiteHelper.COLUMN_PASSWORD
     };
-    private String[] bodyColumns = {
+    private String[] userBodyColumns = {
             MySQLiteHelper.KEY_ID,
             MySQLiteHelper.COLUMN_USER_ID,
             MySQLiteHelper.COLUMN_BODY_MEASURES_ID,
-            MySQLiteHelper.COLUMN_WEIGHT,
-            MySQLiteHelper.COLUMN_HEIGHT
     };
 
 
@@ -94,8 +93,8 @@ public class MyDataSource {
         values.put(MySQLiteHelper.COLUMN_MUSCLE_GROUP_ID, muscleGroupId);
         values.put(MySQLiteHelper.KEY_NAME, name);
 
-        long insertId = database.insert(MySQLiteHelper.TABLE_EXERCISES, null, values);
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_EXERCISES, exercisesColumns,
+        long insertId = database.insert(MySQLiteHelper.TABLE_EXERCISE, null, values);
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_EXERCISE, exercisesColumns,
                 MySQLiteHelper.KEY_ID + " = " + insertId, null, null, null, null, null);
 
         if (isCursorEmpty(cursor)) {
@@ -116,8 +115,8 @@ public class MyDataSource {
         values.put(MySQLiteHelper.COLUMN_SETS, sets);
         values.put(MySQLiteHelper.COLUMN_REPS, reps);
 
-        long insertId = database.insert(MySQLiteHelper.TABLE_EXERCISE_REPETITIONS, null, values);
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_EXERCISE_REPETITIONS, exerciseRepetitionsColumns,
+        long insertId = database.insert(MySQLiteHelper.TABLE_EXERCISE_REPETITION, null, values);
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_EXERCISE_REPETITION, exerciseRepetitionsColumns,
                 MySQLiteHelper.KEY_ID  + " = " + insertId, null, null, null, null, null);
 
         if (isCursorEmpty(cursor)) {
@@ -135,7 +134,7 @@ public class MyDataSource {
 
     public BodyMeasure createBodyMeasure(double rightUpperArm, double leftUpperArm, double rightForearm, double leftForearm,
                                          double chest, double rightThigh, double leftThigh, double rightCalf, double leftCalf,
-                                         double waist, double shoulder) {
+                                         double waist, double shoulder, double weight, double height, int date) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_RIGHT_UPPER_ARM, rightUpperArm);
         values.put(MySQLiteHelper.COLUMN_LEFT_UPPER_ARM, leftUpperArm);
@@ -148,9 +147,12 @@ public class MyDataSource {
         values.put(MySQLiteHelper.COLUMN_LEFT_CALF, leftCalf);
         values.put(MySQLiteHelper.COLUMN_WAIST, waist);
         values.put(MySQLiteHelper.COLUMN_SHOULDER, shoulder);
+        values.put(MySQLiteHelper.COLUMN_WEIGHT, weight);
+        values.put(MySQLiteHelper.COLUMN_HEIGHT, height);
+        values.put(MySQLiteHelper.COLUMN_DATE, date);
 
-        long insertId = database.insert(MySQLiteHelper.TABLE_BODY_MEASURES, null, values);
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_BODY_MEASURES, bodyMeasuresColumns,
+        long insertId = database.insert(MySQLiteHelper.TABLE_BODY_MEASURE, null, values);
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_BODY_MEASURE, bodyMeasuresColumns,
                 MySQLiteHelper.KEY_ID + " = " + insertId, null, null, null, null, null);
 
         if (isCursorEmpty(cursor)) {
@@ -192,8 +194,8 @@ public class MyDataSource {
         values.put(MySQLiteHelper.COLUMN_LOGIN, login);
         values.put(MySQLiteHelper.COLUMN_PASSWORD, password);
 
-        long insertId = database.insert(MySQLiteHelper.TABLE_USERS, null, values);
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_USERS, usersColumns,
+        long insertId = database.insert(MySQLiteHelper.TABLE_USER, null, values);
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_USER, usersColumns,
                 MySQLiteHelper.KEY_ID + " = " + insertId, null, null, null, null, null);
 
         if (isCursorEmpty(cursor)) {
@@ -208,15 +210,13 @@ public class MyDataSource {
         return newUser;
     }
 
-    public Body createBody(long id, long userId, long bodyMeasureId, double weight, double height, BodyMeasure bodyMeasure) {
+    public UserBody createUserBody(long id, long userId, long bodyMeasureId, BodyMeasure bodyMeasure) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_USER_ID, userId);
         values.put(MySQLiteHelper.COLUMN_BODY_MEASURES_ID, bodyMeasureId);
-        values.put(MySQLiteHelper.COLUMN_WEIGHT, weight);
-        values.put(MySQLiteHelper.COLUMN_HEIGHT, height);
 
-        long insertId = database.insert(MySQLiteHelper.TABLE_BODY, null, values);
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_BODY, bodyColumns,
+        long insertId = database.insert(MySQLiteHelper.TABLE_USER_BODY, null, values);
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_USER_BODY, userBodyColumns,
                 MySQLiteHelper.KEY_ID + " = " + insertId, null, null, null, null, null);
 
         if (isCursorEmpty(cursor)) {
@@ -225,13 +225,13 @@ public class MyDataSource {
         }
         cursor.moveToFirst();
 
-        Body newBody = cursorToBody(cursor);
+        UserBody newUserBody = cursorToUserBody(cursor);
         bodyMeasure = getBodyMeasure(bodyMeasureId);
-        newBody.setBodyMeasure(bodyMeasure);
+        newUserBody.setBodyMeasure(bodyMeasure);
 
         cursor.close();
 
-        return newBody;
+        return newUserBody;
     }
 
     /** ---------  CURSOR TO  ---------- */
@@ -267,6 +267,9 @@ public class MyDataSource {
         bodyMeasure.setLeftCalf(cursor.getDouble(9));
         bodyMeasure.setWaist(cursor.getDouble(10));
         bodyMeasure.setShoulder(cursor.getDouble(11));
+        bodyMeasure.setWeight(cursor.getDouble(12));
+        bodyMeasure.setHeight(cursor.getDouble(13));
+        bodyMeasure.setDate(cursor.getInt(14));
         return bodyMeasure;
     }
 
@@ -287,22 +290,20 @@ public class MyDataSource {
         return user;
     }
 
-    public Body cursorToBody(Cursor cursor) {
-        Body body = new Body();
-        body.setId(cursor.getLong(0));
-        body.setUserId(cursor.getLong(1));
-        body.setBodyMeasuresId(cursor.getLong(2));
-        body.setWeight(cursor.getDouble(3));
-        body.setHeight(cursor.getDouble(4));
-        return body;
+    public UserBody cursorToUserBody(Cursor cursor) {
+        UserBody userBody = new UserBody();
+        userBody.setId(cursor.getLong(0));
+        userBody.setUserId(cursor.getLong(1));
+        userBody.setBodyMeasuresId(cursor.getLong(2));
+        return userBody;
     }
 
     /** ----------  GET DATA  ---------- */
 
-    // Exercise, ExerciseRepetition, BodyMeasure, Routine, User, Body
+    // Exercise, ExerciseRepetition, BodyMeasure, Routine, User, UserBody
 
     public Exercise getExercise(long id) {
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_EXERCISES, exercisesColumns,
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_EXERCISE, exercisesColumns,
                 MySQLiteHelper.KEY_ID + " = " + id, null, null, null, null, null);
 
         if (!isCursorEmpty(cursor)) {
@@ -320,7 +321,7 @@ public class MyDataSource {
     }
 
     public ExerciseRepetition getExerciseRepetition(long id) {
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_EXERCISE_REPETITIONS, exerciseRepetitionsColumns,
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_EXERCISE_REPETITION, exerciseRepetitionsColumns,
                 MySQLiteHelper.KEY_ID + " = " + id, null, null, null, null, null);
 
         if (!isCursorEmpty(cursor)) {
@@ -338,7 +339,7 @@ public class MyDataSource {
     }
 
     public BodyMeasure getBodyMeasure(long id) {
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_BODY_MEASURES, bodyMeasuresColumns,
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_BODY_MEASURE, bodyMeasuresColumns,
                 MySQLiteHelper.KEY_ID + " = " + id, null, null, null, null, null);
 
         if (!isCursorEmpty(cursor)) {
@@ -374,7 +375,7 @@ public class MyDataSource {
     }
 
     public User getUser(long id) {
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_USERS, usersColumns,
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_USER, usersColumns,
                 MySQLiteHelper.KEY_ID + " = " + id, null, null, null, null, null);
 
         if (!isCursorEmpty(cursor)) {
@@ -392,7 +393,7 @@ public class MyDataSource {
     }
 
     public User getUser(String login, String password) {
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_USERS, usersColumns,
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_USER, usersColumns,
                 MySQLiteHelper.COLUMN_LOGIN + " = '" + login + "' AND " + MySQLiteHelper.COLUMN_PASSWORD + " = '" + password + "'",
                 null, null, null, null, null);
 
@@ -409,16 +410,16 @@ public class MyDataSource {
 
     }
 
-    public Body getBody(long id) {
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_BODY, bodyColumns,
+    public UserBody getBody(long id) {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_USER_BODY, userBodyColumns,
                 MySQLiteHelper.KEY_ID + " = " + id, null, null, null, null, null);
 
         if (!isCursorEmpty(cursor)) {
             cursor.moveToFirst();
 
-            Body body = cursorToBody(cursor);
+            UserBody userBody = cursorToUserBody(cursor);
             cursor.close();
-            return body;
+            return userBody;
         } else {
             cursor.close();
             return null;
@@ -432,7 +433,7 @@ public class MyDataSource {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_MUSCLE_GROUP_ID, muscleGroupId);
         values.put(MySQLiteHelper.KEY_NAME, name);
-        database.update(MySQLiteHelper.TABLE_EXERCISES, values, MySQLiteHelper.KEY_ID + " =" + id, null);
+        database.update(MySQLiteHelper.TABLE_EXERCISE, values, MySQLiteHelper.KEY_ID + " =" + id, null);
     }
 
     public void updateExerciseRepetition(long id, long exerciseId, int sets, int reps) {
@@ -440,7 +441,7 @@ public class MyDataSource {
         values.put(MySQLiteHelper.COLUMN_EXERCISE_ID, exerciseId);
         values.put(MySQLiteHelper.COLUMN_SETS, sets);
         values.put(MySQLiteHelper.COLUMN_REPS, reps);
-        database.update(MySQLiteHelper.TABLE_EXERCISE_REPETITIONS, values, MySQLiteHelper.KEY_ID + " = " + id, null);
+        database.update(MySQLiteHelper.TABLE_EXERCISE_REPETITION, values, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 
     public void updateBodyMeasure(long id, double rightUpperArm, double leftUpperArm, double rightForearm, double leftForearm,
@@ -458,7 +459,7 @@ public class MyDataSource {
         values.put(MySQLiteHelper.COLUMN_LEFT_CALF, leftCalf);
         values.put(MySQLiteHelper.COLUMN_WAIST, waist);
         values.put(MySQLiteHelper.COLUMN_SHOULDER, shoulder);
-        database.update(MySQLiteHelper.TABLE_BODY_MEASURES, values, MySQLiteHelper.KEY_ID + " = " + id, null);
+        database.update(MySQLiteHelper.TABLE_BODY_MEASURE, values, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 
     public void updateRoutine(long id, long dayId, long exerciseRepetitionId){
@@ -471,17 +472,17 @@ public class MyDataSource {
     /** ----------  DELETE  ---------- */
     public void deleteExercise(long id) {
         System.out.println("The exercise with the id " + id + " will be deleted!");
-        database.delete(MySQLiteHelper.TABLE_EXERCISES, MySQLiteHelper.KEY_ID + " = " + id, null);
+        database.delete(MySQLiteHelper.TABLE_EXERCISE, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 
     public void deleteExerciseRepetition(long id) {
         System.out.println("The exercise repetition with the id " + id + " will be deleted!");
-        database.delete(MySQLiteHelper.TABLE_EXERCISE_REPETITIONS, MySQLiteHelper.KEY_ID + " = " + id, null);
+        database.delete(MySQLiteHelper.TABLE_EXERCISE_REPETITION, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 
     public void deleteBodyMeasure(long id) {
         System.out.println("The body measure with the id " + id + " will be deleted!");
-        database.delete(MySQLiteHelper.TABLE_BODY_MEASURES, MySQLiteHelper.KEY_ID + " = " + id, null);
+        database.delete(MySQLiteHelper.TABLE_BODY_MEASURE, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 
     public void deleteRoutine(long id) {
@@ -501,7 +502,7 @@ public class MyDataSource {
     }
 
     public boolean isThereAnyBodyRegistered(long userId) {
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_BODY, bodyColumns,
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_USER_BODY, userBodyColumns,
                 MySQLiteHelper.COLUMN_USER_ID + " = " + userId, null, null, null, null, null);
 
         if (!isCursorEmpty(cursor)) {
