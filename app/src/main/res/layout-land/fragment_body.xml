@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center"
-        android:paddingTop="?attr/actionBarSize"
+        android:paddingTop="200dp"
         android:layout_margin="25dp">
 
         <LinearLayout

@@ -514,4 +514,22 @@ public class MyDataSource {
         }
     }
 
+    public long getLatestBodyMeasureId(long userId) {
+        /**Cursor cursor = database.rawQuery("SELECT" + MySQLiteHelper.COLUMN_BODY_MEASURES_ID + "FROM "
+                + MySQLiteHelper.TABLE_USER_BODY  + " WHERE " + MySQLiteHelper.KEY_ID + " = " + userId
+                + " ORDER BY " + MySQLiteHelper.COLUMN_BODY_MEASURES_ID + " DESC;", null);*/
+        Cursor cursor = database.rawQuery("SELECT max(" + MySQLiteHelper.COLUMN_BODY_MEASURES_ID + ") FROM "
+                + MySQLiteHelper.TABLE_USER_BODY + " WHERE " + MySQLiteHelper.COLUMN_USER_ID + " = " + userId, null);
+
+        if (!isCursorEmpty(cursor)) {
+            long bodyMeasureId = cursor.getLong(0);
+            cursor.close();
+            return bodyMeasureId;
+        } else {
+            cursor.close();
+            return -1;
+        }
+
+    }
+
 }
