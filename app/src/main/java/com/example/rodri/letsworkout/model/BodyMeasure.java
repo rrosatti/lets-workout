@@ -19,7 +19,7 @@ public class BodyMeasure {
     private double shoulder;
     private double weight;
     private double height;
-    private int date;
+    private long date;
 
     public BodyMeasure() {
         id = 0;
@@ -111,7 +111,7 @@ public class BodyMeasure {
 
     public double getHeight() { return height; }
 
-    public int getDate() { return date; }
+    public long getDate() { return date; }
 
     public void setShoulder(double shoulder) {
         this.shoulder = shoulder;
@@ -169,7 +169,7 @@ public class BodyMeasure {
         this.height = height;
     }
 
-    public void setDate(int date) {
+    public void setDate(long date) {
         this.date = date;
     }
 }

@@ -134,7 +134,7 @@ public class MyDataSource {
 
     public BodyMeasure createBodyMeasure(double rightUpperArm, double leftUpperArm, double rightForearm, double leftForearm,
                                          double chest, double rightThigh, double leftThigh, double rightCalf, double leftCalf,
-                                         double waist, double shoulder, double weight, double height, int date) {
+                                         double waist, double shoulder, double weight, double height, long date) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_RIGHT_UPPER_ARM, rightUpperArm);
         values.put(MySQLiteHelper.COLUMN_LEFT_UPPER_ARM, leftUpperArm);
@@ -210,7 +210,7 @@ public class MyDataSource {
         return newUser;
     }
 
-    public UserBody createUserBody(long id, long userId, long bodyMeasureId, BodyMeasure bodyMeasure) {
+    public UserBody createUserBody(long userId, long bodyMeasureId, BodyMeasure bodyMeasure) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_USER_ID, userId);
         values.put(MySQLiteHelper.COLUMN_BODY_MEASURES_ID, bodyMeasureId);
@@ -269,7 +269,7 @@ public class MyDataSource {
         bodyMeasure.setShoulder(cursor.getDouble(11));
         bodyMeasure.setWeight(cursor.getDouble(12));
         bodyMeasure.setHeight(cursor.getDouble(13));
-        bodyMeasure.setDate(cursor.getInt(14));
+        bodyMeasure.setDate(cursor.getLong(14));
         return bodyMeasure;
     }
 
