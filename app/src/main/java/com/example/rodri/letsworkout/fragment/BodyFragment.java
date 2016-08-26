@@ -1,5 +1,6 @@
 package com.example.rodri.letsworkout.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.rodri.letsworkout.R;
+import com.example.rodri.letsworkout.activity.UpdateCurrentMeasuresActivity;
 import com.example.rodri.letsworkout.database.MyDataSource;
 import com.example.rodri.letsworkout.model.Authentication;
 import com.example.rodri.letsworkout.model.BodyMeasure;
@@ -65,6 +67,14 @@ public class BodyFragment extends Fragment {
             txtShoulder.setText(String.valueOf(bm.getShoulder()));
             txtChest.setText(String.valueOf(bm.getChest()));
         }
+
+        btUpdateCurrentMeasures.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), UpdateCurrentMeasuresActivity.class);
+                startActivity(i);
+            }
+        });
 
 
         dataSource.close();
