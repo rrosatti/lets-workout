@@ -446,7 +446,7 @@ public class MyDataSource {
 
     public void updateBodyMeasure(long id, double rightUpperArm, double leftUpperArm, double rightForearm, double leftForearm,
                                   double chest, double rightThigh, double leftThigh, double rightCalf, double leftCalf,
-                                  double waist, double shoulder) {
+                                  double waist, double shoulder, double weight, double height) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_RIGHT_UPPER_ARM, rightUpperArm);
         values.put(MySQLiteHelper.COLUMN_LEFT_UPPER_ARM, leftUpperArm);
@@ -459,6 +459,8 @@ public class MyDataSource {
         values.put(MySQLiteHelper.COLUMN_LEFT_CALF, leftCalf);
         values.put(MySQLiteHelper.COLUMN_WAIST, waist);
         values.put(MySQLiteHelper.COLUMN_SHOULDER, shoulder);
+        values.put(MySQLiteHelper.COLUMN_WEIGHT, weight);
+        values.put(MySQLiteHelper.COLUMN_HEIGHT, height);
         database.update(MySQLiteHelper.TABLE_BODY_MEASURE, values, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 

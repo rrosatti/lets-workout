@@ -47,7 +47,6 @@ public class NewBodyFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 BodyMeasure bodyMeasure = new BodyMeasure();
-                int date = 0;
 
                 if (!isEditTextEmpty(etRightUpperArm)) {
                     double rightUpperArm = Double.parseDouble(etRightUpperArm.getText().toString());
