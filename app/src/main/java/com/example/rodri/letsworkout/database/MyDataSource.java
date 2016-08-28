@@ -210,7 +210,7 @@ public class MyDataSource {
         return newUser;
     }
 
-    public UserBody createUserBody(long userId, long bodyMeasureId, BodyMeasure bodyMeasure) {
+    public UserBody createUserBody(long userId, long bodyMeasureId) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_USER_ID, userId);
         values.put(MySQLiteHelper.COLUMN_BODY_MEASURES_ID, bodyMeasureId);
@@ -226,7 +226,7 @@ public class MyDataSource {
         cursor.moveToFirst();
 
         UserBody newUserBody = cursorToUserBody(cursor);
-        bodyMeasure = getBodyMeasure(bodyMeasureId);
+        BodyMeasure bodyMeasure = getBodyMeasure(bodyMeasureId);
         newUserBody.setBodyMeasure(bodyMeasure);
 
         cursor.close();

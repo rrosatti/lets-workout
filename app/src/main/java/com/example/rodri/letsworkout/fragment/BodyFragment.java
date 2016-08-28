@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.rodri.letsworkout.R;
+import com.example.rodri.letsworkout.activity.RegisterNewBodyMeasureActivity;
 import com.example.rodri.letsworkout.activity.UpdateCurrentMeasuresActivity;
 import com.example.rodri.letsworkout.database.MyDataSource;
 import com.example.rodri.letsworkout.model.Authentication;
@@ -72,6 +73,14 @@ public class BodyFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), UpdateCurrentMeasuresActivity.class);
+                startActivity(i);
+            }
+        });
+
+        btRegisterNewMeasures.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), RegisterNewBodyMeasureActivity.class);
                 startActivity(i);
             }
         });

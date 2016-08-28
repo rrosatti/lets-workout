@@ -107,11 +107,7 @@ public class NewBodyFragment extends Fragment {
                         bodyMeasure.getLeftThigh(), bodyMeasure.getRightCalf(), bodyMeasure.getLeftCalf(), bodyMeasure.getWaist(),
                         bodyMeasure.getShoulder(), bodyMeasure.getWeight(), bodyMeasure.getHeight(), System.currentTimeMillis());
 
-                dataSource.createUserBody(Authentication.getInstance().getUserId(), newBodyMeasure.getId(), bodyMeasure);
-
-                Toast.makeText(getContext(), newBodyMeasure.getWeight() + " and " + newBodyMeasure.getHeight(),
-                        Toast.LENGTH_SHORT).show();
-
+                dataSource.createUserBody(Authentication.getInstance().getUserId(), newBodyMeasure.getId());
                 dataSource.close();
 
 
