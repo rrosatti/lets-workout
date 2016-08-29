@@ -2,6 +2,7 @@ package com.example.rodri.letsworkout.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,6 +111,9 @@ public class NewBodyFragment extends Fragment {
                 dataSource.createUserBody(Authentication.getInstance().getUserId(), newBodyMeasure.getId());
                 dataSource.close();
 
+                final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.container, new BodyFragment());
+                ft.commit();
 
             }
         });

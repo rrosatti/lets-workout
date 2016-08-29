@@ -1,5 +1,7 @@
 package com.example.rodri.letsworkout.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.rodri.letsworkout.R;
 import com.example.rodri.letsworkout.database.MyDataSource;
@@ -52,7 +53,8 @@ public class RegisterNewBodyMeasureActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                setResult(Activity.RESULT_CANCELED);
+                finish();
             }
         });
 
@@ -122,8 +124,10 @@ public class RegisterNewBodyMeasureActivity extends AppCompatActivity {
                 dataSource.createUserBody(Authentication.getInstance().getUserId(), newBM.getId());
                 dataSource.close();
 
-                // Need to implement some things ir order to refresh the "MyBody" Fragment
-                onBackPressed();
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("bodyMeasureId", newBM.getId());
+                setResult(Activity.RESULT_OK, returnIntent);
+                finish();
             }
         });
     }

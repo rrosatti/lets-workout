@@ -1,5 +1,7 @@
 package com.example.rodri.letsworkout.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -53,7 +55,8 @@ public class UpdateCurrentMeasuresActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                setResult(Activity.RESULT_CANCELED);
+                finish();
             }
         });
 
@@ -128,7 +131,10 @@ public class UpdateCurrentMeasuresActivity extends AppCompatActivity {
                 dataSource.close();
 
                 // Need to implement some things ir order to refresh the "MyBody" Fragment
-                onBackPressed();
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("bodyMeasureId", bodyMeasureId);
+                setResult(Activity.RESULT_OK, returnIntent);
+                finish();
             }
         });
     }

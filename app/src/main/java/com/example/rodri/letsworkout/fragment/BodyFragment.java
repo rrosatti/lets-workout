@@ -1,5 +1,6 @@
 package com.example.rodri.letsworkout.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.rodri.letsworkout.R;
 import com.example.rodri.letsworkout.activity.RegisterNewBodyMeasureActivity;
@@ -53,27 +55,14 @@ public class BodyFragment extends Fragment {
         long bodyMeasureId = dataSource.getLatestBodyMeasureId(userId);
 
         if (bodyMeasureId != -1) {
-            BodyMeasure bm = dataSource.getBodyMeasure(bodyMeasureId);
-            txtWeight.setText(String.valueOf(bm.getWeight()));
-            txtHeight.setText(String.valueOf(bm.getHeight()));
-            txtRightUpperArm.setText(String.valueOf(bm.getRightUpperArm()));
-            txtLeftUpperArm.setText(String.valueOf(bm.getLeftUpperArm()));
-            txtRightForearm.setText(String.valueOf(bm.getRightForearm()));
-            txtLeftForearm.setText(String.valueOf(bm.getLeftForearm()));
-            txtRightThigh.setText(String.valueOf(bm.getRightThigh()));
-            txtLeftThigh.setText(String.valueOf(bm.getLeftThigh()));
-            txtRightCalf.setText(String.valueOf(bm.getRightCalf()));
-            txtLeftCalf.setText(String.valueOf(bm.getLeftCalf()));
-            txtWaist.setText(String.valueOf(bm.getWaist()));
-            txtShoulder.setText(String.valueOf(bm.getShoulder()));
-            txtChest.setText(String.valueOf(bm.getChest()));
+            getDataFromDatabase(bodyMeasureId);
         }
 
         btUpdateCurrentMeasures.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), UpdateCurrentMeasuresActivity.class);
-                startActivity(i);
+                startActivityForResult(i, 1);
             }
         });
 
@@ -81,7 +70,7 @@ public class BodyFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), RegisterNewBodyMeasureActivity.class);
-                startActivity(i);
+                startActivityForResult(i, 2);
             }
         });
 
@@ -107,5 +96,56 @@ public class BodyFragment extends Fragment {
         txtChest = (TextView) v.findViewById(R.id.fragmentBody_txtChestValue);
         btUpdateCurrentMeasures = (Button) v.findViewById(R.id.fragmentBody_btUpdateCurrentMeasures);
         btRegisterNewMeasures = (Button) v.findViewById(R.id.fragmentBody_btRegisterNewMeasures);
+    }
+
+    public void getDataFromDatabase(long bodyMeasureId) {
+        dataSource.open();
+        BodyMeasure bm = dataSource.getBodyMeasure(bodyMeasureId);
+        txtWeight.setText(String.valueOf(bm.getWeight()));
+        txtHeight.setText(String.valueOf(bm.getHeight()));
+        txtRightUpperArm.setText(String.valueOf(bm.getRightUpperArm()));
+        txtLeftUpperArm.setText(String.valueOf(bm.getLeftUpperArm()));
+        txtRightForearm.setText(String.valueOf(bm.getRightForearm()));
+        txtLeftForearm.setText(String.valueOf(bm.getLeftForearm()));
+        txtRightThigh.setText(String.valueOf(bm.getRightThigh()));
+        txtLeftThigh.setText(String.valueOf(bm.getLeftThigh()));
+        txtRightCalf.setText(String.valueOf(bm.getRightCalf()));
+        txtLeftCalf.setText(String.valueOf(bm.getLeftCalf()));
+        txtWaist.setText(String.valueOf(bm.getWaist()));
+        txtShoulder.setText(String.valueOf(bm.getShoulder()));
+        txtChest.setText(String.valueOf(bm.getChest()));
+        dataSource.close();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        /**
+         *  The result come from:
+         *  1 - UpdateCurrentMeasuresActivity
+         *  2 - RegisterNewBodyMeasure
+         */
+        switch (requestCode) {
+            case 1: {
+                if (resultCode == Activity.RESULT_OK) {
+                    long id = data.getExtras().getLong("bodyMeasureId", 0);
+                    getDataFromDatabase(id);
+                }
+                break;
+            }
+            case 2: {
+                if (resultCode == Activity.RESULT_OK) {
+                    long id = data.getExtras().getLong("bodyMeasureId", 0);
+                    getDataFromDatabase(id);
+                }
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+
+        if (requestCode == 1) {
+
+        }
     }
 }

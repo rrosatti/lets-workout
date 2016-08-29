@@ -76,10 +76,10 @@ public class LoginActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
                 User user = (User) data.getSerializableExtra("user");
-                Toast.makeText(getApplicationContext(), "name: " + user.getName() + " login: " + user.getPassword(),
-                        Toast.LENGTH_SHORT).show();
+                Authentication.getInstance().init(user.getName(), user.getPassword(), getApplicationContext());
+                boolean res = Authentication.getInstance().login();
+                System.out.println("user name:" + user.getName() + " res: " + res);
                 Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                i.putExtra("user_id", user.getId());
                 startActivity(i);
                 finish();
 
