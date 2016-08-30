@@ -24,6 +24,7 @@ import com.example.rodri.letsworkout.database.MyDataSource;
 import com.example.rodri.letsworkout.fragment.BodyFragment;
 import com.example.rodri.letsworkout.fragment.HomeFragment;
 import com.example.rodri.letsworkout.fragment.NewBodyFragment;
+import com.example.rodri.letsworkout.fragment.TrainingRoutineFragment;
 import com.example.rodri.letsworkout.model.Authentication;
 import com.example.rodri.letsworkout.model.DrawerItem;
 
@@ -184,10 +185,13 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case 2:
+                fragment = new TrainingRoutineFragment();
                 break;
             case 3:
                 break;
             case 4:
+                break;
+            case 5:
                 break;
             default:
                 break;

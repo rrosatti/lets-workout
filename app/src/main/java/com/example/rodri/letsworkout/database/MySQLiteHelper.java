@@ -20,7 +20,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "lets_workout_project.db";
 
     // Database Version
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 2;
 
     // Table Names
     public static final String TABLE_EXERCISE = "exercise";

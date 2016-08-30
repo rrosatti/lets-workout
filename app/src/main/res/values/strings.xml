@@ -27,6 +27,7 @@
     <string-array name="nav_drawer_items">
         <item>Home</item>
         <item>My Body</item>
+        <item>Training Routine</item>
         <item>Schedule</item>
         <item>Statistics</item>
         <item>Timer</item>
@@ -36,6 +37,7 @@
     <array name="nav_drawer_icons">
         <item>@drawable/ic_house</item>
         <item>@drawable/ic_balance</item>
+        <item>@drawable/ic_gym_chart</item>
         <item>@drawable/ic_time</item>
         <item>@drawable/ic_graphic</item>
         <item>@drawable/ic_clock</item>
@@ -63,6 +65,7 @@
     <string name="button_confirm">Confirm</string>
     <string name="button_update_current_measures">Update Current Measures</string>
     <string name="button_register_new_measures">Register New Measures</string>
+    <string name="button_new_routine">New Routine</string>
 
     <!-- TextView -->
     <string name="text_view_weight">Weight: </string>

@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
                 User user = (User) data.getSerializableExtra("user");
-                Authentication.getInstance().init(user.getName(), user.getPassword(), getApplicationContext());
+                Authentication.getInstance().init(user.getLogin(), user.getPassword(), getApplicationContext());
                 boolean res = Authentication.getInstance().login();
                 System.out.println("user name:" + user.getName() + " res: " + res);
                 Intent i = new Intent(LoginActivity.this, MainActivity.class);
