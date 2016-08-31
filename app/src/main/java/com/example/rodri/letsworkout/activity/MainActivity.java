@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new HomeFragment();
                 break;
             case 1:
-                // Get user the authenticated user ID
+                // Get the authenticated user ID
                 boolean res = checkIfIsThereABodyRegistered(Authentication.getInstance().getUser().getId());
                 if (res) {
                     fragment = new BodyFragment();
