@@ -15,12 +15,13 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     // Arrays that will get data trough getResources()
     private String[] muscleGroups;
     private String[] days;
+    private String[] chestExercises;
 
     // Database name
     private static final String DATABASE_NAME = "lets_workout_project.db";
 
     // Database Version
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     // Table Names
     public static final String TABLE_EXERCISE = "exercise";
@@ -159,6 +160,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         muscleGroups = context.getResources().getStringArray(R.array.muscle_groups);
         days = context.getResources().getStringArray(R.array.days);
+        chestExercises = context.getResources().getStringArray(R.array.chest_exercises);
     }
 
     @Override
@@ -171,9 +173,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_ROUTINE);
         populateTableMuscleGroup(db);
         populateTableDays(db);
-        // add after version 2
+        // added after version 2
         db.execSQL(CREATE_TABLE_USER);
         db.execSQL(CREATE_TABLE_USER_BODY);
+        // added after version 3
+        populateTableExercises(db);
     }
 
     @Override
@@ -230,6 +234,13 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         for (int i = 0; i < days.length; i++) {
             db.execSQL("INSERT INTO " + TABLE_DAYS + " (" + KEY_NAME + ")" +
             "VALUES('" + days[i] + "');");
+        }
+    }
+
+    public void populateTableExercises(SQLiteDatabase db) {
+        for (int i = 0; i < chestExercises.length; i++) {
+            db.execSQL("INSERT INTO " + TABLE_EXERCISE + " (" + KEY_NAME + ", " + COLUMN_MUSCLE_GROUP_ID + ") " +
+            "VALUES('" + muscleGroups[i] + "', 1);");
         }
     }
 }

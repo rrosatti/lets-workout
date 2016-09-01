@@ -85,4 +85,16 @@
     <string name="text_view_new_body_description">Write down your body measurements. (no need to fill all the fields)\n
 The values are in centimeters.</string>
 
+    <string-array name="chest_exercises">
+        <item>Peck Deck</item>
+        <item>Barbell Bench Press</item>
+        <item>Incline Barbell Bench Press</item>
+        <item>Decline Barbell Bench Press</item>
+        <item>Crucifix</item>
+        <item>Pullover</item>
+        <item>Crossover</item>
+        <item>Dumbbell Bench Press</item>
+        <item>Fly</item>
+    </string-array>
+
 </resources>
