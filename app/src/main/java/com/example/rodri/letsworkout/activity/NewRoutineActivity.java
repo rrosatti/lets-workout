@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.rodri.letsworkout.R;
 import com.example.rodri.letsworkout.database.MyDataSource;
@@ -27,7 +28,7 @@ public class NewRoutineActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private Spinner spinnerDays;
-    private Spinner spinnerMuscleGroup;
+    private EditText etMuscleGroup;
     private Spinner spinnerExercises;
     private EditText etSets;
     private EditText etReps;
@@ -39,7 +40,7 @@ public class NewRoutineActivity extends AppCompatActivity {
     private List<String> muscleGroup = new ArrayList<>();
     private List<String> exercises = new ArrayList<>();
     private ArrayAdapter<String> spinnerAdapterDays;
-    private ArrayAdapter<String> spinnerAdapterMuscleGroup;
+    //private ArrayAdapter<String> spinnerAdapterMuscleGroup;
     private ArrayAdapter<String> spinnerAdapterExercises;
 
     private int selectedDay = -1;
@@ -73,18 +74,11 @@ public class NewRoutineActivity extends AppCompatActivity {
         });
 
         muscleGroup = Arrays.asList(getResources().getStringArray(R.array.muscle_groups));
-        spinnerAdapterMuscleGroup = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, muscleGroup);
-        spinnerMuscleGroup.setAdapter(spinnerAdapterMuscleGroup);
 
-        spinnerMuscleGroup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        etMuscleGroup.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedMuscleGroup = position;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "It worked!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -101,7 +95,7 @@ public class NewRoutineActivity extends AppCompatActivity {
     public void initializeViews() {
         toolbar = (Toolbar) findViewById(R.id.toolbarNewRoutine);
         spinnerDays = (Spinner) findViewById(R.id.activityNewRoutine_spinnerDays);
-        spinnerMuscleGroup = (Spinner) findViewById(R.id.activityNewRoutine_spinnerMuscleGroup);
+        etMuscleGroup = (EditText) findViewById(R.id.activityNewRoutine_etMuscleGroup);
         spinnerExercises = (Spinner) findViewById(R.id.activityNewRoutine_spinnerExercises);
         etSets = (EditText) findViewById(R.id.activityNewRoutine_etSets);
         etReps = (EditText) findViewById(R.id.activityNewRoutine_etReps);

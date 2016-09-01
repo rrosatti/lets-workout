@@ -58,6 +58,7 @@
     <string name="hint_password">password</string>
     <string name="hint_name">name</string>
     <string name="hint_login">login</string>
+    <string name="hint_muscle_group">muscle group</string>
 
     <!-- Buttons -->
     <string name="button_login">Login</string>

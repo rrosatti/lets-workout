@@ -51,11 +51,14 @@
                     android:layout_weight="1"
                     android:layout_marginRight="10dp"/>
 
-                <Spinner
-                    android:id="@+id/activityNewRoutine_spinnerMuscleGroup"
+                <EditText
+                    android:id="@+id/activityNewRoutine_etMuscleGroup"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:hint="@string/hint_muscle_group"
+                    android:textStyle="italic"
+                    android:inputType="none"/>
 
             </LinearLayout>
 
@@ -134,6 +137,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:hint="Sets"
                             android:textStyle="italic"
                             android:inputType="numberDecimal"
                             android:layout_column="2"/>
@@ -143,6 +147,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:hint="Reps"
                             android:textStyle="italic"
                             android:inputType="numberDecimal"
                             android:layout_column="3"/>
