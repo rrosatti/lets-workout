@@ -86,6 +86,8 @@
     <string name="text_view_new_body_description">Write down your body measurements. (no need to fill all the fields)\n
 The values are in centimeters.</string>
 
+    <!-- Arrays of exercises -->
+    
     <string-array name="chest_exercises">
         <item>Peck Deck</item>
         <item>Barbell Bench Press</item>
@@ -96,6 +98,82 @@ The values are in centimeters.</string>
         <item>Crossover</item>
         <item>Dumbbell Bench Press</item>
         <item>Fly</item>
+    </string-array>
+    
+    <string-array name="back_exercises">
+        <item>Lat Pull-down (back)</item>
+        <item>Wide Grip</item>
+        <item>Narrow Grip</item>
+        <item>Crossover</item>
+        <item>Pull-up</item>
+        <item>Seated Row</item>
+        <item>Unilateral Seated Row</item>
+        <item>Inverse Crucifix</item>
+        <item>Face Pull Row</item>
+        <item>Back extension</item>
+        <item>Inverse Row</item>
+        <item>Inverse Grip</item>
+    </string-array>
+    
+    <string-array name="leg_exercises">
+        <item>Leg Extension</item>
+        <item>Leg Curl</item>
+        <item>Machine Adduction</item>
+        <item>Machine Abduction</item>
+        <item>Leg Press 45</item>
+        <item>Squat</item>
+        <item>Glutes Machine</item>
+        <item>45 Degree Calf Raise</item>
+        <item>Seated Calf Raise</item>
+        <item>Lunge Kick</item>
+        <item>Glutes Graviton</item>
+        <item>Glutes Crossover</item>
+        <item>Stiff</item>
+        <item>Leg Press 90</item>
+    </string-array>
+    
+    <string-array name="triceps_exercises">
+        <item>Triceps Extension</item>
+        <item>Triceps Inverse</item>
+        <item>Overhead Barbell Extension</item>
+        <item>Triceps French Press</item>
+        <item>Triceps Kickback</item>
+        <item>Triceps Parallel Bar</item>
+        <item>Triceps Rope In</item>
+        <item>Triceps Close Grip</item>
+    </string-array>
+
+    <string-array name="biceps_exercises">
+        <item>Biceps Barbell</item>
+        <item>Biceps Alternate Dumbbell</item>
+        <item>Sitting Biceps Curl</item>
+        <item>Biceps Hammer Curl</item>
+        <item>Biceps Scott</item>
+        <item>Biceps Unilateral Cross</item>
+        <item>Curl Standing Cross</item>
+        <item>Forearm</item>
+        <item>Biceps 21</item>
+    </string-array>
+    
+    <string-array name="shoulder_exercises">
+        <item>Shoulder Press</item>
+        <item>Dumbbell Press</item>
+        <item>Machine Shoulder Press</item>
+        <item>Dumbbell Lateral Raise</item>
+        <item>Front Deltoid Raise</item>
+        <item>Shoulder Crucifix</item>
+        <item>Shrug (Dumbbell)</item>
+        <item>Upright Rows</item>
+        <item>Shoulder Arnold Press</item>
+        <item>Inverse Front Deltoid Raise</item>
+    </string-array>
+
+    <string-array name="abs_exercises">
+        <item>Abs Crunch</item>
+        <item>Plank</item>
+        <item>Parallel</item>
+        <item>Ball</item>
+        <item>Leg Raise</item>
     </string-array>
 
 </resources>
