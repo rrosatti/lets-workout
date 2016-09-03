@@ -25,6 +25,7 @@
         <activity android:name=".activity.RegisterNewBodyMeasureActivity" android:theme="@style/AppTheme.NoActionBar" />
 
         <activity android:name=".activity.NewRoutineActivity" android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>
