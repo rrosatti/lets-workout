@@ -6,12 +6,16 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.rodri.letsworkout.model.MuscleGroup;
 import com.example.rodri.letsworkout.model.UserBody;
 import com.example.rodri.letsworkout.model.BodyMeasure;
 import com.example.rodri.letsworkout.model.Exercise;
 import com.example.rodri.letsworkout.model.ExerciseRepetition;
 import com.example.rodri.letsworkout.model.Routine;
 import com.example.rodri.letsworkout.model.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by rodri on 8/12/2016.
@@ -239,8 +243,8 @@ public class MyDataSource {
     public Exercise cursorToExercise(Cursor cursor) {
         Exercise exercise = new Exercise();
         exercise.setId(cursor.getLong(0));
-        exercise.setMuscleGroupId(cursor.getLong(1));
-        exercise.setName(cursor.getString(2));
+        exercise.setName(cursor.getString(1));
+        exercise.setMuscleGroupId(cursor.getLong(2));
         return exercise;
     }
 
@@ -296,6 +300,13 @@ public class MyDataSource {
         userBody.setUserId(cursor.getLong(1));
         userBody.setBodyMeasuresId(cursor.getLong(2));
         return userBody;
+    }
+
+    public MuscleGroup cursorToMuscleGroup(Cursor cursor) {
+        MuscleGroup muscleGroup = new MuscleGroup();
+        muscleGroup.setId(cursor.getLong(0));
+        muscleGroup.setName(cursor.getString(1));
+        return muscleGroup;
     }
 
     /** ----------  GET DATA  ---------- */
@@ -426,6 +437,49 @@ public class MyDataSource {
         }
 
 
+    }
+
+    public List<Exercise> getExercises(long muscleGroupId) {
+        List<Exercise> exercises = new ArrayList<>();
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_EXERCISE, exercisesColumns,
+                MySQLiteHelper.COLUMN_MUSCLE_GROUP_ID + " = " + muscleGroupId, null, null, null, null, null);
+
+        if (!isCursorEmpty(cursor)) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                exercises.add(cursorToExercise(cursor));
+                cursor.moveToNext();
+            }
+            cursor.close();
+
+            return exercises;
+
+        } else {
+            cursor.close();
+            return null;
+        }
+
+    }
+
+    public List<MuscleGroup> getMuscleGroups() {
+        List<MuscleGroup> muscleGroups = new ArrayList<>();
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_MUSCLE_GROUP, muscleGroupsColumns,
+                null, null, null, null, null, null);
+
+        if (!isCursorEmpty(cursor)) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                muscleGroups.add(cursorToMuscleGroup(cursor));
+                cursor.moveToNext();
+            }
+            cursor.close();
+
+            return muscleGroups;
+
+        } else {
+            cursor.close();
+            return null;
+        }
     }
 
     /** ----------  UPDATE  ---------- */

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rodri.letsworkout.R;
+import com.example.rodri.letsworkout.model.MuscleGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +20,14 @@ import java.util.List;
 /**
  * Created by rodri on 9/1/2016.
  */
-public class MuscleGroupAdapter extends ArrayAdapter<String> {
+public class MuscleGroupAdapter extends ArrayAdapter<MuscleGroup> {
 
     private Activity activity;
-    private List<String> muscleGroup;
+    private List<MuscleGroup> muscleGroup;
     private LayoutInflater inflater = null;
     private boolean[] selected;
 
-    public MuscleGroupAdapter(Activity activity, int textViewResourceId, List<String> muscleGroup) {
+    public MuscleGroupAdapter(Activity activity, int textViewResourceId, List<MuscleGroup> muscleGroup) {
         super(activity, textViewResourceId, muscleGroup);
         try {
             this.activity = activity;
@@ -64,7 +65,7 @@ public class MuscleGroupAdapter extends ArrayAdapter<String> {
             holder = (ViewHolder) v.getTag();
         }
 
-        holder.displayMuscleGroup.setText(muscleGroup.get(position));
+        holder.displayMuscleGroup.setText(muscleGroup.get(position).getName());
         holder.displayCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,8 +81,8 @@ public class MuscleGroupAdapter extends ArrayAdapter<String> {
 
     }
 
-    public List<String> getSelectedItems() {
-        List<String> selectedItems = new ArrayList<>();
+    public List<MuscleGroup> getSelectedItems() {
+        List<MuscleGroup> selectedItems = new ArrayList<>();
         for (int i = 0; i < selected.length; i++) {
             if (selected[i]) {
                 selectedItems.add(muscleGroup.get(i));

@@ -100,21 +100,6 @@ The values are in centimeters.</string>
         <item>Fly</item>
     </string-array>
     
-    <string-array name="back_exercises">
-        <item>Lat Pull-down (back)</item>
-        <item>Wide Grip</item>
-        <item>Narrow Grip</item>
-        <item>Crossover</item>
-        <item>Pull-up</item>
-        <item>Seated Row</item>
-        <item>Unilateral Seated Row</item>
-        <item>Inverse Crucifix</item>
-        <item>Face Pull Row</item>
-        <item>Back extension</item>
-        <item>Inverse Row</item>
-        <item>Inverse Grip</item>
-    </string-array>
-    
     <string-array name="leg_exercises">
         <item>Leg Extension</item>
         <item>Leg Curl</item>
@@ -131,16 +116,20 @@ The values are in centimeters.</string>
         <item>Stiff</item>
         <item>Leg Press 90</item>
     </string-array>
-    
-    <string-array name="triceps_exercises">
-        <item>Triceps Extension</item>
-        <item>Triceps Inverse</item>
-        <item>Overhead Barbell Extension</item>
-        <item>Triceps French Press</item>
-        <item>Triceps Kickback</item>
-        <item>Triceps Parallel Bar</item>
-        <item>Triceps Rope In</item>
-        <item>Triceps Close Grip</item>
+
+    <string-array name="back_exercises">
+        <item>Lat Pull-down (back)</item>
+        <item>Wide Grip</item>
+        <item>Narrow Grip</item>
+        <item>Crossover</item>
+        <item>Pull-up</item>
+        <item>Seated Row</item>
+        <item>Unilateral Seated Row</item>
+        <item>Inverse Crucifix</item>
+        <item>Face Pull Row</item>
+        <item>Back extension</item>
+        <item>Inverse Row</item>
+        <item>Inverse Grip</item>
     </string-array>
 
     <string-array name="biceps_exercises">
@@ -154,7 +143,26 @@ The values are in centimeters.</string>
         <item>Forearm</item>
         <item>Biceps 21</item>
     </string-array>
-    
+
+    <string-array name="triceps_exercises">
+        <item>Triceps Extension</item>
+        <item>Triceps Inverse</item>
+        <item>Overhead Barbell Extension</item>
+        <item>Triceps French Press</item>
+        <item>Triceps Kickback</item>
+        <item>Triceps Parallel Bar</item>
+        <item>Triceps Rope In</item>
+        <item>Triceps Close Grip</item>
+    </string-array>
+
+    <string-array name="abs_exercises">
+        <item>Abs Crunch</item>
+        <item>Plank</item>
+        <item>Parallel</item>
+        <item>Ball</item>
+        <item>Leg Raise</item>
+    </string-array>
+
     <string-array name="shoulder_exercises">
         <item>Shoulder Press</item>
         <item>Dumbbell Press</item>
@@ -166,14 +174,6 @@ The values are in centimeters.</string>
         <item>Upright Rows</item>
         <item>Shoulder Arnold Press</item>
         <item>Inverse Front Deltoid Raise</item>
-    </string-array>
-
-    <string-array name="abs_exercises">
-        <item>Abs Crunch</item>
-        <item>Plank</item>
-        <item>Parallel</item>
-        <item>Ball</item>
-        <item>Leg Raise</item>
     </string-array>
 
 </resources>

@@ -16,12 +16,18 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     private String[] muscleGroups;
     private String[] days;
     private String[] chestExercises;
+    private String[] legExercises;
+    private String[] backExercises;
+    private String[] bicepsExercises;
+    private String[] tricepsExercises;
+    private String[] absExercises;
+    private String[] shoulderExercises;
 
     // Database name
     private static final String DATABASE_NAME = "lets_workout_project.db";
 
     // Database Version
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     // Table Names
     public static final String TABLE_EXERCISE = "exercise";
@@ -161,6 +167,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         muscleGroups = context.getResources().getStringArray(R.array.muscle_groups);
         days = context.getResources().getStringArray(R.array.days);
         chestExercises = context.getResources().getStringArray(R.array.chest_exercises);
+        legExercises = context.getResources().getStringArray(R.array.leg_exercises);
+        backExercises = context.getResources().getStringArray(R.array.back_exercises);
+        bicepsExercises = context.getResources().getStringArray(R.array.biceps_exercises);
+        tricepsExercises = context.getResources().getStringArray(R.array.triceps_exercises);
+        absExercises = context.getResources().getStringArray(R.array.abs_exercises);
+        shoulderExercises = context.getResources().getStringArray(R.array.shoulder_exercises);
     }
 
     @Override
@@ -177,6 +189,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_USER);
         db.execSQL(CREATE_TABLE_USER_BODY);
         // added after version 3
+        // populateTableExercises(db);
+        // added after version 4
         populateTableExercises(db);
     }
 
@@ -240,7 +254,37 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public void populateTableExercises(SQLiteDatabase db) {
         for (int i = 0; i < chestExercises.length; i++) {
             db.execSQL("INSERT INTO " + TABLE_EXERCISE + " (" + KEY_NAME + ", " + COLUMN_MUSCLE_GROUP_ID + ") " +
-            "VALUES('" + muscleGroups[i] + "', 1);");
+            "VALUES('" + chestExercises[i] + "', 1);");
+        }
+
+        for (int i = 0; i < legExercises.length; i++) {
+            db.execSQL("INSERT INTO " + TABLE_EXERCISE + " (" + KEY_NAME + ", " + COLUMN_MUSCLE_GROUP_ID + ") " +
+                    "VALUES('" + legExercises[i] + "', 2);");
+        }
+
+        for (int i = 0; i < backExercises.length; i++) {
+            db.execSQL("INSERT INTO " + TABLE_EXERCISE + " (" + KEY_NAME + ", " + COLUMN_MUSCLE_GROUP_ID + ") " +
+                    "VALUES('" + backExercises[i] + "', 3);");
+        }
+
+        for (int i = 0; i < bicepsExercises.length; i++) {
+            db.execSQL("INSERT INTO " + TABLE_EXERCISE + " (" + KEY_NAME + ", " + COLUMN_MUSCLE_GROUP_ID + ") " +
+                    "VALUES('" + bicepsExercises[i] + "', 4);");
+        }
+
+        for (int i = 0; i < tricepsExercises.length; i++) {
+            db.execSQL("INSERT INTO " + TABLE_EXERCISE + " (" + KEY_NAME + ", " + COLUMN_MUSCLE_GROUP_ID + ") " +
+                    "VALUES('" + tricepsExercises[i] + "', 5);");
+        }
+
+        for (int i = 0; i < absExercises.length; i++) {
+            db.execSQL("INSERT INTO " + TABLE_EXERCISE + " (" + KEY_NAME + ", " + COLUMN_MUSCLE_GROUP_ID + ") " +
+                    "VALUES('" + absExercises[i] + "', 6);");
+        }
+
+        for (int i = 0; i < shoulderExercises.length; i++) {
+            db.execSQL("INSERT INTO " + TABLE_EXERCISE + " (" + KEY_NAME + ", " + COLUMN_MUSCLE_GROUP_ID + ") " +
+                    "VALUES('" + shoulderExercises[i] + "', 7);");
         }
     }
 }
