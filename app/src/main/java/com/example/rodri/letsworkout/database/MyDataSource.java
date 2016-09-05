@@ -63,7 +63,7 @@ public class MyDataSource {
     private String[] routineColumns = {
             MySQLiteHelper.KEY_ID,
             MySQLiteHelper.COLUMN_DAY_ID,
-            MySQLiteHelper.COLUMN_EXERCISE_REPETITIONS_ID
+            MySQLiteHelper.COLUMN_EXERCISE_REPETITION_ID
     };
     private String[] usersColumns = {
             MySQLiteHelper.KEY_ID,
@@ -174,7 +174,7 @@ public class MyDataSource {
     public Routine createRoutine(long dayId, long exerciseRepetitionId) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_DAY_ID, dayId);
-        values.put(MySQLiteHelper.COLUMN_EXERCISE_REPETITIONS_ID, exerciseRepetitionId);
+        values.put(MySQLiteHelper.COLUMN_EXERCISE_REPETITION_ID, exerciseRepetitionId);
 
         long insertId = database.insert(MySQLiteHelper.TABLE_ROUTINE, null, values);
         Cursor cursor = database.query(MySQLiteHelper.TABLE_ROUTINE, routineColumns,
@@ -329,6 +329,22 @@ public class MyDataSource {
             return null;
         }
 
+    }
+
+    public Exercise getExercise(String name) {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_EXERCISE, exercisesColumns,
+                MySQLiteHelper.KEY_NAME + " LIKE('%" + name + "%')", null, null, null, null, null);
+
+        if (!isCursorEmpty(cursor)) {
+            cursor.moveToFirst();
+
+            Exercise exercise = cursorToExercise(cursor);
+            cursor.close();
+            return exercise;
+        } else {
+            cursor.close();
+            return null;
+        }
     }
 
     public ExerciseRepetition getExerciseRepetition(long id) {
@@ -521,7 +537,7 @@ public class MyDataSource {
     public void updateRoutine(long id, long dayId, long exerciseRepetitionId){
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_DAY_ID, dayId);
-        values.put(MySQLiteHelper.COLUMN_EXERCISE_REPETITIONS_ID, exerciseRepetitionId);
+        values.put(MySQLiteHelper.COLUMN_EXERCISE_REPETITION_ID, exerciseRepetitionId);
         database.update(MySQLiteHelper.TABLE_ROUTINE, values, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 

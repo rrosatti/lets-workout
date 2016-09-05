@@ -18,7 +18,9 @@ import com.example.rodri.letsworkout.R;
 import com.example.rodri.letsworkout.adapter.MuscleGroupAdapter;
 import com.example.rodri.letsworkout.database.MyDataSource;
 import com.example.rodri.letsworkout.model.Exercise;
+import com.example.rodri.letsworkout.model.ExerciseRepetition;
 import com.example.rodri.letsworkout.model.MuscleGroup;
+import com.example.rodri.letsworkout.model.Routine;
 import com.example.rodri.letsworkout.util.Util;
 
 import java.util.ArrayList;
@@ -47,7 +49,9 @@ public class NewRoutineActivity extends AppCompatActivity {
     private MuscleGroupAdapter adapterMuscleGroup;
 
     private int selectedDay = -1;
+    private int selectedExercise = -1;
     private List<MuscleGroup> selectedMuscleGroups = new ArrayList<>();
+    private List<Exercise> allExercises = new ArrayList<>(); // contains all exercises in the exercises' spinner
 
     private MyDataSource dataSource;
 
@@ -60,6 +64,15 @@ public class NewRoutineActivity extends AppCompatActivity {
         initializeViews();
         dataSource = new MyDataSource(getApplicationContext());
         dataSource.open();
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         days = Arrays.asList(getResources().getStringArray(R.array.days));
         spinnerAdapterDays = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, days);
@@ -77,8 +90,6 @@ public class NewRoutineActivity extends AppCompatActivity {
             }
         });
 
-        // muscle group
-        dataSource.open();
         muscleGroup = dataSource.getMuscleGroups();
 
         etMuscleGroup.setOnClickListener(new View.OnClickListener() {
@@ -117,16 +128,42 @@ public class NewRoutineActivity extends AppCompatActivity {
 
                 dialog.show();
 
+            }
+        });
+
+        spinnerExercises.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedExercise = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
 
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        btAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                String sets = etSets.getText().toString();
+                String reps = etReps.getText().toString();
+
+                if (sets.equals("")) {
+                    Toast.makeText(NewRoutineActivity.this, R.string.toast_sets_field_empty, Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (reps.equals("")) {
+                    Toast.makeText(NewRoutineActivity.this, R.string.toast_reps_field_empty, Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (selectedExercise == -1){
+                    Toast.makeText(NewRoutineActivity.this, R.string.toast_no_exercise_selected, Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    /**ExerciseRepetition exerciseRepetition =
+                            dataSource.createExerciseRepetition(allExercises.get(selectedExercise).getId(), Integer.parseInt(sets),
+                                    Integer.parseInt(reps));
+                    */
+                }
             }
         });
     }
@@ -144,17 +181,17 @@ public class NewRoutineActivity extends AppCompatActivity {
     }
 
     public void setExercises() {
-        List<Exercise> exercises = new ArrayList<>();
-        List<String> allExercises = new ArrayList<>();
+        List<Exercise> exercises;
+        List<String> allExercisesByName = new ArrayList<>();
         for (int i = 0; i < selectedMuscleGroups.size(); i++) {
             exercises = dataSource.getExercises(selectedMuscleGroups.get(i).getId());
-
-            // *** GAMBIARRA ALERT !!!!! ***  This will change when I use CustomSpinner =)
+            allExercises.addAll(exercises);
+            // *** GAMBIARRA ALERT !!!!! ***  This will change when I implement CustomSpinner =)
             for (Exercise e: exercises) {
-                allExercises.add(e.getName());
+                allExercisesByName.add(e.getName());
             }
         }
-        spinnerAdapterExercises = new ArrayAdapter<>(NewRoutineActivity.this, android.R.layout.simple_spinner_item, allExercises);
+        spinnerAdapterExercises = new ArrayAdapter<>(NewRoutineActivity.this, android.R.layout.simple_spinner_item, allExercisesByName);
         spinnerExercises.setAdapter(spinnerAdapterExercises);
     }
 

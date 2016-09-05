@@ -52,6 +52,9 @@
     <string name="toast_name_field_empty">The name field cannot be empty!</string>
     <string name="toast_login_field_empty">The login field cannot be empty!</string>
     <string name="toast_password_field_empty">The password field cannot be empty!</string>
+    <string name="toast_sets_field_empty">The sets field cannot be empty!</string>
+    <string name="toast_reps_field_empty">The reps field cannot be empty!</string>
+    <string name="toast_no_exercise_selected">You must select an exercise!</string>
 
     <!-- Hints -->
     <string name="hint_username">username</string>

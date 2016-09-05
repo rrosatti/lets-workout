@@ -27,7 +27,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "lets_workout_project.db";
 
     // Database Version
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
 
     // Table Names
     public static final String TABLE_EXERCISE = "exercise";
@@ -38,6 +38,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String TABLE_ROUTINE = "routine";
     public static final String TABLE_USER = "user";
     public static final String TABLE_USER_BODY = "user_body";
+    public static final String TABLE_ROUTINE_EXERCISES = "routine_exercises";
 
     // Common column names
     public static final String KEY_ID = "id";
@@ -74,7 +75,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
     // routine column names = { id, day_id, exercise_repetitions_id }
     public static final String COLUMN_DAY_ID = "day_id";
-    public static final String COLUMN_EXERCISE_REPETITIONS_ID = "exercise_repetitions_id";
 
     // user column names = { id, name, login, password }
     public static final String COLUMN_LOGIN = "login";
@@ -83,6 +83,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     // user_body column names = { id, user_id, body_measures_id }
     public static final String COLUMN_USER_ID = "user_id";
     public static final String COLUMN_BODY_MEASURES_ID = "body_measures_id";
+
+    // routine_exercises { id, routine_id, exercise_repetitions_id }
+    public static final String COLUMN_ROUTINE_ID = "routine_id";
+    public static final String COLUMN_EXERCISE_REPETITION_ID = "exercise_repetitions_id";
 
 
     // --- CREATE TABLES --- //
@@ -141,11 +145,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + TABLE_ROUTINE + "("
             + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COLUMN_DAY_ID + " INTEGER NOT NULL, "
-            + COLUMN_EXERCISE_REPETITIONS_ID + " INTEGER NOT NULL, "
-            + "FOREIGN KEY (" + COLUMN_DAY_ID + ") REFERENCES " + TABLE_DAYS + "(" + KEY_ID + "), "
-            + "FOREIGN KEY (" + COLUMN_EXERCISE_REPETITIONS_ID + ") REFERENCES "
-                    + TABLE_EXERCISE_REPETITION + "(" + KEY_ID + "));";
+            + "FOREIGN KEY (" + COLUMN_DAY_ID + ") REFERENCES " + TABLE_DAYS + "(" + KEY_ID + "));";
 
+    // create table user
     private static final String CREATE_TABLE_USER =
             "CREATE TABLE " + TABLE_USER + "("
             + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -153,6 +155,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             + COLUMN_LOGIN + " TEXT NOT NULL, "
             + COLUMN_PASSWORD + " TEXT NOT NULL);";
 
+    // create table user_body
     private static final String CREATE_TABLE_USER_BODY =
             "CREATE TABLE " + TABLE_USER_BODY + "("
             + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -161,6 +164,14 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             + "FOREIGN KEY (" + COLUMN_USER_ID + ") REFERENCES " + TABLE_USER + "(" + KEY_ID + "), "
             + "FOREIGN KEY (" + COLUMN_BODY_MEASURES_ID + ") REFERENCES " + TABLE_BODY_MEASURE + "(" + KEY_ID + "));";
 
+    // create table routine_exercises
+    private static final String CREATE_TABLE_ROUTINE_EXERCISES =
+            "CREATE TABLE " + TABLE_ROUTINE_EXERCISES + "("
+            + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COLUMN_ROUTINE_ID + " INTEGER NOT NULL, "
+            + COLUMN_EXERCISE_REPETITION_ID + " INTEGER NOT NULL, "
+            + "FOREIGN KEY (" + COLUMN_ROUTINE_ID + ") REFERENCES " + TABLE_ROUTINE + "(" + KEY_ID + "), "
+            + "FOREIGN KEY (" + COLUMN_EXERCISE_REPETITION_ID + ") REFERENCES " + TABLE_EXERCISE_REPETITION + "(" + KEY_ID + "));";
 
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -192,6 +203,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         // populateTableExercises(db);
         // added after version 4
         populateTableExercises(db);
+        // added after version 5
+        db.execSQL(CREATE_TABLE_ROUTINE_EXERCISES);
     }
 
     @Override
@@ -210,6 +223,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_ROUTINE);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER_BODY);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_ROUTINE_EXERCISES);
 
             db.execSQL(CREATE_TABLE_MUSCLE_GROUP);
             db.execSQL(CREATE_TABLE_EXERCISE);
@@ -219,9 +233,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             db.execSQL(CREATE_TABLE_ROUTINE);
             populateTableMuscleGroup(db);
             populateTableDays(db);
-            // add after version 2
+            // added after version 2
             db.execSQL(CREATE_TABLE_USER);
             db.execSQL(CREATE_TABLE_USER_BODY);
+            // added after version 5
+            db.execSQL(CREATE_TABLE_ROUTINE_EXERCISES);
         }
 
     }
