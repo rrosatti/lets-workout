@@ -7,14 +7,12 @@ public class Routine {
 
     private long id;
     private long dayId;
-    private long exerciseRepetitionId;
 
     public Routine() {}
 
-    public Routine(long id, long dayId, long exerciseRepetitionId) {
+    public Routine(long id, long dayId) {
         this.id = id;
         this.dayId = dayId;
-        this.exerciseRepetitionId = exerciseRepetitionId;
     }
 
     public long getId() {
@@ -25,10 +23,6 @@ public class Routine {
         return dayId;
     }
 
-    public long getExerciseRepetitionId() {
-        return exerciseRepetitionId;
-    }
-
     public void setId(long id) {
         this.id = id;
     }
@@ -37,7 +31,4 @@ public class Routine {
         this.dayId = dayId;
     }
 
-    public void setExerciseRepetitionId(long exerciseRepetitionId) {
-        this.exerciseRepetitionId = exerciseRepetitionId;
-    }
 }

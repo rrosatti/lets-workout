@@ -62,8 +62,7 @@ public class MyDataSource {
     };
     private String[] routineColumns = {
             MySQLiteHelper.KEY_ID,
-            MySQLiteHelper.COLUMN_DAY_ID,
-            MySQLiteHelper.COLUMN_EXERCISE_REPETITION_ID
+            MySQLiteHelper.COLUMN_DAY_ID
     };
     private String[] usersColumns = {
             MySQLiteHelper.KEY_ID,
@@ -75,6 +74,11 @@ public class MyDataSource {
             MySQLiteHelper.KEY_ID,
             MySQLiteHelper.COLUMN_USER_ID,
             MySQLiteHelper.COLUMN_BODY_MEASURES_ID,
+    };
+    private String[] routineExercisesColumns = {
+            MySQLiteHelper.KEY_ID,
+            MySQLiteHelper.COLUMN_ROUTINE_ID,
+            MySQLiteHelper.COLUMN_EXERCISE_REPETITION_ID
     };
 
 
@@ -237,6 +241,7 @@ public class MyDataSource {
 
         return newUserBody;
     }
+     
 
     /** ---------  CURSOR TO  ---------- */
 
