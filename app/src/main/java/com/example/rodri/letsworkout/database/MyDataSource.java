@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.rodri.letsworkout.model.MuscleGroup;
+import com.example.rodri.letsworkout.model.RoutineExercises;
 import com.example.rodri.letsworkout.model.UserBody;
 import com.example.rodri.letsworkout.model.BodyMeasure;
 import com.example.rodri.letsworkout.model.Exercise;
@@ -175,10 +176,9 @@ public class MyDataSource {
         return newBodyMeasure;
     }
 
-    public Routine createRoutine(long dayId, long exerciseRepetitionId) {
+    public Routine createRoutine(long dayId) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_DAY_ID, dayId);
-        values.put(MySQLiteHelper.COLUMN_EXERCISE_REPETITION_ID, exerciseRepetitionId);
 
         long insertId = database.insert(MySQLiteHelper.TABLE_ROUTINE, null, values);
         Cursor cursor = database.query(MySQLiteHelper.TABLE_ROUTINE, routineColumns,
@@ -241,7 +241,27 @@ public class MyDataSource {
 
         return newUserBody;
     }
-     
+
+    public RoutineExercises createRoutineExercises(long routineId, long exerciseRepetitionId) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_ROUTINE_ID, routineId);
+        values.put(MySQLiteHelper.COLUMN_EXERCISE_REPETITION_ID, exerciseRepetitionId);
+
+        long insertId = database.insert(MySQLiteHelper.TABLE_ROUTINE_EXERCISES, null, values);
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_ROUTINE_EXERCISES, routineExercisesColumns,
+                MySQLiteHelper.KEY_ID + " = " + insertId, null, null, null, null, null);
+
+        if (!isCursorEmpty(cursor)) {
+            cursor.moveToFirst();
+
+            RoutineExercises newRoutineExercises = cursorToRoutineExercises(cursor);
+            cursor.close();
+            return newRoutineExercises;
+        } else {
+            cursor.close();
+            return null;
+        }
+    }
 
     /** ---------  CURSOR TO  ---------- */
 
@@ -286,7 +306,6 @@ public class MyDataSource {
         Routine routine = new Routine();
         routine.setId(cursor.getLong(0));
         routine.setDayId(cursor.getLong(1));
-        routine.setExerciseRepetitionId(cursor.getLong(2));
         return routine;
     }
 
@@ -312,6 +331,14 @@ public class MyDataSource {
         muscleGroup.setId(cursor.getLong(0));
         muscleGroup.setName(cursor.getString(1));
         return muscleGroup;
+    }
+
+    public RoutineExercises cursorToRoutineExercises(Cursor cursor) {
+        RoutineExercises routineExercises = new RoutineExercises();
+        routineExercises.setId(cursor.getLong(0));
+        routineExercises.setRoutineId(cursor.getLong(1));
+        routineExercises.setExerciseRepetitionId(cursor.getLong(2));
+        return routineExercises;
     }
 
     /** ----------  GET DATA  ---------- */
@@ -503,6 +530,25 @@ public class MyDataSource {
         }
     }
 
+    public List<RoutineExercises> getRoutineExercises(long routineId) {
+        List<RoutineExercises> routineExercises = new ArrayList<>();
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_ROUTINE_EXERCISES, routineExercisesColumns,
+                MySQLiteHelper.COLUMN_ROUTINE_ID + " = " + routineId, null, null, null, null);
+
+        if (!isCursorEmpty(cursor)) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                routineExercises.add(cursorToRoutineExercises(cursor));
+                cursor.moveToNext();
+            }
+            cursor.close();
+            return routineExercises;
+        } else {
+            cursor.close();
+            return null;
+        }
+    }
+
     /** ----------  UPDATE  ---------- */
     public void updateExercise(long id, long muscleGroupId, String name) {
         ContentValues values = new ContentValues();
@@ -539,10 +585,9 @@ public class MyDataSource {
         database.update(MySQLiteHelper.TABLE_BODY_MEASURE, values, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 
-    public void updateRoutine(long id, long dayId, long exerciseRepetitionId){
+    public void updateRoutine(long id, long dayId){
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_DAY_ID, dayId);
-        values.put(MySQLiteHelper.COLUMN_EXERCISE_REPETITION_ID, exerciseRepetitionId);
         database.update(MySQLiteHelper.TABLE_ROUTINE, values, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 
