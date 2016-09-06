@@ -27,7 +27,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "lets_workout_project.db";
 
     // Database Version
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
 
     // Table Names
     public static final String TABLE_EXERCISE = "exercise";
@@ -236,6 +236,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             // added after version 2
             db.execSQL(CREATE_TABLE_USER);
             db.execSQL(CREATE_TABLE_USER_BODY);
+            // added after version 4
+            populateTableExercises(db);
             // added after version 5
             db.execSQL(CREATE_TABLE_ROUTINE_EXERCISES);
         }

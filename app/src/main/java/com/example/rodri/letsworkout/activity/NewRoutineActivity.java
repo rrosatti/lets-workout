@@ -26,6 +26,7 @@ import com.example.rodri.letsworkout.util.Util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by rodri on 8/31/2016.
@@ -52,6 +53,8 @@ public class NewRoutineActivity extends AppCompatActivity {
     private int selectedExercise = -1;
     private List<MuscleGroup> selectedMuscleGroups = new ArrayList<>();
     private List<Exercise> allExercises = new ArrayList<>(); // contains all exercises in the exercises' spinner
+
+    private List<ExerciseRepetition> exercises = new ArrayList<>();
 
     private MyDataSource dataSource;
 
@@ -163,6 +166,12 @@ public class NewRoutineActivity extends AppCompatActivity {
                             dataSource.createExerciseRepetition(allExercises.get(selectedExercise).getId(), Integer.parseInt(sets),
                                     Integer.parseInt(reps));
                     */
+                    ExerciseRepetition exerciseRepetition = new ExerciseRepetition();
+                    exerciseRepetition.setExerciseId(selectedExercise);
+                    exerciseRepetition.setSets(Integer.parseInt(sets));
+                    exerciseRepetition.setReps(Integer.parseInt(reps));
+
+
                 }
             }
         });
