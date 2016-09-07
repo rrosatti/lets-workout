@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,18 +16,18 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.rodri.letsworkout.R;
+import com.example.rodri.letsworkout.adapter.ExerciseRepetitionAdapter;
+import com.example.rodri.letsworkout.adapter._old_ExerciseRepetitionAdapter;
 import com.example.rodri.letsworkout.adapter.MuscleGroupAdapter;
 import com.example.rodri.letsworkout.database.MyDataSource;
 import com.example.rodri.letsworkout.model.Exercise;
 import com.example.rodri.letsworkout.model.ExerciseRepetition;
 import com.example.rodri.letsworkout.model.MuscleGroup;
-import com.example.rodri.letsworkout.model.Routine;
 import com.example.rodri.letsworkout.util.Util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by rodri on 8/31/2016.
@@ -40,7 +41,7 @@ public class NewRoutineActivity extends AppCompatActivity {
     private EditText etSets;
     private EditText etReps;
     private Button btAdd;
-    private ListView listOfExercises;
+    private RecyclerView listOfExercises;
     private Button btConfirm;
 
     private List<String> days = new ArrayList<>();
@@ -54,7 +55,9 @@ public class NewRoutineActivity extends AppCompatActivity {
     private List<MuscleGroup> selectedMuscleGroups = new ArrayList<>();
     private List<Exercise> allExercises = new ArrayList<>(); // contains all exercises in the exercises' spinner
 
-    private List<ExerciseRepetition> exercises = new ArrayList<>();
+    List<ExerciseRepetition> exercises = new ArrayList<>();
+    //_old_ExerciseRepetitionAdapter adapterExercises;
+    ExerciseRepetitionAdapter adapterExercises;
 
     private MyDataSource dataSource;
 
@@ -76,6 +79,9 @@ public class NewRoutineActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        adapterExercises = new ExerciseRepetitionAdapter(NewRoutineActivity.this, exercises);
+        listOfExercises.setAdapter(adapterExercises);
 
         days = Arrays.asList(getResources().getStringArray(R.array.days));
         spinnerAdapterDays = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, days);
@@ -167,9 +173,11 @@ public class NewRoutineActivity extends AppCompatActivity {
                                     Integer.parseInt(reps));
                     */
                     ExerciseRepetition exerciseRepetition = new ExerciseRepetition();
-                    exerciseRepetition.setExerciseId(selectedExercise);
+                    exerciseRepetition.setExerciseId(allExercises.get(selectedExercise).getId());
                     exerciseRepetition.setSets(Integer.parseInt(sets));
                     exerciseRepetition.setReps(Integer.parseInt(reps));
+                    exercises.add(exerciseRepetition);
+                    adapterExercises.notifyDataSetChanged();
 
 
                 }
@@ -185,7 +193,7 @@ public class NewRoutineActivity extends AppCompatActivity {
         etSets = (EditText) findViewById(R.id.activityNewRoutine_etSets);
         etReps = (EditText) findViewById(R.id.activityNewRoutine_etReps);
         btAdd = (Button) findViewById(R.id.activityNewRoutine_btAdd);
-        listOfExercises = (ListView) findViewById(R.id.activityNewRoutine_listOfExercises);
+        listOfExercises = (RecyclerView) findViewById(R.id.activityNewRoutine_listOfExercises);
         btConfirm = (Button) findViewById(R.id.activityNewRoutine_btConfirm);
     }
 

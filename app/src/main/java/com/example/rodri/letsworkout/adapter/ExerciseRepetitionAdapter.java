@@ -1,11 +1,11 @@
 package com.example.rodri.letsworkout.adapter;
 
 import android.app.Activity;
-import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.rodri.letsworkout.R;
@@ -16,66 +16,75 @@ import com.example.rodri.letsworkout.model.ExerciseRepetition;
 import java.util.List;
 
 /**
- * Created by rodri on 9/6/2016.
+ * Created by rodri on 9/7/2016.
  */
-public class ExerciseRepetitionAdapter extends ArrayAdapter<ExerciseRepetition> {
+public class ExerciseRepetitionAdapter extends RecyclerView.Adapter<ExerciseRepetitionAdapter.MyViewHolder> {
 
     private Activity activity;
-    private List<ExerciseRepetition> exercises;
-    private LayoutInflater inflater = null;
+    private List<ExerciseRepetition> exerciseRepetitions;
     private MyDataSource dataSource;
 
-    public ExerciseRepetitionAdapter(Activity activity, int textViewResourceId, List<ExerciseRepetition> exercises) {
-        super(activity, textViewResourceId, exercises);
-        try {
-            this.activity = activity;
-            this.exercises = exercises;
-            this.dataSource = new MyDataSource(activity.getApplicationContext());
-
-            inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public int getCount() {
-        return exercises.size();
-    }
-
-    public class ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView displayExerciseName;
         public TextView displaySets;
         public TextView displayReps;
+        public ImageView displayRemoveExercise;
+        public ExerciseRepetition currentExerciseRepetition;
+
+        public MyViewHolder(View v) {
+            super(v);
+
+            displayExerciseName = (TextView) v.findViewById(R.id.customExerciseItem_txtExerciseName);
+            displaySets = (TextView) v.findViewById(R.id.customExerciseItem_txtSets);
+            displayReps = (TextView) v.findViewById(R.id.customExerciseItem_txtReps);
+            displayRemoveExercise = (ImageView) v.findViewById(R.id.customExerciseItem_imgRemoveExercise);
+        }
+    }
+
+    public ExerciseRepetitionAdapter(Activity activity, List<ExerciseRepetition> exerciseRepetitions) {
+        this.activity = activity;
+        this.exerciseRepetitions = exerciseRepetitions;
+        this.dataSource = new MyDataSource(activity.getApplicationContext());
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View v = convertView;
-        ViewHolder holder = new ViewHolder();
-        if (convertView == null) {
-            v = inflater.inflate(R.layout.custom_exercise_item, null);
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View viewItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_exercise_item, parent, false);
 
-            holder.displayExerciseName = (TextView) v.findViewById(R.id.customExerciseItem_txtExerciseName);
-            holder.displaySets = (TextView) v.findViewById(R.id.customExerciseItem_txtSets);
-            holder.displayReps = (TextView) v.findViewById(R.id.customExerciseItem_txtReps);
+        return new MyViewHolder(viewItem);
+    }
 
-            v.setTag(holder);
-        } else {
-            holder = (ViewHolder) v.getTag();
-        }
+    @Override
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
+        final ExerciseRepetition exerciseRepetition = exerciseRepetitions.get(position);
+        holder.currentExerciseRepetition = exerciseRepetition;
 
-        holder.displaySets.setText(exercises.get(position).getSets());
-        holder.displayReps.setText(exercises.get(position).getReps());
+        holder.displaySets.setText(String.valueOf(exerciseRepetition.getSets()));
+        holder.displayReps.setText(String.valueOf(exerciseRepetition.getReps()));
 
-        long exerciseId = exercises.get(position).getExerciseId();
+        long exerciseId = exerciseRepetition.getExerciseId();
         dataSource.open();
-        Exercise exercise = dataSource.getExercise(exerciseId);
+        final Exercise exercise = dataSource.getExercise(exerciseId);
         dataSource.close();
 
         holder.displayExerciseName.setText(exercise.getName());
 
-        return v;
+        holder.displayRemoveExercise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                exerciseRepetitions.remove(position);
+                notifyDataSetChanged();
+            }
+        });
+    }
 
+    @Override
+    public int getItemCount() {
+        return exerciseRepetitions.size();
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
     }
 }
