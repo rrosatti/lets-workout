@@ -24,6 +24,7 @@ import com.example.rodri.letsworkout.database.MyDataSource;
 import com.example.rodri.letsworkout.fragment.BodyFragment;
 import com.example.rodri.letsworkout.fragment.HomeFragment;
 import com.example.rodri.letsworkout.fragment.NewBodyFragment;
+import com.example.rodri.letsworkout.fragment.TimerFragment;
 import com.example.rodri.letsworkout.fragment.TrainingRoutineFragment;
 import com.example.rodri.letsworkout.model.Authentication;
 import com.example.rodri.letsworkout.model.DrawerItem;
@@ -116,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
         drawerItems.add(new DrawerItem(menuTitles[2], menuIcons.getResourceId(2, -1)));
         drawerItems.add(new DrawerItem(menuTitles[3], menuIcons.getResourceId(3, -1)));
         drawerItems.add(new DrawerItem(menuTitles[4], menuIcons.getResourceId(4, -1)));
+        drawerItems.add(new DrawerItem(menuTitles[5], menuIcons.getResourceId(5, -1)));
 
         menuIcons.recycle();
     }
@@ -192,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
             case 4:
                 break;
             case 5:
+                fragment = new TimerFragment();
                 break;
             default:
                 break;
