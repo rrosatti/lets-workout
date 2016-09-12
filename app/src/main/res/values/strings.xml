@@ -71,6 +71,9 @@
     <string name="button_register_new_measures">Register New Measures</string>
     <string name="button_new_routine">New Routine</string>
     <string name="button_add">Add</string>
+    <string name="button_start">Start</string>
+    <string name="button_reset">Reset</string>
+    <string name="button_stop">Stop</string>
 
     <!-- TextView -->
     <string name="text_view_weight">Weight: </string>
@@ -88,6 +91,7 @@
     <string name="text_view_chest">Chest: </string>
     <string name="text_view_new_body_description">Write down your body measurements. (no need to fill all the fields)\n
 The values are in centimeters.</string>
+    <string name="text_view_timer">00 : 00 : 00</string>
 
     <!-- Arrays of exercises -->
     
