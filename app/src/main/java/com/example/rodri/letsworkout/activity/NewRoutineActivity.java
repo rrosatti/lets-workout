@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,7 +16,6 @@ import android.widget.Toast;
 
 import com.example.rodri.letsworkout.R;
 import com.example.rodri.letsworkout.adapter.ExerciseRepetitionAdapter;
-import com.example.rodri.letsworkout.adapter._old_ExerciseRepetitionAdapter;
 import com.example.rodri.letsworkout.adapter.MuscleGroupAdapter;
 import com.example.rodri.letsworkout.database.MyDataSource;
 import com.example.rodri.letsworkout.model.Exercise;
@@ -41,7 +39,8 @@ public class NewRoutineActivity extends AppCompatActivity {
     private EditText etSets;
     private EditText etReps;
     private Button btAdd;
-    private RecyclerView listOfExercises;
+    //private RecyclerView listOfExercises;
+    private ListView listOfExercises;
     private Button btConfirm;
 
     private List<String> days = new ArrayList<>();
@@ -56,7 +55,6 @@ public class NewRoutineActivity extends AppCompatActivity {
     private List<Exercise> allExercises = new ArrayList<>(); // contains all exercises in the exercises' spinner
 
     List<ExerciseRepetition> exercises = new ArrayList<>();
-    //_old_ExerciseRepetitionAdapter adapterExercises;
     ExerciseRepetitionAdapter adapterExercises;
 
     private MyDataSource dataSource;
@@ -80,7 +78,7 @@ public class NewRoutineActivity extends AppCompatActivity {
             }
         });
 
-        adapterExercises = new ExerciseRepetitionAdapter(NewRoutineActivity.this, exercises);
+        adapterExercises = new ExerciseRepetitionAdapter(NewRoutineActivity.this, 0, exercises);
         listOfExercises.setAdapter(adapterExercises);
 
         days = Arrays.asList(getResources().getStringArray(R.array.days));
@@ -179,7 +177,6 @@ public class NewRoutineActivity extends AppCompatActivity {
                     exercises.add(exerciseRepetition);
                     adapterExercises.notifyDataSetChanged();
 
-
                 }
             }
         });
@@ -193,7 +190,8 @@ public class NewRoutineActivity extends AppCompatActivity {
         etSets = (EditText) findViewById(R.id.activityNewRoutine_etSets);
         etReps = (EditText) findViewById(R.id.activityNewRoutine_etReps);
         btAdd = (Button) findViewById(R.id.activityNewRoutine_btAdd);
-        listOfExercises = (RecyclerView) findViewById(R.id.activityNewRoutine_listOfExercises);
+        //listOfExercises = (RecyclerView) findViewById(R.id.activityNewRoutine_listOfExercises);
+        listOfExercises = (ListView) findViewById(R.id.activityNewRoutine_listOfExercises);
         btConfirm = (Button) findViewById(R.id.activityNewRoutine_btConfirm);
     }
 

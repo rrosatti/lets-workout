@@ -21,8 +21,9 @@
     </android.support.design.widget.AppBarLayout>
 
     <ScrollView
+        android:id="@+id/activityNewRoutine_scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/activityNewRoutine_appBarLayout"
         android:scrollbars="none">
 
@@ -108,16 +109,35 @@
 
             </LinearLayout>
 
-            <android.support.v7.widget.RecyclerView
+            <!--<android.support.v7.widget.RecyclerView
                 android:id="@+id/activityNewRoutine_listOfExercises"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="25dp"
-                android:scrollbars="none"/>
+                android:scrollbars="none"/>-->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+
+            </RelativeLayout>
+
+
 
         </LinearLayout>
 
     </ScrollView>
+
+    <ListView
+        android:id="@+id/activityNewRoutine_listOfExercises"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/activityNewRoutine_scrollView"
+        android:layout_above="@+id/activityNewRoutine_btConfirm"
+        android:layout_marginTop="25dp"
+        android:scrollbars="none"/>
 
     <Button
         android:id="@+id/activityNewRoutine_btConfirm"
