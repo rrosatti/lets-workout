@@ -18,6 +18,7 @@ import com.example.rodri.letsworkout.R;
 import com.example.rodri.letsworkout.adapter.ExerciseRepetitionAdapter;
 import com.example.rodri.letsworkout.adapter.MuscleGroupAdapter;
 import com.example.rodri.letsworkout.database.MyDataSource;
+import com.example.rodri.letsworkout.model.Day;
 import com.example.rodri.letsworkout.model.Exercise;
 import com.example.rodri.letsworkout.model.ExerciseRepetition;
 import com.example.rodri.letsworkout.model.MuscleGroup;
@@ -43,7 +44,7 @@ public class NewRoutineActivity extends AppCompatActivity {
     private ListView listOfExercises;
     private Button btConfirm;
 
-    private List<String> days = new ArrayList<>();
+    private List<Day> days = new ArrayList<>();
     private List<MuscleGroup> muscleGroup = new ArrayList<>();
     private ArrayAdapter<String> spinnerAdapterDays;
     private ArrayAdapter<String> spinnerAdapterExercises;
@@ -81,8 +82,12 @@ public class NewRoutineActivity extends AppCompatActivity {
         adapterExercises = new ExerciseRepetitionAdapter(NewRoutineActivity.this, 0, exercises);
         listOfExercises.setAdapter(adapterExercises);
 
-        days = Arrays.asList(getResources().getStringArray(R.array.days));
-        spinnerAdapterDays = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, days);
+        days = dataSource.getDays();
+        String[] daysArray = new String[days.size()];
+        for (int i = 0; i < days.size(); i++) {
+            daysArray[i] = days.get(i).getName();
+        }
+        spinnerAdapterDays = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, daysArray);
         spinnerDays.setAdapter(spinnerAdapterDays);
 
         spinnerDays.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -177,6 +182,30 @@ public class NewRoutineActivity extends AppCompatActivity {
                     exercises.add(exerciseRepetition);
                     adapterExercises.notifyDataSetChanged();
 
+                }
+            }
+        });
+
+        btConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println(days.get(selectedDay).getName());
+                if (selectedMuscleGroups.size() < 1) {
+                    Toast.makeText(NewRoutineActivity.this, R.string.toast_muscle_group_empty, Toast.LENGTH_SHORT).show();
+                } else if (exercises.size() < 1){
+                    Toast.makeText(NewRoutineActivity.this, R.string.toast_any_exercise_selected, Toast.LENGTH_SHORT).show();
+                } else {
+                    //persist data
+                    // 1 - ExerciseRepetition
+                    // 2 - Routine
+                    // 3 - RoutineExercises
+                }
+
+                for (MuscleGroup mg: selectedMuscleGroups) {
+                    System.out.println("Muscle Group: " + mg.getName());
+                }
+                for (ExerciseRepetition e: exercises) {
+                    System.out.println("Exercise ID: " + e.getExerciseId() + " Sets: " + e.getSets() + " Reps: " + e.getReps());
                 }
             }
         });

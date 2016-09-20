@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.rodri.letsworkout.model.Day;
 import com.example.rodri.letsworkout.model.MuscleGroup;
 import com.example.rodri.letsworkout.model.RoutineExercises;
 import com.example.rodri.letsworkout.model.UserBody;
@@ -176,9 +177,10 @@ public class MyDataSource {
         return newBodyMeasure;
     }
 
-    public Routine createRoutine(long dayId) {
+    public Routine createRoutine(long dayId, long userId) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_DAY_ID, dayId);
+        values.put(MySQLiteHelper.COLUMN_USER_ID, userId);
 
         long insertId = database.insert(MySQLiteHelper.TABLE_ROUTINE, null, values);
         Cursor cursor = database.query(MySQLiteHelper.TABLE_ROUTINE, routineColumns,
@@ -306,6 +308,7 @@ public class MyDataSource {
         Routine routine = new Routine();
         routine.setId(cursor.getLong(0));
         routine.setDayId(cursor.getLong(1));
+        routine.setUserId(cursor.getLong(2));
         return routine;
     }
 
@@ -339,6 +342,13 @@ public class MyDataSource {
         routineExercises.setRoutineId(cursor.getLong(1));
         routineExercises.setExerciseRepetitionId(cursor.getLong(2));
         return routineExercises;
+    }
+
+    public Day cursorToDay(Cursor cursor) {
+        Day day = new Day();
+        day.setId(cursor.getLong(0));
+        day.setName(cursor.getString(1));
+        return day;
     }
 
     /** ----------  GET DATA  ---------- */
@@ -543,6 +553,27 @@ public class MyDataSource {
             }
             cursor.close();
             return routineExercises;
+        } else {
+            cursor.close();
+            return null;
+        }
+
+    }
+
+    public List<Day> getDays() {
+        List<Day> days = new ArrayList<>();
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_DAYS, daysColumns,
+                null, null, null, null, null);
+
+        if (!isCursorEmpty(cursor)) {
+            cursor.moveToFirst();
+
+            while (!cursor.isAfterLast()) {
+                days.add(cursorToDay(cursor));
+                cursor.moveToNext();
+            }
+            cursor.close();
+            return days;
         } else {
             cursor.close();
             return null;
