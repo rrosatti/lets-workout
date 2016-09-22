@@ -18,10 +18,12 @@ import com.example.rodri.letsworkout.R;
 import com.example.rodri.letsworkout.adapter.ExerciseRepetitionAdapter;
 import com.example.rodri.letsworkout.adapter.MuscleGroupAdapter;
 import com.example.rodri.letsworkout.database.MyDataSource;
+import com.example.rodri.letsworkout.model.Authentication;
 import com.example.rodri.letsworkout.model.Day;
 import com.example.rodri.letsworkout.model.Exercise;
 import com.example.rodri.letsworkout.model.ExerciseRepetition;
 import com.example.rodri.letsworkout.model.MuscleGroup;
+import com.example.rodri.letsworkout.model.Routine;
 import com.example.rodri.letsworkout.util.Util;
 
 import java.util.ArrayList;
@@ -168,7 +170,7 @@ public class NewRoutineActivity extends AppCompatActivity {
                     Toast.makeText(NewRoutineActivity.this, R.string.toast_reps_field_empty, Toast.LENGTH_SHORT).show();
                     return;
                 } else if (selectedExercise == -1){
-                    Toast.makeText(NewRoutineActivity.this, R.string.toast_no_exercise_selected, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NewRoutineActivity.this, R.string.toast_any_exercise_selected, Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     /**ExerciseRepetition exerciseRepetition =
@@ -199,6 +201,31 @@ public class NewRoutineActivity extends AppCompatActivity {
                     // 1 - ExerciseRepetition
                     // 2 - Routine
                     // 3 - RoutineExercises
+
+                    int temp = 0;
+                    try {
+                        // 1
+                        temp = 1;
+                        List<ExerciseRepetition> persistedExercises = new ArrayList<>();
+                        for (ExerciseRepetition e : exercises) {
+                            ExerciseRepetition er = dataSource.createExerciseRepetition(e.getExerciseId(), e.getSets(), e.getReps());
+                            persistedExercises.add(er);
+                        }
+
+                        // 2
+                        temp = 2;
+                        System.out.println("SElected day: " + selectedDay);
+                        Routine routine = dataSource.createRoutine(selectedDay + 1, Authentication.getInstance().getUserId());
+
+                        // 3 this can be placed with step 1 (I guess)
+                        for (ExerciseRepetition e: persistedExercises) {
+                            dataSource.createRoutineExercises(routine.getId(), e.getId());
+                        }
+
+                    } catch (Exception e) {
+                        System.out.println("Something went wrong right here -> " + temp);
+                        e.printStackTrace();
+                    }
                 }
 
                 for (MuscleGroup mg: selectedMuscleGroups) {

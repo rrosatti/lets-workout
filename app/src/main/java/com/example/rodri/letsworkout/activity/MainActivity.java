@@ -28,6 +28,8 @@ import com.example.rodri.letsworkout.fragment.TimerFragment;
 import com.example.rodri.letsworkout.fragment.TrainingRoutineFragment;
 import com.example.rodri.letsworkout.model.Authentication;
 import com.example.rodri.letsworkout.model.DrawerItem;
+import com.example.rodri.letsworkout.model.ExerciseRepetition;
+import com.example.rodri.letsworkout.model.RoutineExercises;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +59,17 @@ public class MainActivity extends AppCompatActivity {
         // Initialize Views and other variables
         initialize();
         createDrawerItems();
+
+        // TEMP *************************************************************************************
+        dataSource = new MyDataSource(getApplicationContext());
+        dataSource.open();
+        List<RoutineExercises> temp = dataSource.getRoutineExercises(1);
+
+        if (temp != null) {
+            for (RoutineExercises re: temp) {
+                System.out.println("Routine ID: " + re.getRoutineId() + "ExerciseRepetition ID: " + re.getExerciseRepetitionId());
+            }
+        }
 
         adapter = new DrawerItemAdapter(this, 0, drawerItems);
         drawerListView.setAdapter(adapter);

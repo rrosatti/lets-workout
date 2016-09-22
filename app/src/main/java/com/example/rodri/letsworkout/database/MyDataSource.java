@@ -64,7 +64,8 @@ public class MyDataSource {
     };
     private String[] routineColumns = {
             MySQLiteHelper.KEY_ID,
-            MySQLiteHelper.COLUMN_DAY_ID
+            MySQLiteHelper.COLUMN_DAY_ID,
+            MySQLiteHelper.COLUMN_USER_ID
     };
     private String[] usersColumns = {
             MySQLiteHelper.KEY_ID,
