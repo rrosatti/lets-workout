@@ -31,6 +31,7 @@ import com.example.rodri.letsworkout.model.DrawerItem;
 import com.example.rodri.letsworkout.model.ExerciseRepetition;
 import com.example.rodri.letsworkout.model.Routine;
 import com.example.rodri.letsworkout.model.RoutineExercises;
+import com.example.rodri.letsworkout.model.RoutineMuscleGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +73,13 @@ public class MainActivity extends AppCompatActivity {
             if (routineExercises != null) {
                 for (RoutineExercises re: routineExercises) {
                     System.out.println("Routine ID: " + re.getRoutineId() + " Exercise Repetition ID: " + re.getExerciseRepetitionId());
+                }
+            }
+
+            List<RoutineMuscleGroup> rmg = dataSource.getRoutineMuscleGroups(routine.getId());
+            if (rmg != null) {
+                for (RoutineMuscleGroup r: rmg) {
+                    System.out.println("Routine ID: " + r.getRoutineId() + " Muscle Group ID: " + r.getMuscleGroupId());
                 }
             }
         }

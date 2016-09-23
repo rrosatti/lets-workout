@@ -201,6 +201,7 @@ public class NewRoutineActivity extends AppCompatActivity {
                     // 1 - ExerciseRepetition
                     // 2 - Routine
                     // 3 - RoutineExercises
+                    // 4 - RoutineMuscleGroup
 
                     int temp = 0;
                     try {
@@ -220,6 +221,11 @@ public class NewRoutineActivity extends AppCompatActivity {
                         // 3 this can be placed with step 1 (I guess)
                         for (ExerciseRepetition e: persistedExercises) {
                             dataSource.createRoutineExercises(routine.getId(), e.getId());
+                        }
+
+                        // 4
+                        for (MuscleGroup mg: selectedMuscleGroups) {
+                            dataSource.createRoutineMuscleGroup(routine.getId(), mg.getId());
                         }
 
                     } catch (Exception e) {
