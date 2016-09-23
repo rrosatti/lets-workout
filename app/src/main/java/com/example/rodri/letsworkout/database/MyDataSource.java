@@ -561,6 +561,29 @@ public class MyDataSource {
 
     }
 
+    public Routine getRoutineByUserId(long userId) {
+        Cursor cursor = database.rawQuery("SELECT MAX(" + MySQLiteHelper.KEY_ID + ") FROM " + MySQLiteHelper.TABLE_ROUTINE
+                + " WHERE " + MySQLiteHelper.COLUMN_USER_ID + " = " + userId, null);
+
+        if (!isCursorEmpty(cursor)) {
+            Cursor cursor2 = database.query(MySQLiteHelper.TABLE_ROUTINE, routineColumns,
+                    MySQLiteHelper.KEY_ID + " = " + cursor.getLong(0), null, null, null, null);
+            cursor.close();
+            if (!isCursorEmpty(cursor2)) {
+                cursor2.moveToFirst();
+                Routine routine = cursorToRoutine(cursor2);
+                cursor2.close();
+                return routine;
+            }
+
+            return null;
+
+        } else {
+            cursor.close();
+            return null;
+        }
+    }
+
     public List<Day> getDays() {
         List<Day> days = new ArrayList<>();
         Cursor cursor = database.query(MySQLiteHelper.TABLE_DAYS, daysColumns,

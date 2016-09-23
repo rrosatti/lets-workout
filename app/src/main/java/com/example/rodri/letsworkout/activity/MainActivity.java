@@ -29,6 +29,7 @@ import com.example.rodri.letsworkout.fragment.TrainingRoutineFragment;
 import com.example.rodri.letsworkout.model.Authentication;
 import com.example.rodri.letsworkout.model.DrawerItem;
 import com.example.rodri.letsworkout.model.ExerciseRepetition;
+import com.example.rodri.letsworkout.model.Routine;
 import com.example.rodri.letsworkout.model.RoutineExercises;
 
 import java.util.ArrayList;
@@ -63,11 +64,15 @@ public class MainActivity extends AppCompatActivity {
         // TEMP *************************************************************************************
         dataSource = new MyDataSource(getApplicationContext());
         dataSource.open();
-        List<RoutineExercises> temp = dataSource.getRoutineExercises(1);
+        Routine routine = dataSource.getRoutineByUserId(Authentication.getInstance().getUserId());
 
-        if (temp != null) {
-            for (RoutineExercises re: temp) {
-                System.out.println("Routine ID: " + re.getRoutineId() + "ExerciseRepetition ID: " + re.getExerciseRepetitionId());
+        if (routine != null) {
+            System.out.println("Day ID: " + routine.getDayId() + " Routine ID: " + routine.getId());
+            List<RoutineExercises> routineExercises = dataSource.getRoutineExercises(routine.getId());
+            if (routineExercises != null) {
+                for (RoutineExercises re: routineExercises) {
+                    System.out.println("Routine ID: " + re.getRoutineId() + " Exercise Repetition ID: " + re.getExerciseRepetitionId());
+                }
             }
         }
 
