@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.rodri.letsworkout.model.Day;
 import com.example.rodri.letsworkout.model.MuscleGroup;
 import com.example.rodri.letsworkout.model.RoutineExercises;
+import com.example.rodri.letsworkout.model.RoutineMuscleGroup;
 import com.example.rodri.letsworkout.model.UserBody;
 import com.example.rodri.letsworkout.model.BodyMeasure;
 import com.example.rodri.letsworkout.model.Exercise;
@@ -87,7 +88,7 @@ public class MyDataSource {
             MySQLiteHelper.KEY_ID,
             MySQLiteHelper.COLUMN_ROUTINE_ID,
             MySQLiteHelper.COLUMN_MUSCLE_GROUP_ID
-    }
+    };
 
 
     public MyDataSource(Context context) {
@@ -271,6 +272,27 @@ public class MyDataSource {
         }
     }
 
+    public RoutineMuscleGroup createRoutineMuscleGroup(long routineId, long muscleGroupId) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_ROUTINE_ID, routineId);
+        values.put(MySQLiteHelper.COLUMN_MUSCLE_GROUP_ID, muscleGroupId);
+
+        long inserId = database.insert(MySQLiteHelper.TABLE_ROUTINE_MUSCLE_GROUP, null, values);
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_ROUTINE_MUSCLE_GROUP, routineMuscleGroupColumns,
+                MySQLiteHelper.KEY_ID + " = " + inserId, null, null, null, null, null);
+
+        if (!isCursorEmpty(cursor)) {
+            cursor.moveToFirst();
+
+            RoutineMuscleGroup routineMuscleGroup = cursorToRoutineMuscleGroup(cursor);
+            cursor.close();
+            return routineMuscleGroup;
+        } else {
+            cursor.close();
+            return null;
+        }
+    }
+
 
     /** ---------  CURSOR TO  ---------- */
 
@@ -356,6 +378,14 @@ public class MyDataSource {
         day.setId(cursor.getLong(0));
         day.setName(cursor.getString(1));
         return day;
+    }
+
+    public RoutineMuscleGroup cursorToRoutineMuscleGroup(Cursor cursor) {
+        RoutineMuscleGroup routineMuscleGroup = new RoutineMuscleGroup();
+        routineMuscleGroup.setId(cursor.getLong(0));
+        routineMuscleGroup.setRoutineId(cursor.getLong(1));
+        routineMuscleGroup.setMuscleGroupId(cursor.getLong(2));
+        return routineMuscleGroup;
     }
 
     /** ----------  GET DATA  ---------- */
@@ -610,6 +640,25 @@ public class MyDataSource {
         }
     }
 
+    public List<RoutineMuscleGroup> getRoutineMuscleGroups(long routineId) {
+        List<RoutineMuscleGroup> routineMuscleGroups = new ArrayList<>();
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_ROUTINE_MUSCLE_GROUP, routineMuscleGroupColumns,
+                MySQLiteHelper.COLUMN_ROUTINE_ID + " = " + routineId, null, null, null, null, null);
+
+        if (!isCursorEmpty(cursor)) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                routineMuscleGroups.add(cursorToRoutineMuscleGroup(cursor));
+                cursor.moveToNext();
+            }
+            cursor.close();
+            return routineMuscleGroups;
+        } else {
+            cursor.close();
+            return null;
+        }
+    }
+
     /** ----------  UPDATE  ---------- */
     public void updateExercise(long id, long muscleGroupId, String name) {
         ContentValues values = new ContentValues();
@@ -652,6 +701,13 @@ public class MyDataSource {
         database.update(MySQLiteHelper.TABLE_ROUTINE, values, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 
+    public void updateRoutineMuscleGroup(long id, long routineId, long muscleGroupId) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_ROUTINE_ID, routineId);
+        values.put(MySQLiteHelper.COLUMN_MUSCLE_GROUP_ID, muscleGroupId);
+        database.update(MySQLiteHelper.TABLE_ROUTINE_MUSCLE_GROUP, values, MySQLiteHelper.KEY_ID + " = " + id, null);
+    }
+
     /** ----------  DELETE  ---------- */
     public void deleteExercise(long id) {
         System.out.println("The exercise with the id " + id + " will be deleted!");
@@ -671,6 +727,11 @@ public class MyDataSource {
     public void deleteRoutine(long id) {
         System.out.println("The routine with the id " + id + " will be deleted!");
         database.delete(MySQLiteHelper.TABLE_ROUTINE, MySQLiteHelper.KEY_ID + " = " + id, null);
+    }
+
+    public void deleteRoutineMuscleGroup(long id) {
+        System.out.println("The routine muscle group with the id " + id + "will be deleted!");
+        database.delete(MySQLiteHelper.TABLE_ROUTINE_MUSCLE_GROUP, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 
     /** ----------  OTHER  ---------- */
