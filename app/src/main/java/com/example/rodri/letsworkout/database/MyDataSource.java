@@ -83,6 +83,11 @@ public class MyDataSource {
             MySQLiteHelper.COLUMN_ROUTINE_ID,
             MySQLiteHelper.COLUMN_EXERCISE_REPETITION_ID
     };
+    private String[] routineMuscleGroupColumns = {
+            MySQLiteHelper.KEY_ID,
+            MySQLiteHelper.COLUMN_ROUTINE_ID,
+            MySQLiteHelper.COLUMN_MUSCLE_GROUP_ID
+    }
 
 
     public MyDataSource(Context context) {
@@ -265,6 +270,7 @@ public class MyDataSource {
             return null;
         }
     }
+
 
     /** ---------  CURSOR TO  ---------- */
 

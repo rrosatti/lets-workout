@@ -27,7 +27,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "lets_workout_project.db";
 
     // Database Version
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 8;
 
     // Table Names
     public static final String TABLE_EXERCISE = "exercise";
@@ -39,6 +39,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String TABLE_USER = "user";
     public static final String TABLE_USER_BODY = "user_body";
     public static final String TABLE_ROUTINE_EXERCISES = "routine_exercises";
+    public static final String TABLE_ROUTINE_MUSCLE_GROUP = "routine_muscle_groups";
 
     // Common column names
     public static final String KEY_ID = "id";
@@ -175,6 +176,16 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             + "FOREIGN KEY (" + COLUMN_ROUTINE_ID + ") REFERENCES " + TABLE_ROUTINE + "(" + KEY_ID + "), "
             + "FOREIGN KEY (" + COLUMN_EXERCISE_REPETITION_ID + ") REFERENCES " + TABLE_EXERCISE_REPETITION + "(" + KEY_ID + "));";
 
+    // create table routine_muscle_groups
+    private static final String CREATE_TABLE_ROUTINE_MUSCLE_GROUPS =
+            "CREATE TABLE " + MySQLiteHelper.TABLE_ROUTINE_MUSCLE_GROUP + "("
+            + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COLUMN_ROUTINE_ID + " INTEGER NOT NULL, "
+            + COLUMN_MUSCLE_GROUP_ID + " INTEGER NOT NULL, "
+            + "FOREIGN KEY (" + MySQLiteHelper.COLUMN_ROUTINE_ID + ") REFERENCES " + MySQLiteHelper.TABLE_ROUTINE + "(" + KEY_ID + "), "
+            + "FOREIGN KEY (" + MySQLiteHelper.COLUMN_MUSCLE_GROUP_ID + ") "
+                    + "REFERENCES " + MySQLiteHelper.TABLE_MUSCLE_GROUP + "(" + KEY_ID + "));";
+
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         muscleGroups = context.getResources().getStringArray(R.array.muscle_groups);
@@ -207,6 +218,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         populateTableExercises(db);
         // added after version 5
         db.execSQL(CREATE_TABLE_ROUTINE_EXERCISES);
+        // added after version 7
+        db.execSQL(CREATE_TABLE_ROUTINE_MUSCLE_GROUPS);
     }
 
     @Override
@@ -226,6 +239,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER_BODY);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_ROUTINE_EXERCISES);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_ROUTINE_MUSCLE_GROUP);
 
             db.execSQL(CREATE_TABLE_MUSCLE_GROUP);
             db.execSQL(CREATE_TABLE_EXERCISE);
@@ -242,6 +256,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             populateTableExercises(db);
             // added after version 5
             db.execSQL(CREATE_TABLE_ROUTINE_EXERCISES);
+            // added after version 7
+            db.execSQL(CREATE_TABLE_ROUTINE_MUSCLE_GROUPS);
         }
 
     }
