@@ -577,6 +577,39 @@ public class MyDataSource {
         }
     }
 
+    public List<MuscleGroup> getMuscleGroups(long routineId) {
+        List<MuscleGroup> muscleGroups = new ArrayList<>();
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_ROUTINE_MUSCLE_GROUP, routineMuscleGroupColumns,
+                null, null, null, null, null, null);
+
+        if (!isCursorEmpty(cursor)) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                // cursor.getLong(2) corresponds to muscleGroupId
+                Cursor cursor2 = database.query(MySQLiteHelper.TABLE_MUSCLE_GROUP, muscleGroupsColumns,
+                MySQLiteHelper.KEY_ID + " = " + cursor.getLong(2), null, null, null, null);
+                if (!isCursorEmpty(cursor2)) {
+                    cursor2.moveToFirst();
+                    muscleGroups.add(cursorToMuscleGroup(cursor2));
+                    cursor2.close();
+                } else {
+                    cursor2.close();
+                    System.out.println("Something went wrong right here!!!");
+                    return null;
+                }
+                cursor.moveToNext();
+            }
+            cursor.close();
+
+            return muscleGroups;
+
+        } else {
+            cursor.close();
+            return null;
+        }
+    }
+
+
     public List<RoutineExercises> getRoutineExercises(long routineId) {
         List<RoutineExercises> routineExercises = new ArrayList<>();
         Cursor cursor = database.query(MySQLiteHelper.TABLE_ROUTINE_EXERCISES, routineExercisesColumns,
