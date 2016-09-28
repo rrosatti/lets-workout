@@ -480,6 +480,25 @@ public class MyDataSource {
 
     }
 
+    public List<Routine> getRoutines(long userId) {
+        List<Routine> routines = new ArrayList<>();
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_ROUTINE, routineColumns,
+                MySQLiteHelper.COLUMN_USER_ID + " = " + userId, null, null, null, null, null);
+
+        if (!isCursorEmpty(cursor)) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                routines.add(cursorToRoutine(cursor));
+                cursor.moveToNext();
+            }
+            cursor.close();
+            return routines;
+        } else {
+            cursor.close();
+            return null;
+        }
+    }
+
     public User getUser(long id) {
         Cursor cursor = database.query(MySQLiteHelper.TABLE_USER, usersColumns,
                 MySQLiteHelper.KEY_ID + " = " + id, null, null, null, null, null);
@@ -667,6 +686,21 @@ public class MyDataSource {
             }
             cursor.close();
             return days;
+        } else {
+            cursor.close();
+            return null;
+        }
+    }
+
+    public Day getDay(long dayId) {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_DAYS, daysColumns,
+                MySQLiteHelper.KEY_ID + " = " + dayId, null, null, null, null, null);
+
+        if (!isCursorEmpty(cursor)) {
+            cursor.moveToFirst();
+            Day day = cursorToDay(cursor);
+            cursor.close();
+            return day;
         } else {
             cursor.close();
             return null;

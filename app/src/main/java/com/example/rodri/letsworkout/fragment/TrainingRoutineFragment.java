@@ -8,16 +8,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 
 import com.example.rodri.letsworkout.R;
 import com.example.rodri.letsworkout.activity.NewRoutineActivity;
+import com.example.rodri.letsworkout.adapter.TrainingRoutineAdapter;
+import com.example.rodri.letsworkout.database.MyDataSource;
+import com.example.rodri.letsworkout.model.Authentication;
+import com.example.rodri.letsworkout.model.Routine;
+
+import java.util.List;
 
 /**
  * Created by rodri on 8/30/2016.
  */
 public class TrainingRoutineFragment extends Fragment {
 
-    Button btNewRoutine;
+    private Button btNewRoutine;
+    private ListView listOfRoutines;
+    private MyDataSource dataSource;
+    private TrainingRoutineAdapter adapter;
+    private List<Routine> routines;
 
     @Nullable
     @Override
@@ -25,6 +36,7 @@ public class TrainingRoutineFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_training_routine, container, false);
 
         btNewRoutine = (Button) v.findViewById(R.id.fragmentTrainingRoutine_btNewRoutine);
+        listOfRoutines = (ListView) v.findViewById(R.id.fragmentTrainingRoutine_listOfRoutines);
 
         btNewRoutine.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,6 +46,13 @@ public class TrainingRoutineFragment extends Fragment {
             }
         });
 
+        dataSource = new MyDataSource(getActivity());
+        dataSource.open();
+
+        routines = dataSource.getRoutines(Authentication.getInstance().getUserId());
+        adapter = new TrainingRoutineAdapter(getActivity(), 0, routines);
+
+        listOfRoutines.setAdapter(adapter);
         return v;
     }
 }

@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.example.rodri.letsworkout.R;
 import com.example.rodri.letsworkout.database.MyDataSource;
+import com.example.rodri.letsworkout.model.Day;
+import com.example.rodri.letsworkout.model.MuscleGroup;
 import com.example.rodri.letsworkout.model.Routine;
 import com.example.rodri.letsworkout.model.TrainingRoutine;
 
@@ -71,14 +73,16 @@ public class TrainingRoutineAdapter extends ArrayAdapter<Routine> {
         //      2.1 - Get the correct Muscle Groups according to id (dataSource)
         long dayId = routines.get(position).getDayId();
         long routineId = routines.get(position).getId();
+        dataSource.open();
         Day day = dataSource.getDay(dayId);
         List<MuscleGroup> muscleGroups = dataSource.getMuscleGroups(routineId);
+        dataSource.close();
 
-        StringBuffer muscleGroupNames = "";
+        StringBuffer muscleGroupNames = new StringBuffer();
         for (int i = 0; i < muscleGroups.size(); i++) {
-          sb.append(mg.getName());
+          muscleGroupNames.append(muscleGroups.get(i).getName());
           if (i < muscleGroups.size() - 1) {
-            sb.append(" / ");
+            muscleGroupNames.append(" / ");
           }
         }
 
