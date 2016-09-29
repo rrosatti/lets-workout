@@ -50,9 +50,11 @@ public class TrainingRoutineFragment extends Fragment {
         dataSource.open();
 
         routines = dataSource.getRoutines(Authentication.getInstance().getUserId());
-        adapter = new TrainingRoutineAdapter(getActivity(), 0, routines);
+        if (routines != null) {
+            adapter = new TrainingRoutineAdapter(getActivity(), 0, routines);
+            listOfRoutines.setAdapter(adapter);
+        }
 
-        listOfRoutines.setAdapter(adapter);
         return v;
     }
 }

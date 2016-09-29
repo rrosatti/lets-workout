@@ -45,6 +45,7 @@ public class NewRoutineActivity extends AppCompatActivity {
     //private RecyclerView listOfExercises;
     private ListView listOfExercises;
     private Button btConfirm;
+    private EditText etRoutineName;
 
     private List<Day> days = new ArrayList<>();
     private List<MuscleGroup> muscleGroup = new ArrayList<>();
@@ -191,7 +192,6 @@ public class NewRoutineActivity extends AppCompatActivity {
         btConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println(days.get(selectedDay).getName());
                 if (selectedMuscleGroups.size() < 1) {
                     Toast.makeText(NewRoutineActivity.this, R.string.toast_muscle_group_empty, Toast.LENGTH_SHORT).show();
                 } else if (exercises.size() < 1){
@@ -199,14 +199,13 @@ public class NewRoutineActivity extends AppCompatActivity {
                 } else {
                     //persist data
                     // 1 - ExerciseRepetition
-                    // 2 - Routine
+                    // 2 - Routine (check if the user passed a value to routine name (EditText))
                     // 3 - RoutineExercises
                     // 4 - RoutineMuscleGroup
 
                     int temp = 0;
                     try {
                         // 1
-                        temp = 1;
                         List<ExerciseRepetition> persistedExercises = new ArrayList<>();
                         for (ExerciseRepetition e : exercises) {
                             ExerciseRepetition er = dataSource.createExerciseRepetition(e.getExerciseId(), e.getSets(), e.getReps());
@@ -214,9 +213,14 @@ public class NewRoutineActivity extends AppCompatActivity {
                         }
 
                         // 2
-                        temp = 2;
-                        System.out.println("SElected day: " + selectedDay);
-                        Routine routine = dataSource.createRoutine(selectedDay + 1, Authentication.getInstance().getUserId());
+                        String routineName;
+                        if (etRoutineName.getText().toString().equals("")) {
+                            routineName = days.get(selectedDay).getName();
+                        } else {
+                            routineName = etRoutineName.getText().toString();
+                        }
+                        Routine routine = dataSource.createRoutine(selectedDay + 1, Authentication.getInstance().getUserId(),
+                                selectedDay + 1, routineName);
 
                         // 3 this can be placed with step 1 (I guess)
                         for (ExerciseRepetition e: persistedExercises) {
@@ -228,8 +232,9 @@ public class NewRoutineActivity extends AppCompatActivity {
                             dataSource.createRoutineMuscleGroup(routine.getId(), mg.getId());
                         }
 
+                        finish();
+
                     } catch (Exception e) {
-                        System.out.println("Something went wrong right here -> " + temp);
                         e.printStackTrace();
                     }
                 }
@@ -255,6 +260,7 @@ public class NewRoutineActivity extends AppCompatActivity {
         //listOfExercises = (RecyclerView) findViewById(R.id.activityNewRoutine_listOfExercises);
         listOfExercises = (ListView) findViewById(R.id.activityNewRoutine_listOfExercises);
         btConfirm = (Button) findViewById(R.id.activityNewRoutine_btConfirm);
+        etRoutineName = (EditText) findViewById(R.id.activityNewRoutine_etRoutineName);
     }
 
     public void setExercises() {

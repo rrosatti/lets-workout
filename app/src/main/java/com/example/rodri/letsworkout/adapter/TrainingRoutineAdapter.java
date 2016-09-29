@@ -5,7 +5,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewManager;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.rodri.letsworkout.R;
@@ -47,6 +49,7 @@ public class TrainingRoutineAdapter extends ArrayAdapter<Routine> {
 
     public class ViewHolder {
         public TextView displayDay;
+        public TextView displayRoutineName;
         public TextView displayMuscleGroup;
     }
 
@@ -59,6 +62,7 @@ public class TrainingRoutineAdapter extends ArrayAdapter<Routine> {
 
             holder.displayDay = (TextView) v.findViewById(R.id.customRoutineItem_txtDay);
             holder.displayMuscleGroup = (TextView) v.findViewById(R.id.customRoutineItem_txtMuscleGroup);
+            holder.displayRoutineName = (TextView) v.findViewById(R.id.customRoutineItem_txtRoutineName);
 
             v.setTag(holder);
         } else {
@@ -84,6 +88,21 @@ public class TrainingRoutineAdapter extends ArrayAdapter<Routine> {
           if (i < muscleGroups.size() - 1) {
             muscleGroupNames.append(" / ");
           }
+        }
+
+        if (!routines.get(position).getName().equals(day.getName())) {
+            holder.displayRoutineName.setText(routines.get(position).getName());
+            holder.displayRoutineName.setWidth(0);
+            LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            p.weight = 1;
+            holder.displayRoutineName.setLayoutParams(p);
+        } else {
+
+        }
+
+        if (routines.get(position).getChosenDay() != 0) {
+            v.setBackgroundColor(activity.getResources().getColor(R.color.background_chosen_routine));
         }
 
         holder.displayDay.setText(day.getName());

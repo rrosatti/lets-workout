@@ -13,4 +13,7 @@
 
     <!-- TextView -->
     <color name="text_view_text_color">#EDE7D9</color>
+    
+    <!-- Background -->
+    <color name="background_chosen_routine">#A9E190</color> <!-- This is a temporary color -->
 </resources>

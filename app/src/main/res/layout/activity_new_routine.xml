@@ -37,12 +37,20 @@
             android:layout_marginStart="20dp"
             android:orientation="vertical">
 
+            <EditText
+                android:id="@+id/activityNewRoutine_etRoutineName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_routine_name"
+                android:textStyle="italic"
+                android:singleLine="true"/>
+
             <!-- Spinner container -->
             <LinearLayout
                 android:id="@+id/linearLayoutSpinnersContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal">
 
                 <Spinner

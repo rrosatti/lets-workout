@@ -66,7 +66,9 @@ public class MyDataSource {
     private String[] routineColumns = {
             MySQLiteHelper.KEY_ID,
             MySQLiteHelper.COLUMN_DAY_ID,
-            MySQLiteHelper.COLUMN_USER_ID
+            MySQLiteHelper.COLUMN_USER_ID,
+            MySQLiteHelper.COLUMN_CHOSEN_DAY,
+            MySQLiteHelper.KEY_NAME
     };
     private String[] usersColumns = {
             MySQLiteHelper.KEY_ID,
@@ -184,10 +186,21 @@ public class MyDataSource {
         return newBodyMeasure;
     }
 
-    public Routine createRoutine(long dayId, long userId) {
+    public Routine createRoutine(long dayId, long userId, long chosenDay, String name) {
+        // Verify whether or not there is already a register with the same 'chosenDay'
+        // If so, then we set the value for chosenDay as 0
+        Cursor tempCursor = database.rawQuery("SELECT * FROM " + MySQLiteHelper.TABLE_ROUTINE +
+                " WHERE " + MySQLiteHelper.COLUMN_USER_ID + " = " + userId +
+                " AND " + MySQLiteHelper.COLUMN_CHOSEN_DAY + " = " + chosenDay, null);
+        if (!isCursorEmpty(tempCursor)) {
+            chosenDay = 0;
+        }
+
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_DAY_ID, dayId);
         values.put(MySQLiteHelper.COLUMN_USER_ID, userId);
+        values.put(MySQLiteHelper.COLUMN_CHOSEN_DAY, chosenDay);
+        values.put(MySQLiteHelper.KEY_NAME, name);
 
         long insertId = database.insert(MySQLiteHelper.TABLE_ROUTINE, null, values);
         Cursor cursor = database.query(MySQLiteHelper.TABLE_ROUTINE, routineColumns,
@@ -338,6 +351,8 @@ public class MyDataSource {
         routine.setId(cursor.getLong(0));
         routine.setDayId(cursor.getLong(1));
         routine.setUserId(cursor.getLong(2));
+        routine.setChosenDay(cursor.getLong(3));
+        routine.setName(cursor.getString(4));
         return routine;
     }
 
@@ -599,7 +614,7 @@ public class MyDataSource {
     public List<MuscleGroup> getMuscleGroups(long routineId) {
         List<MuscleGroup> muscleGroups = new ArrayList<>();
         Cursor cursor = database.query(MySQLiteHelper.TABLE_ROUTINE_MUSCLE_GROUP, routineMuscleGroupColumns,
-                null, null, null, null, null, null);
+                MySQLiteHelper.COLUMN_ROUTINE_ID + " = " + routineId, null, null, null, null, null);
 
         if (!isCursorEmpty(cursor)) {
             cursor.moveToFirst();
