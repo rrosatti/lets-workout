@@ -27,7 +27,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "lets_workout_project.db";
 
     // Database Version
-    private static final int DATABASE_VERSION = 10;
+    private static final int DATABASE_VERSION = 11;
 
     // Table Names
     public static final String TABLE_EXERCISE = "exercise";
@@ -76,7 +76,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
     // routine column names = { id, day_id, exercise_repetitions_id }
     public static final String COLUMN_DAY_ID = "day_id";
-    public static final String COLUMN_CHOSEN_DAY = "chosen_day";
+    public static final String COLUMN_CHOSEN = "chosen";
 
     // user column names = { id, name, login, password }
     public static final String COLUMN_LOGIN = "login";
@@ -148,7 +148,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COLUMN_DAY_ID + " INTEGER NOT NULL, "
             + COLUMN_USER_ID + " INTEGER NOT NULL, "
-            + COLUMN_CHOSEN_DAY + " INTEGER NOT NULL, "
+            + COLUMN_CHOSEN + " BOOLEAN NOT NULL, "
             + KEY_NAME + " TEXT NOT NULL, "
             + "FOREIGN KEY (" + COLUMN_DAY_ID + ") REFERENCES " + TABLE_DAYS + "(" + KEY_ID + ")"
             + "FOREIGN KEY (" + COLUMN_USER_ID + ") REFERENCES " + TABLE_USER + "(" + KEY_ID + "));";

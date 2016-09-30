@@ -67,7 +67,7 @@ public class MyDataSource {
             MySQLiteHelper.KEY_ID,
             MySQLiteHelper.COLUMN_DAY_ID,
             MySQLiteHelper.COLUMN_USER_ID,
-            MySQLiteHelper.COLUMN_CHOSEN_DAY,
+            MySQLiteHelper.COLUMN_CHOSEN,
             MySQLiteHelper.KEY_NAME
     };
     private String[] usersColumns = {
@@ -186,20 +186,21 @@ public class MyDataSource {
         return newBodyMeasure;
     }
 
-    public Routine createRoutine(long dayId, long userId, long chosenDay, String name) {
-        // Verify whether or not there is already a register with the same 'chosenDay'
-        // If so, then we set the value for chosenDay as 0
+    public Routine createRoutine(long dayId, long userId, boolean chosen, String name) {
+        // Verify whether or not there is already a 'chosen' register
+        // If so, then we set the value for chosen as false
         Cursor tempCursor = database.rawQuery("SELECT * FROM " + MySQLiteHelper.TABLE_ROUTINE +
                 " WHERE " + MySQLiteHelper.COLUMN_USER_ID + " = " + userId +
-                " AND " + MySQLiteHelper.COLUMN_CHOSEN_DAY + " = " + chosenDay, null);
+                " AND " + MySQLiteHelper.COLUMN_DAY_ID  + " = " + dayId +
+                " AND " + MySQLiteHelper.COLUMN_CHOSEN + " = TRUE", null);
         if (!isCursorEmpty(tempCursor)) {
-            chosenDay = 0;
+            chosen = false;
         }
 
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_DAY_ID, dayId);
         values.put(MySQLiteHelper.COLUMN_USER_ID, userId);
-        values.put(MySQLiteHelper.COLUMN_CHOSEN_DAY, chosenDay);
+        values.put(MySQLiteHelper.COLUMN_CHOSEN, chosen);
         values.put(MySQLiteHelper.KEY_NAME, name);
 
         long insertId = database.insert(MySQLiteHelper.TABLE_ROUTINE, null, values);
@@ -351,7 +352,7 @@ public class MyDataSource {
         routine.setId(cursor.getLong(0));
         routine.setDayId(cursor.getLong(1));
         routine.setUserId(cursor.getLong(2));
-        routine.setChosenDay(cursor.getLong(3));
+        routine.setChosen(cursor.getInt(3) > 0);
         routine.setName(cursor.getString(4));
         return routine;
     }
@@ -492,6 +493,11 @@ public class MyDataSource {
             cursor.close();
             return null;
         }
+
+    }
+
+    // Need to implement this ***********
+    public Routine getRoutine(long userId, long dayId) {
 
     }
 

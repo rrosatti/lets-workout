@@ -5,7 +5,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewManager;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,7 +14,6 @@ import com.example.rodri.letsworkout.database.MyDataSource;
 import com.example.rodri.letsworkout.model.Day;
 import com.example.rodri.letsworkout.model.MuscleGroup;
 import com.example.rodri.letsworkout.model.Routine;
-import com.example.rodri.letsworkout.model.TrainingRoutine;
 
 import java.util.List;
 
@@ -101,7 +99,7 @@ public class TrainingRoutineAdapter extends ArrayAdapter<Routine> {
 
         }
 
-        if (routines.get(position).getChosenDay() != 0) {
+        if (routines.get(position).getChosen()) {
             v.setBackgroundColor(activity.getResources().getColor(R.color.background_chosen_routine));
         }
 
