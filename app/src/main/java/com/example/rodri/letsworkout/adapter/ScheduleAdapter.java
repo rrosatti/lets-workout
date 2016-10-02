@@ -67,19 +67,30 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyView
         // List<RoutineMuscleGroup> - muscle group name
         dataSource.open();
         Routine routine = dataSource.getRoutine(Authentication.getInstance().getUserId(), day.getId());
-        RoutineMuscleGroupSet muscleGroupSet = new RoutineMuscleGroupSet(routine.getId(), activity);
-        String muscleGroupNames = muscleGroupSet.getMuscleGroupNames();
 
-        holder.displayMuscleGroups.setText(muscleGroupNames);
+        if (routine != null) {
+            RoutineMuscleGroupSet muscleGroupSet = new RoutineMuscleGroupSet(routine.getId(), activity);
+            StringBuffer muscleGroupNames = muscleGroupSet.getMuscleGroupNames();
 
-        if (!routine.getName().equals("")) {
-            holder.displayRoutineName.setText(routine.getName());
-            holder.displayRoutineName.setWidth(0);
-            LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
-            p.weight = 1;
-            p.topMargin = 8;
-            holder.displayRoutineName.setLayoutParams(p);
+            holder.displayMuscleGroups.setText(muscleGroupNames);
+
+            if (!routine.getName().equals(day.getName())) {
+                holder.displayRoutineName.setText(routine.getName());
+                System.out.println("routine name: " + routine.getName());
+                /**holder.displayRoutineName.setHeight(0);
+                LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                p.weight = 1;
+                p.topMargin = 8;
+                holder.displayRoutineName.setLayoutParams(p);*/
+            } else {
+                holder.displayRoutineName.setHeight(0);
+                LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                p.topMargin = 0;
+                holder.displayRoutineName.setLayoutParams(p);
+            }
+
         }
 
     }

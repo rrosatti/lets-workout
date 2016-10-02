@@ -15,7 +15,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
@@ -31,8 +31,11 @@
                 <TextView
                     android:id="@+id/customScheduleItem_txtRoutineName"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_view_size_normal"/> <!-- Insert margin top programmatically -->
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="12dp"
+                    android:textSize="@dimen/text_view_size_normal"/>
 
                 <TextView
                     android:id="@+id/customScheduleItem_txtMuscleGroups"
@@ -41,6 +44,7 @@
                     android:layout_weight="1"
                     android:layout_gravity="center"
                     android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     android:textSize="@dimen/text_view_size_normal"/>
 
 

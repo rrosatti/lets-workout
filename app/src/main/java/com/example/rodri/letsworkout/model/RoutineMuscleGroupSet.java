@@ -16,11 +16,12 @@ public class RoutineMuscleGroupSet {
     private long dayId;
     private MyDataSource dataSource;
     private List<MuscleGroup> muscleGroups;
-    private String muscleGroupNames;
+    private StringBuffer muscleGroupNames;
 
     public RoutineMuscleGroupSet(long routineId, Activity activity) {
         this.routineId = routineId;
         this.dataSource = new MyDataSource(activity);
+        this.muscleGroupNames = new StringBuffer();
         getDataFromRoutineId();
     }
 
@@ -28,6 +29,7 @@ public class RoutineMuscleGroupSet {
         this.userId = userId;
         this.dayId = dayId;
         this.dataSource = new MyDataSource(activity);
+        this.muscleGroupNames = new StringBuffer();
         getDataFromUserAndDayId();
     }
 
@@ -35,9 +37,9 @@ public class RoutineMuscleGroupSet {
         dataSource.open();
         muscleGroups = dataSource.getMuscleGroups(routineId);
         for (int i = 0; i < muscleGroups.size(); i++) {
-            muscleGroupNames += muscleGroups.get(i).getName();
-            if (i < muscleGroups.size()) {
-                muscleGroupNames += " / ";
+            muscleGroupNames.append(muscleGroups.get(i).getName());
+            if (i < muscleGroups.size() - 1) {
+                muscleGroupNames.append(" / ");
             }
         }
         dataSource.close();
@@ -48,15 +50,15 @@ public class RoutineMuscleGroupSet {
         Routine routine = dataSource.getRoutine(userId, dayId);
         muscleGroups = dataSource.getMuscleGroups(routine.getId());
         for (int i = 0; i < muscleGroups.size(); i++) {
-            muscleGroupNames += muscleGroups.get(i).getName();
-            if (i < muscleGroups.size()) {
-                muscleGroupNames += " / ";
+            muscleGroupNames.append(muscleGroups.get(i).getName());
+            if (i < muscleGroups.size() - 1) {
+                muscleGroupNames.append(" / ");
             }
         }
         dataSource.close();
     }
 
-    public String getMuscleGroupNames() {
+    public StringBuffer getMuscleGroupNames() {
         return muscleGroupNames;
     }
 }
