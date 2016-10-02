@@ -498,7 +498,19 @@ public class MyDataSource {
 
     // Need to implement this ***********
     public Routine getRoutine(long userId, long dayId) {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_ROUTINE, routineColumns,
+                MySQLiteHelper.COLUMN_USER_ID + " = " + userId + " AND " + MySQLiteHelper.COLUMN_DAY_ID + " = " + dayId,
+                null, null, null, null, null);
 
+        if (!isCursorEmpty(cursor)) {
+            cursor.moveToFirst();
+            Routine routine = cursorToRoutine(cursor);
+            cursor.close();
+            return routine;
+        } else {
+            cursor.close();
+            return null;
+        }
     }
 
     public List<Routine> getRoutines(long userId) {

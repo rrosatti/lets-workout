@@ -5,12 +5,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.rodri.letsworkout.R;
 import com.example.rodri.letsworkout.database.MyDataSource;
+import com.example.rodri.letsworkout.model.Authentication;
 import com.example.rodri.letsworkout.model.Day;
 import com.example.rodri.letsworkout.model.Routine;
+import com.example.rodri.letsworkout.model.RoutineMuscleGroupSet;
 import com.example.rodri.letsworkout.model.TrainingRoutine;
 
 import java.util.List;
@@ -63,7 +66,31 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyView
         // Routine - routineName
         // List<RoutineMuscleGroup> - muscle group name
         dataSource.open();
-        Routine routine = dataSource.getRoutineByUserId()
+        Routine routine = dataSource.getRoutine(Authentication.getInstance().getUserId(), day.getId());
+        RoutineMuscleGroupSet muscleGroupSet = new RoutineMuscleGroupSet(routine.getId(), activity);
+        String muscleGroupNames = muscleGroupSet.getMuscleGroupNames();
 
+        holder.displayMuscleGroups.setText(muscleGroupNames);
+
+        if (!routine.getName().equals("")) {
+            holder.displayRoutineName.setText(routine.getName());
+            holder.displayRoutineName.setWidth(0);
+            LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            p.weight = 1;
+            p.topMargin = 8;
+            holder.displayRoutineName.setLayoutParams(p);
+        }
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return days.size();
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
     }
 }
