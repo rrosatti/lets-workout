@@ -99,7 +99,7 @@ public class TrainingRoutineAdapter extends ArrayAdapter<Routine> {
 
         }
 
-        if (routines.get(position).getChosen()) {
+        if (routines.get(position).getChosen() == 1) {
             v.setBackgroundColor(activity.getResources().getColor(R.color.background_chosen_routine));
         }
 

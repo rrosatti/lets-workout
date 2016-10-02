@@ -186,15 +186,15 @@ public class MyDataSource {
         return newBodyMeasure;
     }
 
-    public Routine createRoutine(long dayId, long userId, boolean chosen, String name) {
+    public Routine createRoutine(long dayId, long userId, long chosen, String name) {
         // Verify whether or not there is already a 'chosen' register
         // If so, then we set the value for chosen as false
         Cursor tempCursor = database.rawQuery("SELECT * FROM " + MySQLiteHelper.TABLE_ROUTINE +
                 " WHERE " + MySQLiteHelper.COLUMN_USER_ID + " = " + userId +
                 " AND " + MySQLiteHelper.COLUMN_DAY_ID  + " = " + dayId +
-                " AND " + MySQLiteHelper.COLUMN_CHOSEN + " = TRUE", null);
+                " AND " + MySQLiteHelper.COLUMN_CHOSEN + " = 1", null);
         if (!isCursorEmpty(tempCursor)) {
-            chosen = false;
+            chosen = 0;
         }
 
         ContentValues values = new ContentValues();
@@ -352,7 +352,7 @@ public class MyDataSource {
         routine.setId(cursor.getLong(0));
         routine.setDayId(cursor.getLong(1));
         routine.setUserId(cursor.getLong(2));
-        routine.setChosen(cursor.getInt(3) > 0);
+        routine.setChosen(cursor.getInt(3));
         routine.setName(cursor.getString(4));
         return routine;
     }

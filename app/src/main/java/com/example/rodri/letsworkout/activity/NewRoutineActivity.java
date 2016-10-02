@@ -220,7 +220,7 @@ public class NewRoutineActivity extends AppCompatActivity {
                             routineName = etRoutineName.getText().toString();
                         }
                         Routine routine = dataSource.createRoutine(selectedDay + 1, Authentication.getInstance().getUserId(),
-                                true, routineName);
+                                1, routineName);
 
                         // 3 this can be placed with step 1 (I guess)
                         for (ExerciseRepetition e: persistedExercises) {
