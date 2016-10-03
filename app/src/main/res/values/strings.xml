@@ -76,6 +76,7 @@
     <string name="button_start">Start</string>
     <string name="button_reset">Reset</string>
     <string name="button_stop">Stop</string>
+    <string name="button_plus_sign">+</string>
 
     <!-- TextView -->
     <string name="text_view_weight">Weight: </string>
@@ -94,6 +95,7 @@
     <string name="text_view_new_body_description">Write down your body measurements. (no need to fill all the fields)\n
 The values are in centimeters.</string>
     <string name="text_view_timer">00 : 00 : 00</string>
+    <string name="text_view_new_exercise">New Exercise</string>
 
     <!-- Arrays of exercises -->
     
@@ -184,5 +186,8 @@ The values are in centimeters.</string>
         <item>Shoulder Arnold Press</item>
         <item>Inverse Front Deltoid Raise</item>
     </string-array>
+
+    <!--  Check Box  -->
+    <string name="check_main_routine">Main Routine?</string>
 
 </resources>

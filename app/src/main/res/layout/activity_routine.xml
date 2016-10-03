@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/activityRoutine_appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <Toolbar
+            android:id="@+id/activityRoutine_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_scrollFlags="enterAlways|scroll"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/activityRoutine_appBarLayout">
+
+        <EditText
+            android:id="@+id/activityRoutine_etRoutineName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textStyle="italic"/>
+        
+        <LinearLayout
+            android:id="@+id/activityRoutine_linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@id/activityRoutine_etRoutineName"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/activityRoutine_spinnerDays"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/activityRoutine_txtMuscleGroupNames"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textStyle="italic"
+                android:textAlignment="center"
+                android:textSize="@dimen/text_view_size_normal"/>
+
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/activityRoutine_checkMainRoutine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/activityRoutine_linearLayout1"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:text="@string/check_main_routine"/>
+
+        <ListView
+            android:id="@+id/activityRoutine_listOfExercises"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/activityRoutine_checkMainRoutine"
+            android:layout_above="@+id/activityRoutine_relativeLayout"
+            android:layout_marginTop="10dp"
+            android:scrollbars="none"/>
+
+        <RelativeLayout
+            android:id="@+id/activityRoutine_relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <LinearLayout
+                android:id="@+id/activityRoutine_linearLayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_centerHorizontal="true">
+
+                <Button
+                    android:id="@+id/activityRoutine_btNewExercise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_plus_sign"
+                    android:padding="4dp" />
+
+                <TextView
+                    android:id="@+id/activityRoutine_txtNewExercise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/text_view_new_exercise"
+                    android:textSize="@dimen/text_view_size_normal"/>
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/activityRoutine_btConfirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/activityRoutine_linearLayout2"
+                android:layout_marginTop="10dp"
+                android:padding="4dp"
+                android:text="@string/button_confirm"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+    
+    
+</RelativeLayout>

@@ -14,7 +14,6 @@ import com.example.rodri.letsworkout.model.Authentication;
 import com.example.rodri.letsworkout.model.Day;
 import com.example.rodri.letsworkout.model.Routine;
 import com.example.rodri.letsworkout.model.RoutineMuscleGroupSet;
-import com.example.rodri.letsworkout.model.TrainingRoutine;
 
 import java.util.List;
 
@@ -40,6 +39,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyView
             displayMuscleGroups = (TextView) v.findViewById(R.id.customScheduleItem_txtMuscleGroups);
 
             // set on click listener goes here (I think so)
+            // create new Intent to ScheduleActivity
         }
 
     }
@@ -77,12 +77,6 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyView
             if (!routine.getName().equals(day.getName())) {
                 holder.displayRoutineName.setText(routine.getName());
                 System.out.println("routine name: " + routine.getName());
-                /**holder.displayRoutineName.setHeight(0);
-                LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-                p.weight = 1;
-                p.topMargin = 8;
-                holder.displayRoutineName.setLayoutParams(p);*/
             } else {
                 holder.displayRoutineName.setHeight(0);
                 LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
