@@ -1,6 +1,7 @@
 package com.example.rodri.letsworkout.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.rodri.letsworkout.R;
+import com.example.rodri.letsworkout.activity.RoutineActivity;
 import com.example.rodri.letsworkout.database.MyDataSource;
 import com.example.rodri.letsworkout.model.Authentication;
 import com.example.rodri.letsworkout.model.Day;
@@ -40,6 +42,13 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyView
 
             // set on click listener goes here (I think so)
             // create new Intent to ScheduleActivity
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(activity, RoutineActivity.class);
+                    activity.startActivity(i);
+                }
+            });
         }
 
     }
