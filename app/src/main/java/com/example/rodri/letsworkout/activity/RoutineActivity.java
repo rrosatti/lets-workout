@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.rodri.letsworkout.R;
+import com.example.rodri.letsworkout.database.MyDataSource;
 
 /**
  * Created by rodri on 10/4/2016.
@@ -27,12 +28,14 @@ public class RoutineActivity extends AppCompatActivity {
     private ListView listOfExercises;
     private Button btNewExercise;
     private Button btConfirm;
+    private MyDataSource dataSource;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_routine);
 
+        dataSource = new MyDataSource(this);
         iniViews();
 
         setSupportActionBar(toolbar);
@@ -43,6 +46,13 @@ public class RoutineActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        // Routine - routineName (Edit Text)
+        // Routine - dayId  / Day - list of days (Spinner)
+        // RoutineMuscleGroupSet - list of muscle groups (Text View)
+        // Routine - chosen (CheckBox)
+        // *** RoutineExercisesSet ??? - list of exercises (ListView)
+        // *** Need to study about SQLite Transactions
     }
 
     public void iniViews() {

@@ -32,6 +32,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyView
         public TextView displayDay;
         public TextView displayRoutineName;
         public TextView displayMuscleGroups;
+        public TextView dayId;
 
         public MyViewHolder(View v) {
             super(v);
@@ -39,16 +40,25 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyView
             displayDay = (TextView) v.findViewById(R.id.customScheduleItem_txtDay);
             displayRoutineName = (TextView) v.findViewById(R.id.customScheduleItem_txtRoutineName);
             displayMuscleGroups = (TextView) v.findViewById(R.id.customScheduleItem_txtMuscleGroups);
+            dayId = (TextView) v.findViewById(R.id.customScheduleItem_dayId);
 
             // set on click listener goes here (I think so)
             // create new Intent to ScheduleActivity
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(activity, RoutineActivity.class);
-                    activity.startActivity(i);
+
+                    if (dayId.getText().toString() != "") {
+                        Intent i = new Intent(activity, RoutineActivity.class);
+                        i.putExtra("userId", Authentication.getInstance().getUserId());
+                        i.putExtra("dayId", v.getId());
+                        System.out.println("V.getId() " + Long.valueOf(dayId.getText().toString()));
+                        activity.startActivity(i);
+                    }
                 }
             });
+
+
         }
 
     }
@@ -80,12 +90,11 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyView
         if (routine != null) {
             RoutineMuscleGroupSet muscleGroupSet = new RoutineMuscleGroupSet(routine.getId(), activity);
             StringBuffer muscleGroupNames = muscleGroupSet.getMuscleGroupNames();
-
             holder.displayMuscleGroups.setText(muscleGroupNames);
+            holder.dayId.setText(String.valueOf(day.getId()));
 
             if (!routine.getName().equals(day.getName())) {
                 holder.displayRoutineName.setText(routine.getName());
-                System.out.println("routine name: " + routine.getName());
             } else {
                 holder.displayRoutineName.setHeight(0);
                 LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,

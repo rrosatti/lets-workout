@@ -47,6 +47,10 @@
                     android:layout_marginBottom="5dp"
                     android:textSize="@dimen/text_view_size_normal"/>
 
+                <TextView
+                    android:id="@+id/customScheduleItem_dayId"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" />
 
             </LinearLayout>
 
