@@ -51,8 +51,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyView
                     if (dayId.getText().toString() != "") {
                         Intent i = new Intent(activity, RoutineActivity.class);
                         i.putExtra("userId", Authentication.getInstance().getUserId());
-                        i.putExtra("dayId", v.getId());
-                        System.out.println("V.getId() " + Long.valueOf(dayId.getText().toString()));
+                        i.putExtra("dayId", Long.valueOf(dayId.getText().toString()));
                         activity.startActivity(i);
                     }
                 }

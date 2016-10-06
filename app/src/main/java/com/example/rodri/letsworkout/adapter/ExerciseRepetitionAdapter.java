@@ -6,15 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.rodri.letsworkout.R;
 import com.example.rodri.letsworkout.database.MyDataSource;
+import com.example.rodri.letsworkout.interfaces.DataTransferInterface;
 import com.example.rodri.letsworkout.model.Exercise;
 import com.example.rodri.letsworkout.model.ExerciseRepetition;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,6 +27,8 @@ public class ExerciseRepetitionAdapter extends ArrayAdapter<ExerciseRepetition> 
     private List<ExerciseRepetition> exercises;
     private LayoutInflater inflater = null;
     private MyDataSource dataSource;
+    DataTransferInterface dtTransferInterface;
+    private List<ExerciseRepetition> removedExercises;
 
     public ExerciseRepetitionAdapter(Activity activity, int textViewResourceId, List<ExerciseRepetition> exercises) {
         super(activity, textViewResourceId, exercises);
@@ -33,11 +36,18 @@ public class ExerciseRepetitionAdapter extends ArrayAdapter<ExerciseRepetition> 
             this.activity = activity;
             this.exercises = exercises;
             this.dataSource = new MyDataSource(activity.getApplicationContext());
+            this.removedExercises = new ArrayList<>();
 
             inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public ExerciseRepetitionAdapter(Activity activity, int textViewResourceId, List<ExerciseRepetition> exercises,
+                                     DataTransferInterface dtTransferInterface) {
+        this (activity, textViewResourceId, exercises);
+        this.dtTransferInterface = dtTransferInterface;
     }
 
     @Override
@@ -92,7 +102,9 @@ public class ExerciseRepetitionAdapter extends ArrayAdapter<ExerciseRepetition> 
         holder.displayRemoveExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                removedExercises.add(exercises.get(position));
                 exercises.remove(position);
+                dtTransferInterface.setValues(removedExercises);
                 notifyDataSetChanged();
             }
         });

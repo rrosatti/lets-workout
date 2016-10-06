@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.example.rodri.letsworkout.database.MyDataSource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,6 +31,8 @@ public class RoutineExercisesSet {
         dataSource.open();
         routine = dataSource.getRoutine(Authentication.getInstance().getUserId(), dayId);
         routineExercises = dataSource.getRoutineExercises(routineId);
+        exerciseRepetitions = new ArrayList<>();
+        exercises = new ArrayList<>();
         for (int i = 0; i < routineExercises.size(); i++) {
             long exerciseRepetitionId = routineExercises.get(i).getExerciseRepetitionId();
             exerciseRepetitions.add(dataSource.getExerciseRepetition(exerciseRepetitionId));
