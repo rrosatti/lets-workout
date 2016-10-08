@@ -61,4 +61,6 @@ public class RoutineMuscleGroupSet {
     public StringBuffer getMuscleGroupNames() {
         return muscleGroupNames;
     }
+
+    public List<MuscleGroup> getMuscleGroups() { return muscleGroups; }
 }

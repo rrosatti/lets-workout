@@ -1,6 +1,6 @@
 package com.example.rodri.letsworkout.activity;
 
-import android.content.Intent;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +14,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +23,9 @@ import com.example.rodri.letsworkout.adapter.ExerciseRepetitionAdapter;
 import com.example.rodri.letsworkout.database.MyDataSource;
 import com.example.rodri.letsworkout.interfaces.DataTransferInterface;
 import com.example.rodri.letsworkout.model.Day;
+import com.example.rodri.letsworkout.model.Exercise;
 import com.example.rodri.letsworkout.model.ExerciseRepetition;
+import com.example.rodri.letsworkout.model.MuscleGroup;
 import com.example.rodri.letsworkout.model.Routine;
 import com.example.rodri.letsworkout.model.RoutineExercisesSet;
 import com.example.rodri.letsworkout.model.RoutineMuscleGroupSet;
@@ -45,6 +48,12 @@ public class RoutineActivity extends AppCompatActivity implements DataTransferIn
     private Button btNewExercise;
     private Button btConfirm;
 
+    // Exercises Dialog Objects
+    private Spinner exercisesSpinner;
+    private EditText etSets;
+    private EditText etReps;
+    private Button btAddNewExercise;
+
     // Other variables
     private MyDataSource dataSource;
     private Routine routine;
@@ -56,7 +65,12 @@ public class RoutineActivity extends AppCompatActivity implements DataTransferIn
     private long dayId;
     private long newDayId = -1;
     private boolean checked = true;
+    private List<ExerciseRepetition> exerciseRepetitions = new ArrayList<>();
     private List<ExerciseRepetition> removedExercises = new ArrayList<>();
+    private List<Exercise> allExercises = new ArrayList<>();
+    private List<String> exercisesByName = new ArrayList<>();
+    private List<MuscleGroup> muscleGroups = new ArrayList<>();
+    private int selectedExercise = -1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -94,8 +108,9 @@ public class RoutineActivity extends AppCompatActivity implements DataTransferIn
                 checkMainRoutine.setChecked(true);
             }
 
+            exerciseRepetitions = exercisesSet.getExerciseRepetitions();
             exerciseRepetitionAdapter = new ExerciseRepetitionAdapter(RoutineActivity.this, 0,
-                    exercisesSet.getExerciseRepetitions(), this);
+                    exerciseRepetitions, this);
             listOfExercises.setAdapter(exerciseRepetitionAdapter);
 
             btConfirm.setOnClickListener(new View.OnClickListener() {
@@ -129,6 +144,76 @@ public class RoutineActivity extends AppCompatActivity implements DataTransferIn
                 }
             });
 
+            btNewExercise.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final Dialog dialog = new Dialog(RoutineActivity.this);
+                    dialog.setContentView(R.layout.dialog_exercise_repetition);
+                    dialog.setTitle("New Exercise");
+
+                    exercisesSpinner = (Spinner) dialog.findViewById(R.id.dialogExerciseRepetition_spinnerExercises);
+                    etSets = (EditText) dialog.findViewById(R.id.dialogExerciseRepetition_etSets);
+                    etReps = (EditText) dialog.findViewById(R.id.dialogExerciseRepetition_etReps);
+                    btAddNewExercise = (Button) dialog.findViewById(R.id.dialogExerciseRepetition_btConfirm);
+
+                    dataSource.open();
+                    muscleGroups = muscleGroupSet.getMuscleGroups();
+                    List<Exercise> auxExercises = new ArrayList<>();
+                    for (int i = 0; i < muscleGroups.size(); i++) {
+                        auxExercises = dataSource.getExercises(muscleGroups.get(i).getId());
+                        allExercises.addAll(auxExercises);
+
+                        for (Exercise e: auxExercises) {
+                            exercisesByName.add(e.getName());
+                        }
+                    }
+                    dataSource.close();
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(RoutineActivity.this,
+                            android.R.layout.simple_spinner_item, exercisesByName);
+                    exercisesSpinner.setAdapter(adapter);
+
+                    exercisesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            selectedExercise = position;
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+
+                    btAddNewExercise.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String sets = etSets.getText().toString();
+                            String reps = etReps.getText().toString();
+
+                            if(sets.equals("")) {
+                                Toast.makeText(RoutineActivity.this, R.string.toast_sets_field_empty, Toast.LENGTH_SHORT).show();
+                            } else if (reps.equals("")) {
+                                Toast.makeText(RoutineActivity.this, R.string.toast_reps_field_empty, Toast.LENGTH_SHORT).show();
+                            } else {
+                                ExerciseRepetition exerciseRepetition = new ExerciseRepetition();
+                                exerciseRepetition.setExerciseId(allExercises.get(selectedExercise).getId());
+                                exerciseRepetition.setSets(Integer.parseInt(sets));
+                                exerciseRepetition.setReps(Integer.parseInt(reps));
+                                exerciseRepetitions.add(exerciseRepetition);
+                                exerciseRepetitionAdapter.notifyDataSetChanged();
+                            }
+
+
+                            dialog.cancel();
+                        }
+                    });
+
+                    dialog.show();
+
+                }
+            });
+
         }
 
         setSupportActionBar(toolbar);
@@ -144,7 +229,7 @@ public class RoutineActivity extends AppCompatActivity implements DataTransferIn
         // Routine - dayId  / Day - list of days (Spinner)
         // RoutineMuscleGroupSet - list of muscle groups (Text View)
         // Routine - chosen (CheckBox)
-        // *** RoutineExercisesSet ??? - list of exercises (ListView)
+        // *** RoutineExercisesSet ??? - list of allExercises (ListView)
         // *** Need to study about SQLite Transactions
     }
 

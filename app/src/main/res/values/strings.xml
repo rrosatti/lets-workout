@@ -64,6 +64,8 @@
     <string name="hint_login">login</string>
     <string name="hint_muscle_group">muscle group</string>
     <string name="hint_routine_name">Set a name (optional)</string>
+    <string name="hint_sets">Sets</string>
+    <string name="hint_reps">Reps</string>
 
     <!-- Buttons -->
     <string name="button_login">Login</string>
