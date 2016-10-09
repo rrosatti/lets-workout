@@ -1,6 +1,8 @@
 package com.example.rodri.letsworkout.activity;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -64,9 +66,10 @@ public class RoutineActivity extends AppCompatActivity implements DataTransferIn
     private long userId;
     private long dayId;
     private long newDayId = -1;
-    private boolean checked = true;
+    private int chosen;
     private List<ExerciseRepetition> exerciseRepetitions = new ArrayList<>();
     private List<ExerciseRepetition> removedExercises = new ArrayList<>();
+    private List<ExerciseRepetition> newExercises = new ArrayList<>();
     private List<Exercise> allExercises = new ArrayList<>();
     private List<String> exercisesByName = new ArrayList<>();
     private List<MuscleGroup> muscleGroups = new ArrayList<>();
@@ -90,6 +93,7 @@ public class RoutineActivity extends AppCompatActivity implements DataTransferIn
             muscleGroupSet = new RoutineMuscleGroupSet(routine.getId(), RoutineActivity.this);
             days = dataSource.getDays();
             dataSource.close();
+            chosen = routine.getChosen();
 
             String[] daysArray = new String[days.size()];
             for (int i = 0; i < days.size(); i++) {
@@ -113,14 +117,6 @@ public class RoutineActivity extends AppCompatActivity implements DataTransferIn
                     exerciseRepetitions, this);
             listOfExercises.setAdapter(exerciseRepetitionAdapter);
 
-            btConfirm.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(RoutineActivity.this, "YEAH!!", Toast.LENGTH_LONG).show();
-                }
-            });
-
-
 
             // --- GET CHANGED DATA
 
@@ -139,8 +135,12 @@ public class RoutineActivity extends AppCompatActivity implements DataTransferIn
             checkMainRoutine.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    checked = isChecked;
-                    Toast.makeText(RoutineActivity.this, "Check is " + checked, Toast.LENGTH_SHORT).show();
+                    if(isChecked) {
+                        chosen = 1;
+                    } else {
+                        chosen = 0;
+                    }
+
                 }
             });
 
@@ -158,7 +158,7 @@ public class RoutineActivity extends AppCompatActivity implements DataTransferIn
 
                     dataSource.open();
                     muscleGroups = muscleGroupSet.getMuscleGroups();
-                    List<Exercise> auxExercises = new ArrayList<>();
+                    List<Exercise> auxExercises;
                     for (int i = 0; i < muscleGroups.size(); i++) {
                         auxExercises = dataSource.getExercises(muscleGroups.get(i).getId());
                         allExercises.addAll(auxExercises);
@@ -201,16 +201,136 @@ public class RoutineActivity extends AppCompatActivity implements DataTransferIn
                                 exerciseRepetition.setSets(Integer.parseInt(sets));
                                 exerciseRepetition.setReps(Integer.parseInt(reps));
                                 exerciseRepetitions.add(exerciseRepetition);
+                                newExercises.add(exerciseRepetition);
                                 exerciseRepetitionAdapter.notifyDataSetChanged();
+
+                                dialog.cancel();
                             }
 
 
-                            dialog.cancel();
+
                         }
                     });
 
                     dialog.show();
 
+                }
+            });
+
+
+            btConfirm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    // 1 - check routine name
+                    // 2 - check day
+                    // 3 - check 'check box'
+                    // 4 - check if there is a new exercise or any of the previous ones was removed
+                    //
+                    // Possible changed tables:
+                    //
+                    // Routine (routine name, day id, chosen)
+                    // ExerciseRepetition (sets, reps, )
+                    // RoutineExercises (routineExerciseId, )
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RoutineActivity.this);
+
+                    builder.setMessage("Are you sure you want to save the changes?");
+
+                    builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(RoutineActivity.this, "YEAH!!", Toast.LENGTH_LONG).show();
+
+                            dataSource.open();
+
+                            // 1 - Check all data related to the Routine table
+                            String routineName = etRoutineName.getText().toString();
+                            if (!routineName.equals(routine.getName())) {
+                                routine.setName(routineName);
+                            }
+                            if (routine.getDayId() != newDayId) {
+                                routine.setDayId(newDayId);
+                            }
+                            if (routine.getChosen() != chosen) {
+                                routine.setChosen(chosen);
+                            }
+
+                            // 2 - Check if there are new exercises
+                            // P.S. 1 - If the user add a new exercise and then later remove the same exercise, the newExercises
+                            //          list won't be notified. That's why we need to remove it manually.
+                            // P.S. 2 - I need the ID of the exercises in order to remove them. If happened the case above, then we
+                            //          don't have this ID. So, I also save the position of this exercise in the array (newExercisesRemoved)
+                            //          and also remove them manually.
+                            //
+                            // Possible solution for this problem: set a random value(-1) when user add a new exercise.
+                            boolean areThereNewExercises = false;
+                            if (newExercises.size() != 0) {
+                                int[] newExercisesRemoved = new int[newExercises.size()];
+                                int count = 0;
+
+                                for (int i = 0; i < removedExercises.size(); i++) {
+                                    if (newExercises.contains(removedExercises.get(i))) {
+                                        newExercisesRemoved[count++] = i;
+                                        newExercises.remove(removedExercises.get(i));
+                                    }
+                                }
+
+                                if (newExercises.size() != 0) areThereNewExercises = true;
+
+                                for (int i = 0; i < count; i++) {
+                                    removedExercises.remove(newExercisesRemoved[i]);
+                                }
+                            }
+
+                            // 3 - Check if any of the exercises was removed
+                            boolean areThereRemovedExercises = false;
+                            if (removedExercises.size() != 0) {
+                                areThereRemovedExercises = true;
+                            }
+
+                            dataSource.beginTransaction();
+                            try {
+                                dataSource.updateRoutine(routine.getId(), routine.getDayId(), routine.getUserId(),
+                                        routine.getChosen(), routine.getName());
+
+                                if (areThereNewExercises) {
+                                    for (ExerciseRepetition er: newExercises) {
+                                        ExerciseRepetition newExerciseRepetition =
+                                                dataSource.createExerciseRepetition(er.getExerciseId(), er.getSets(), er.getReps());
+                                        dataSource.createRoutineExercises(routine.getId(), newExerciseRepetition.getExerciseId());
+                                    }
+                                }
+
+                                if (areThereRemovedExercises) {
+                                    for (ExerciseRepetition er: removedExercises) {
+                                        dataSource.deleteExerciseRepetition(er.getId());
+                                        dataSource.deleteRoutineExercise(routine.getId(), er.getId());
+                                    }
+                                }
+
+                                dataSource.setTransactionSuccessful();
+                            } catch (Exception e) {
+
+                            } finally {
+                                dataSource.endTransaction();
+                            }
+
+
+
+                            dataSource.close();
+                        }
+                    });
+
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
             });
 

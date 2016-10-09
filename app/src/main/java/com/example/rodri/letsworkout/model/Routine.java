@@ -8,12 +8,12 @@ public class Routine {
     private long id;
     private long dayId;
     private long userId;
-    private long chosen;
+    private int chosen;
     private String name;
 
     public Routine() {}
 
-    public Routine(long id, long dayId, long userId, long chosen, String name) {
+    public Routine(long id, long dayId, long userId, int chosen, String name) {
         this.id = id;
         this.dayId = dayId;
         this.userId = userId;
@@ -31,7 +31,7 @@ public class Routine {
 
     public long getUserId() { return userId; }
 
-    public long getChosen() { return chosen; }
+    public int getChosen() { return chosen; }
 
     public String getName() { return name; }
 
@@ -45,7 +45,7 @@ public class Routine {
 
     public void setUserId(long userId) { this.userId = userId; }
 
-    public void setChosen(long chosen) { this.chosen = chosen; }
+    public void setChosen(int chosen) { this.chosen = chosen; }
 
     public void setName(String name) { this.name = name; }
 

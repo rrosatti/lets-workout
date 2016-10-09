@@ -815,9 +815,12 @@ public class MyDataSource {
         database.update(MySQLiteHelper.TABLE_BODY_MEASURE, values, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 
-    public void updateRoutine(long id, long dayId){
+    public void updateRoutine(long id, long dayId, long userId, int chosen, String name){
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_DAY_ID, dayId);
+        values.put(MySQLiteHelper.COLUMN_USER_ID, userId);
+        values.put(MySQLiteHelper.COLUMN_CHOSEN, chosen);
+        values.put(MySQLiteHelper.KEY_NAME, name);
         database.update(MySQLiteHelper.TABLE_ROUTINE, values, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 
@@ -852,6 +855,13 @@ public class MyDataSource {
     public void deleteRoutineMuscleGroup(long id) {
         System.out.println("The routine muscle group with the id " + id + "will be deleted!");
         database.delete(MySQLiteHelper.TABLE_ROUTINE_MUSCLE_GROUP, MySQLiteHelper.KEY_ID + " = " + id, null);
+    }
+
+    public void deleteRoutineExercise(long routineId, long exerciseRepetitionId) {
+        System.out.println("The routine with the id " + routineId +
+                " and exercise repetition id " + exerciseRepetitionId + " will be deleted!");
+        database.delete(MySQLiteHelper.TABLE_ROUTINE_EXERCISES, MySQLiteHelper.COLUMN_ROUTINE_ID + " = " + routineId +
+                " AND " + MySQLiteHelper.COLUMN_EXERCISE_REPETITION_ID + " = " + exerciseRepetitionId, null);
     }
 
     /** ----------  OTHER  ---------- */
@@ -894,6 +904,20 @@ public class MyDataSource {
             return -1;
         }
 
+    }
+
+    /**  ----------  TRANSACTION METHODS  ----------   */
+
+    public void beginTransaction() {
+        database.beginTransaction();
+    }
+
+    public void endTransaction() {
+        database.endTransaction();
+    }
+
+    public void setTransactionSuccessful() {
+        database.setTransactionSuccessful();
     }
 
 }
