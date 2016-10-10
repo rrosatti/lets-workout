@@ -1,5 +1,6 @@
 package com.example.rodri.letsworkout.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -161,6 +162,7 @@ public class RoutineActivity extends AppCompatActivity implements DataTransferIn
                     List<Exercise> auxExercises;
                     for (int i = 0; i < muscleGroups.size(); i++) {
                         auxExercises = dataSource.getExercises(muscleGroups.get(i).getId());
+                        System.out.println("Muscle group: " + muscleGroups.get(i).getName());
                         allExercises.addAll(auxExercises);
 
                         for (Exercise e: auxExercises) {
@@ -198,6 +200,8 @@ public class RoutineActivity extends AppCompatActivity implements DataTransferIn
                             } else {
                                 ExerciseRepetition exerciseRepetition = new ExerciseRepetition();
                                 exerciseRepetition.setExerciseId(allExercises.get(selectedExercise).getId());
+                                //System.out.println("Selected exercise: " + allExercises.get(selectedExercise).getName()
+                                //        + " id: " + allExercises.get(selectedExercise).getId());
                                 exerciseRepetition.setSets(Integer.parseInt(sets));
                                 exerciseRepetition.setReps(Integer.parseInt(reps));
                                 exerciseRepetitions.add(exerciseRepetition);
@@ -240,8 +244,6 @@ public class RoutineActivity extends AppCompatActivity implements DataTransferIn
                     builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(RoutineActivity.this, "YEAH!!", Toast.LENGTH_LONG).show();
-
                             dataSource.open();
 
                             // 1 - Check all data related to the Routine table
@@ -298,7 +300,9 @@ public class RoutineActivity extends AppCompatActivity implements DataTransferIn
                                     for (ExerciseRepetition er: newExercises) {
                                         ExerciseRepetition newExerciseRepetition =
                                                 dataSource.createExerciseRepetition(er.getExerciseId(), er.getSets(), er.getReps());
-                                        dataSource.createRoutineExercises(routine.getId(), newExerciseRepetition.getExerciseId());
+                                        System.out.println("id: " + er.getExerciseId() + " sets: " + er.getSets()
+                                                + " reps: " + er.getReps());
+                                        dataSource.createRoutineExercises(routine.getId(), newExerciseRepetition.getId());
                                     }
                                 }
 
@@ -310,14 +314,15 @@ public class RoutineActivity extends AppCompatActivity implements DataTransferIn
                                 }
 
                                 dataSource.setTransactionSuccessful();
+                                setResult(Activity.RESULT_OK);
+                                finish();
                             } catch (Exception e) {
 
                             } finally {
                                 dataSource.endTransaction();
                             }
 
-
-
+                            //Toast.makeText(RoutineActivity.this, "YEAH!!", Toast.LENGTH_LONG).show();
                             dataSource.close();
                         }
                     });

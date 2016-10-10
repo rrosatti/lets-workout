@@ -2,6 +2,7 @@ package com.example.rodri.letsworkout.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyView
 
     private Activity activity;
     private List<Day> days;
+    private Fragment fragment;
     private MyDataSource dataSource;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -52,7 +54,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyView
                         Intent i = new Intent(activity, RoutineActivity.class);
                         i.putExtra("userId", Authentication.getInstance().getUserId());
                         i.putExtra("dayId", Long.valueOf(dayId.getText().toString()));
-                        activity.startActivity(i);
+                        fragment.startActivityForResult(i, 1);
                     }
                 }
             });
@@ -63,9 +65,10 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyView
     }
 
 
-    public ScheduleAdapter(Activity activity, List<Day> days) {
+    public ScheduleAdapter(Activity activity, List<Day> days, Fragment fragment) {
         this.activity = activity;
         this.days = days;
+        this.fragment = fragment;
         this.dataSource = new MyDataSource(activity);
     }
 

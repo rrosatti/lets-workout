@@ -1,5 +1,7 @@
 package com.example.rodri.letsworkout.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.rodri.letsworkout.R;
 import com.example.rodri.letsworkout.adapter.ScheduleAdapter;
@@ -40,10 +43,8 @@ public class ScheduleFragment extends Fragment {
 
         scheduleList = (RecyclerView) view.findViewById(R.id.fragmentSchedule_listSchedule);
         getDays();
-        adapter = new ScheduleAdapter(getActivity(), days);
-        scheduleList.setAdapter(adapter);
-        layoutManager = new LinearLayoutManager(getContext());
-        scheduleList.setLayoutManager(layoutManager);
+        fillList();
+
     }
 
     public void getDays() {
@@ -51,5 +52,27 @@ public class ScheduleFragment extends Fragment {
         dataSource.open();
         days = dataSource.getDays();
         dataSource.close();
+    }
+
+    public void fillList() {
+        adapter = new ScheduleAdapter(getActivity(), days, this);
+        scheduleList.setAdapter(adapter);
+        layoutManager = new LinearLayoutManager(getContext());
+        scheduleList.setLayoutManager(layoutManager);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            switch (resultCode) {
+                case Activity.RESULT_OK: {
+                    Toast.makeText(getActivity(), "I've been here!", Toast.LENGTH_SHORT).show();
+                    getDays();
+                    fillList();
+                    break;
+                }
+            }
+        }
     }
 }

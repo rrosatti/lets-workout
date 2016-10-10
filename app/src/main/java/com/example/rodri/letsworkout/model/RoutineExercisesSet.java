@@ -33,7 +33,10 @@ public class RoutineExercisesSet {
         routineExercises = dataSource.getRoutineExercises(routineId);
         exerciseRepetitions = new ArrayList<>();
         exercises = new ArrayList<>();
+        System.out.println("routineExercises . size() " + routineExercises.size());
         for (int i = 0; i < routineExercises.size(); i++) {
+            System.out.println("exercise repetition id: " + routineExercises.get(i).getExerciseRepetitionId() +
+            " routine id: " + routineExercises.get(i).getRoutineId());
             long exerciseRepetitionId = routineExercises.get(i).getExerciseRepetitionId();
             exerciseRepetitions.add(dataSource.getExerciseRepetition(exerciseRepetitionId));
             long exerciseId = exerciseRepetitions.get(i).getExerciseId();
