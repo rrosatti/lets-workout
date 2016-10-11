@@ -18,28 +18,48 @@
 
     </android.support.design.widget.AppBarLayout>
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="20dp"
         android:layout_below="@id/activityRoutine_appBarLayout">
 
-        <EditText
-            android:id="@+id/activityRoutine_etRoutineName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:textStyle="italic"/>
-        
+
         <LinearLayout
             android:id="@+id/activityRoutine_linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/activityRoutine_etRoutineName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:layout_margin="10dp"
+                android:textStyle="italic"/>
+
+            <Button
+                android:id="@+id/activityRoutine_btDeleteRoutine"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:text="@string/button_delete_routine"
+                android:padding="4dp"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/activityRoutine_linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_below="@id/activityRoutine_etRoutineName"
+            android:layout_below="@id/activityRoutine_linearLayout1"
             android:orientation="horizontal">
 
             <Spinner
@@ -63,7 +83,7 @@
             android:id="@+id/activityRoutine_checkMainRoutine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/activityRoutine_linearLayout1"
+            android:layout_below="@+id/activityRoutine_linearLayout2"
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
             android:text="@string/check_main_routine"/>
@@ -84,7 +104,7 @@
             android:layout_alignParentBottom="true">
 
             <LinearLayout
-                android:id="@+id/activityRoutine_linearLayout2"
+                android:id="@+id/activityRoutine_linearLayout3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -112,7 +132,7 @@
                 android:id="@+id/activityRoutine_btConfirm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/activityRoutine_linearLayout2"
+                android:layout_below="@+id/activityRoutine_linearLayout3"
                 android:layout_marginTop="10dp"
                 android:padding="4dp"
                 android:text="@string/button_confirm"/>
@@ -120,6 +140,6 @@
         </RelativeLayout>
 
     </RelativeLayout>
-    
+
     
 </RelativeLayout>

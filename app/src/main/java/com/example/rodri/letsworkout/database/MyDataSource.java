@@ -847,7 +847,7 @@ public class MyDataSource {
         database.delete(MySQLiteHelper.TABLE_BODY_MEASURE, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 
-    public void deleteRoutine(long id) {
+    public void deleteRoutineOld(long id) {
         System.out.println("The routine with the id " + id + " will be deleted!");
         database.delete(MySQLiteHelper.TABLE_ROUTINE, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
@@ -862,6 +862,51 @@ public class MyDataSource {
                 " and exercise repetition id " + exerciseRepetitionId + " will be deleted!");
         database.delete(MySQLiteHelper.TABLE_ROUTINE_EXERCISES, MySQLiteHelper.COLUMN_ROUTINE_ID + " = " + routineId +
                 " AND " + MySQLiteHelper.COLUMN_EXERCISE_REPETITION_ID + " = " + exerciseRepetitionId, null);
+    }
+
+    /**
+     *
+     * 1 - Remove routine_muscle_group
+     * 2 - Get all exercise_repetitions
+     *  2.1 - Remove them
+     * 3 - Remove routine_exercises
+     * 4 - Remove routine
+     *
+     * @param routineId
+     */
+    public boolean deleteRoutine(long routineId) {
+        System.out.println("The routine with the id " + routineId + " will be deleted!");
+        database.beginTransaction();
+        try {
+           int rows = database.delete(MySQLiteHelper.TABLE_ROUTINE_MUSCLE_GROUP,
+                   MySQLiteHelper.COLUMN_ROUTINE_ID + " = " + routineId, null);
+            if (rows > 0) {
+                database.execSQL("DELETE FROM " + MySQLiteHelper.TABLE_EXERCISE_REPETITION +
+                        " WHERE " + MySQLiteHelper.KEY_ID + " IN " +
+                                "(SELECT " + MySQLiteHelper.COLUMN_EXERCISE_REPETITION_ID + " FROM " + MySQLiteHelper.TABLE_ROUTINE_EXERCISES +
+                                " WHERE " + MySQLiteHelper.COLUMN_ROUTINE_ID + " = " + routineId + ");");
+                rows = database.delete(MySQLiteHelper.TABLE_ROUTINE_EXERCISES, MySQLiteHelper.COLUMN_ROUTINE_ID + " = " + routineId, null);
+                if (rows > 0) {
+                    rows = database.delete(MySQLiteHelper.TABLE_ROUTINE, MySQLiteHelper.KEY_ID + " = " + routineId, null);
+                    if (rows > 0) {
+                        database.setTransactionSuccessful();
+                        return true;
+                    } else {
+                        database.endTransaction();
+                    }
+                } else {
+                    database.endTransaction();
+                }
+            } else {
+                database.endTransaction();
+            }
+        } catch (Exception e) {
+
+        } finally {
+            database.endTransaction();
+        }
+
+        return false;
     }
 
     /** ----------  OTHER  ---------- */
