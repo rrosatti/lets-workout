@@ -67,6 +67,7 @@ public class RoutineActivity extends AppCompatActivity implements DataTransferIn
     private ExerciseRepetitionAdapter exerciseRepetitionAdapter;
     private long userId;
     private long dayId;
+    private long routineId;
     private long newDayId = -1;
     private int chosen;
     private List<ExerciseRepetition> exerciseRepetitions = new ArrayList<>();
@@ -87,11 +88,18 @@ public class RoutineActivity extends AppCompatActivity implements DataTransferIn
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            userId = extras.getLong("userId");
-            dayId = extras.getLong("dayId");
+            userId = extras.getLong("userId", -1);
+            dayId = extras.getLong("dayId", -1);
+            routineId = extras.getLong("routineId", -1);
             dataSource.open();
-            routine = dataSource.getRoutine(userId, dayId);
-            exercisesSet = new RoutineExercisesSet(routine.getId(), dayId, RoutineActivity.this);
+            if (routineId != -1) {
+                routine = dataSource.getRoutine(routineId);
+                exercisesSet = new RoutineExercisesSet(routineId, routine.getDayId(), RoutineActivity.this);
+                dayId = routine.getDayId();
+            } else {
+                routine = dataSource.getRoutine(userId, dayId);
+                exercisesSet = new RoutineExercisesSet(routine.getId(), dayId, RoutineActivity.this);
+            }
             muscleGroupSet = new RoutineMuscleGroupSet(routine.getId(), RoutineActivity.this);
             days = dataSource.getDays();
             dataSource.close();
@@ -258,6 +266,7 @@ public class RoutineActivity extends AppCompatActivity implements DataTransferIn
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setResult(Activity.RESULT_CANCELED);
                 finish();
             }
         });

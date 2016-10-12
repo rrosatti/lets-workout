@@ -2,15 +2,20 @@ package com.example.rodri.letsworkout.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.rodri.letsworkout.R;
+import com.example.rodri.letsworkout.activity.RoutineActivity;
 import com.example.rodri.letsworkout.database.MyDataSource;
+import com.example.rodri.letsworkout.model.Authentication;
 import com.example.rodri.letsworkout.model.Day;
 import com.example.rodri.letsworkout.model.MuscleGroup;
 import com.example.rodri.letsworkout.model.Routine;
@@ -26,13 +31,15 @@ public class TrainingRoutineAdapter extends ArrayAdapter<Routine> {
     private List<Routine> routines;
     private LayoutInflater inflater = null;
     private MyDataSource dataSource;
+    private Fragment fragment;
 
-    public TrainingRoutineAdapter(Activity activity, int textViewResourceId, List<Routine> routines) {
+    public TrainingRoutineAdapter(Activity activity, int textViewResourceId, List<Routine> routines, Fragment fragment) {
         super(activity, textViewResourceId, routines);
         try {
             this.activity = activity;
             this.routines = routines;
             this.dataSource = new MyDataSource(activity);
+            this.fragment = fragment;
 
             inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         } catch (Exception e) {
@@ -74,7 +81,7 @@ public class TrainingRoutineAdapter extends ArrayAdapter<Routine> {
         // 2 - In Routine we have the id (routine ID)
         //      2.1 - Get the correct Muscle Groups according to id (dataSource)
         long dayId = routines.get(position).getDayId();
-        long routineId = routines.get(position).getId();
+        final long routineId = routines.get(position).getId();
         dataSource.open();
         Day day = dataSource.getDay(dayId);
         List<MuscleGroup> muscleGroups = dataSource.getMuscleGroups(routineId);
@@ -105,6 +112,15 @@ public class TrainingRoutineAdapter extends ArrayAdapter<Routine> {
 
         holder.displayDay.setText(day.getName());
         holder.displayMuscleGroup.setText(muscleGroupNames);
+
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(activity, RoutineActivity.class);
+                i.putExtra("routineId", routineId);
+                fragment.startActivityForResult(i, 2);
+            }
+        });
 
         return v;
     }

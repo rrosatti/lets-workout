@@ -1,5 +1,6 @@
 package com.example.rodri.letsworkout.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.rodri.letsworkout.R;
 import com.example.rodri.letsworkout.activity.NewRoutineActivity;
@@ -42,19 +44,51 @@ public class TrainingRoutineFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), NewRoutineActivity.class);
-                startActivity(i);
+                startActivityForResult(i, 3);
             }
         });
 
         dataSource = new MyDataSource(getActivity());
-        dataSource.open();
 
-        routines = dataSource.getRoutines(Authentication.getInstance().getUserId());
-        if (routines != null) {
-            adapter = new TrainingRoutineAdapter(getActivity(), 0, routines);
-            listOfRoutines.setAdapter(adapter);
-        }
+        getRoutines();
+
 
         return v;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 2: {
+                switch (resultCode) {
+                    case Activity.RESULT_OK: {
+                        Toast.makeText(getActivity(), "Yeah, it worked!", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+                break;
+            }
+            case 3: {
+                switch (resultCode) {
+                    case Activity.RESULT_OK: {
+                        getRoutines();
+                        break;
+                    }
+                }
+
+                break;
+            }
+
+        }
+    }
+
+    public void getRoutines() {
+        dataSource.open();
+        routines = dataSource.getRoutines(Authentication.getInstance().getUserId());
+        if (routines != null) {
+            adapter = new TrainingRoutineAdapter(getActivity(), 0, routines, this);
+            listOfRoutines.setAdapter(adapter);
+        }
+        dataSource.close();
     }
 }

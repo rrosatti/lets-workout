@@ -1,5 +1,6 @@
 package com.example.rodri.letsworkout.activity;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -232,6 +233,7 @@ public class NewRoutineActivity extends AppCompatActivity {
                             dataSource.createRoutineMuscleGroup(routine.getId(), mg.getId());
                         }
 
+                        setResult(Activity.RESULT_OK);
                         finish();
 
                     } catch (Exception e) {
