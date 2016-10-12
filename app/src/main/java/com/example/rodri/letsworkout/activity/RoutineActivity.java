@@ -25,6 +25,7 @@ import com.example.rodri.letsworkout.R;
 import com.example.rodri.letsworkout.adapter.ExerciseRepetitionAdapter;
 import com.example.rodri.letsworkout.database.MyDataSource;
 import com.example.rodri.letsworkout.interfaces.DataTransferInterface;
+import com.example.rodri.letsworkout.model.Authentication;
 import com.example.rodri.letsworkout.model.Day;
 import com.example.rodri.letsworkout.model.Exercise;
 import com.example.rodri.letsworkout.model.ExerciseRepetition;
@@ -96,6 +97,7 @@ public class RoutineActivity extends AppCompatActivity implements DataTransferIn
                 routine = dataSource.getRoutine(routineId);
                 exercisesSet = new RoutineExercisesSet(routineId, routine.getDayId(), RoutineActivity.this);
                 dayId = routine.getDayId();
+                userId = Authentication.getInstance().getUserId();
             } else {
                 routine = dataSource.getRoutine(userId, dayId);
                 exercisesSet = new RoutineExercisesSet(routine.getId(), dayId, RoutineActivity.this);
@@ -317,6 +319,14 @@ public class RoutineActivity extends AppCompatActivity implements DataTransferIn
         }
         if (routine.getChosen() != chosen) {
             routine.setChosen(chosen);
+            // check if there is already a routine set as 'main routine', given the same userId and dayId;
+            if (chosen == 1) {
+                Routine r = dataSource.getRoutine(userId, dayId);
+                // if yes, then set the 'chosen' column as 0(it is not a main routine anymore)
+                if (r != null) {
+                    dataSource.updateRoutine(r.getId(), r.getDayId(), r.getUserId(), 0, r.getName());
+                }
+            }
         }
 
         // 2 - Check if there are new exercises
