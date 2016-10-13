@@ -198,4 +198,15 @@ The values are in centimeters.</string>
     <string name="dialog_confirm_changes">Are you sure you want to save the changes?</string>
     <string name="dialog_delete_routine">Are you sure you want to delete this routine?</string>
 
+    <!--  Statistics Array  -->
+    <string-array name="statistics">
+        <item>Body Measurements</item>
+        <item>Weight</item>
+    </string-array>
+
+    <array name="statistics_menu_icon">
+        <item>@drawable/ic_measuring_tape_64</item>
+        <item>@drawable/ic_scale_2_64</item>
+    </array>
+
 </resources>
