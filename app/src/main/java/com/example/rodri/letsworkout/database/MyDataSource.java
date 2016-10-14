@@ -779,6 +779,25 @@ public class MyDataSource {
         }
     }
 
+    public List<UserBody> getAllUserBodies(long userId) {
+        List<UserBody> userBodies = new ArrayList<>();
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_USER_BODY, userBodyColumns,
+                MySQLiteHelper.COLUMN_USER_ID + " = " + userId, null, null, null, null, null);
+
+        if (!isCursorEmpty(cursor)) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                userBodies.add(cursorToUserBody(cursor));
+                cursor.moveToNext();
+            }
+            cursor.close();
+            return userBodies;
+        } else {
+            cursor.close();
+            return null;
+        }
+    }
+
     /** ----------  UPDATE  ---------- */
     public void updateExercise(long id, long muscleGroupId, String name) {
         ContentValues values = new ContentValues();

@@ -28,6 +28,8 @@
 
         <activity android:name=".activity.RoutineActivity" android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait"/>
 
+        <activity android:name=".activity.WeightChartActivity" android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>

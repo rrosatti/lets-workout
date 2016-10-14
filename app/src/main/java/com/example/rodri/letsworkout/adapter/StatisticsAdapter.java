@@ -1,6 +1,7 @@
 package com.example.rodri.letsworkout.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rodri.letsworkout.R;
+import com.example.rodri.letsworkout.activity.WeightChartActivity;
 import com.example.rodri.letsworkout.model.StatisticsMenuItem;
 
 import java.util.List;
@@ -32,6 +34,7 @@ public class StatisticsAdapter extends RecyclerView.Adapter<StatisticsAdapter.My
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView displayTitle;
         public ImageView displayIcon;
+        public StatisticsMenuItem menuItem;
 
         public MyViewHolder(View v) {
             super(v);
@@ -42,7 +45,10 @@ public class StatisticsAdapter extends RecyclerView.Adapter<StatisticsAdapter.My
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(fragment.getActivity(), "YEAY!!!", Toast.LENGTH_SHORT).show();
+                    if (menuItem.getIconId() == R.drawable.ic_scale_2_64) {
+                        Intent i = new Intent(fragment.getActivity(), WeightChartActivity.class);
+                        fragment.startActivity(i);
+                    }
                 }
             });
         }
@@ -66,6 +72,7 @@ public class StatisticsAdapter extends RecyclerView.Adapter<StatisticsAdapter.My
 
         holder.displayTitle.setText(menuItem.getTitle());
         holder.displayIcon.setImageResource(menuItem.getIconId());
+        holder.menuItem = menuItem;
     }
 
 }

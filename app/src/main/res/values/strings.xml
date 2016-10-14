@@ -57,6 +57,7 @@
     <string name="toast_any_exercise_selected">You must select an exercise!</string>
     <string name="toast_muscle_group_empty">You must select at least one muscle group!</string>
     <string name="toast_delete_routine_failed">Something went wrong!Sorry..</string>
+    <string name="toast_no_body_registered">No data to show!</string>
 
     <!-- Hints -->
     <string name="hint_username">username</string>
@@ -100,6 +101,7 @@
 The values are in centimeters.</string>
     <string name="text_view_timer">00 : 00 : 00</string>
     <string name="text_view_new_exercise">New Exercise</string>
+    <string name="text_view_weight_chart">Weight Chart</string>
 
     <!-- Arrays of exercises -->
     
