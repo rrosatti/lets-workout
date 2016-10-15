@@ -20,21 +20,30 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <TextView
-        android:id="@+id/activityWeighChart_txtTitle"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/activityWeightChart_appBarLayout"
         android:layout_marginTop="30dp"
-        android:text="@string/text_view_weight_chart"
-        android:layout_centerHorizontal="true"
-        android:textSize="@dimen/text_view_size_large"/>
+        android:layout_margin="20dp">
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/activityWeighChart_lineChart"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/activityWeighChart_txtTitle"
-        android:layout_marginTop="30dp" />
+        <TextView
+            android:id="@+id/activityWeighChart_txtTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_view_weight_chart"
+            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/text_view_size_large"/>
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/activityWeighChart_lineChart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/activityWeighChart_txtTitle"
+            android:layout_marginTop="30dp"
+            android:padding="50dp"/>
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

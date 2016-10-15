@@ -257,8 +257,8 @@ public class MyDataSource {
         cursor.moveToFirst();
 
         UserBody newUserBody = cursorToUserBody(cursor);
-        BodyMeasure bodyMeasure = getBodyMeasure(bodyMeasureId);
-        newUserBody.setBodyMeasure(bodyMeasure);
+        //BodyMeasure bodyMeasure = getBodyMeasure(bodyMeasureId);
+        //newUserBody.setBodyMeasure(bodyMeasure);
 
         cursor.close();
 
