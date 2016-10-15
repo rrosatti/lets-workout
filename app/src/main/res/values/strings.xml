@@ -82,6 +82,7 @@
     <string name="button_stop">Stop</string>
     <string name="button_plus_sign">+</string>
     <string name="button_delete_routine">Delete Routine</string>
+    <string name="button_compare">Compare</string>
 
     <!-- TextView -->
     <string name="text_view_weight">Weight: </string>
@@ -102,6 +103,7 @@ The values are in centimeters.</string>
     <string name="text_view_timer">00 : 00 : 00</string>
     <string name="text_view_new_exercise">New Exercise</string>
     <string name="text_view_weight_chart">Weight Chart</string>
+    <string name="text_view_body_measurements_title">Compare Body measurements between dates</string>
 
     <!-- Arrays of exercises -->
     

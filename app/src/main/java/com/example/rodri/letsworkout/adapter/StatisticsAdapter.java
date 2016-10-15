@@ -1,6 +1,5 @@
 package com.example.rodri.letsworkout.adapter;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -9,9 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.rodri.letsworkout.R;
+import com.example.rodri.letsworkout.activity.BodyMeasurementsChartActivity;
 import com.example.rodri.letsworkout.activity.WeightChartActivity;
 import com.example.rodri.letsworkout.model.StatisticsMenuItem;
 
@@ -45,9 +44,17 @@ public class StatisticsAdapter extends RecyclerView.Adapter<StatisticsAdapter.My
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (menuItem.getIconId() == R.drawable.ic_scale_2_64) {
-                        Intent i = new Intent(fragment.getActivity(), WeightChartActivity.class);
-                        fragment.startActivity(i);
+                    switch (menuItem.getIconId()) {
+                        case R.drawable.ic_scale_2_64: {
+                            Intent i = new Intent(fragment.getActivity(), WeightChartActivity.class);
+                            fragment.startActivity(i);
+                            break;
+                        }
+                        case R.drawable.ic_measuring_tape_64: {
+                            Intent i = new Intent(fragment.getActivity(), BodyMeasurementsChartActivity.class);
+                            fragment.startActivity(i);
+                            break;
+                        }
                     }
                 }
             });
