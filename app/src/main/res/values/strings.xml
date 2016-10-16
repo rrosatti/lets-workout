@@ -58,6 +58,7 @@
     <string name="toast_muscle_group_empty">You must select at least one muscle group!</string>
     <string name="toast_delete_routine_failed">Something went wrong!Sorry..</string>
     <string name="toast_no_body_registered">No data to show!</string>
+    <string name="toast_no_data_to_show">There is no data to show!</string>
 
     <!-- Hints -->
     <string name="hint_username">username</string>
@@ -212,5 +213,20 @@ The values are in centimeters.</string>
         <item>@drawable/ic_measuring_tape_64</item>
         <item>@drawable/ic_scale_2_64</item>
     </array>
+
+    <string-array name="body_measure_items">
+        <item>Right Upper Arm</item>
+        <item>Left Upper Arm</item>
+        <item>Right Forearm</item>
+        <item>Left Forearm</item>
+        <item>Chest</item>
+        <item>Right Tight</item>
+        <item>Left Tight</item>
+        <item>Right Calf</item>
+        <item>Left Calf</item>
+        <item>Waist</item>
+        <item>Shoulder</item>
+        <item>Height</item>
+    </string-array>
 
 </resources>
