@@ -115,8 +115,6 @@ public class BodyFragment extends Fragment {
         txtWaist.setText(String.valueOf(bm.getWaist()));
         txtShoulder.setText(String.valueOf(bm.getShoulder()));
         txtChest.setText(String.valueOf(bm.getChest()));
-        Toast.makeText(getContext(), "Date in millis: " + bm.getDate(), Toast.LENGTH_SHORT).show();
-        Toast.makeText(getContext(), "Date: " + Util.convertToDate(bm.getDate(), "dd/MM/yyyy"), Toast.LENGTH_SHORT).show();
         dataSource.close();
     }
 

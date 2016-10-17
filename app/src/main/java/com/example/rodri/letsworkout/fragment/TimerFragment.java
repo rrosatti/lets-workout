@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.rodri.letsworkout.R;
 
@@ -17,6 +18,13 @@ import com.example.rodri.letsworkout.R;
  * Created by rodri on 9/8/2016.
  */
 public class TimerFragment extends Fragment {
+
+    private static final String STATE_STARTED = "isStarted";
+    private static final String STATE_TIME_SWAP = "timeSwap";
+    private static final String STATE_TIME_IN_MILLIS = "timeInMillis";
+    private static final String STATE_START_TIME = "startTime";
+    private static final String STATE_FINAL_TIME = "finalTime";
+    private static final String STATE_TXT_TIMER = "txtTimer";
 
     private TextView txtTimer;
     private Button btStart;
@@ -35,6 +43,28 @@ public class TimerFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_timer, container, false);
 
         initViews(v);
+
+        if (savedInstanceState != null) {
+            isStarted = savedInstanceState.getBoolean(STATE_STARTED);
+            if (isStarted) {
+                timeSwap = savedInstanceState.getLong(STATE_TIME_SWAP);
+                timeInMillis = savedInstanceState.getLong(STATE_TIME_IN_MILLIS);
+                btStart.setText(getResources().getText(R.string.button_stop));
+
+                timeSwap += timeInMillis;
+                startTime = savedInstanceState.getLong(STATE_START_TIME);
+                finalTime = savedInstanceState.getLong(STATE_FINAL_TIME);
+                handler.postDelayed(updateTimerMethod, 0);
+            } else {
+                timeSwap = savedInstanceState.getLong(STATE_TIME_SWAP);
+                timeInMillis = savedInstanceState.getLong(STATE_TIME_IN_MILLIS);
+                handler.removeCallbacks(updateTimerMethod);
+                String time = savedInstanceState.getString(STATE_TXT_TIMER);
+                txtTimer.setText(time);
+            }
+
+
+        }
 
         btStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,4 +127,16 @@ public class TimerFragment extends Fragment {
             handler.postDelayed(this, 0);
         }
     };
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putBoolean(STATE_STARTED, isStarted);
+        outState.putLong(STATE_TIME_SWAP, timeSwap);
+        outState.putLong(STATE_TIME_IN_MILLIS, timeInMillis);
+        outState.putLong(STATE_START_TIME, startTime);
+        outState.putLong(STATE_FINAL_TIME, finalTime);
+        outState.putString(STATE_TXT_TIMER, txtTimer.getText().toString());
+    }
 }
