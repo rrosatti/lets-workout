@@ -1,9 +1,11 @@
 package com.example.rodri.letsworkout.model;
 
+import java.io.Serializable;
+
 /**
  * Created by rodri on 8/12/2016.
  */
-public class MuscleGroup {
+public class MuscleGroup implements Serializable {
 
     private long id;
     private String name;

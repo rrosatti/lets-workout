@@ -27,6 +27,7 @@ import com.example.rodri.letsworkout.model.MuscleGroup;
 import com.example.rodri.letsworkout.model.Routine;
 import com.example.rodri.letsworkout.util.Util;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,6 +36,12 @@ import java.util.List;
  * Created by rodri on 8/31/2016.
  */
 public class NewRoutineActivity extends AppCompatActivity {
+
+    private static final String STATE_ROUTINE_NAME = "routineName";
+    private static final String STATE_SELECTED_DAY = "selectedDay";
+    private static final String STATE_SELECTED_MUSCLE_GROUPS = "selectedMuscleGroups";
+    private static final String STATE_EXERCISES = "exercises";
+    private static final String STATE_MUSCLE_GROUP_HINT = "muscleGroupHint";
 
     private Toolbar toolbar;
     private Spinner spinnerDays;
@@ -63,6 +70,7 @@ public class NewRoutineActivity extends AppCompatActivity {
     ExerciseRepetitionAdapter adapterExercises;
 
     private MyDataSource dataSource;
+    private String muscleGroupsHint = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,6 +81,30 @@ public class NewRoutineActivity extends AppCompatActivity {
         initializeViews();
         dataSource = new MyDataSource(getApplicationContext());
         dataSource.open();
+
+        if (savedInstanceState != null) {
+            selectedDay = savedInstanceState.getInt(STATE_SELECTED_DAY);
+            if (selectedDay != -1) {
+                spinnerDays.setSelection(selectedDay);
+            }
+            String routineName = savedInstanceState.getString(STATE_ROUTINE_NAME);
+            if (!routineName.equals("")) {
+                etRoutineName.setText(routineName);
+            }
+            selectedMuscleGroups = (ArrayList<MuscleGroup>) savedInstanceState.getSerializable(STATE_SELECTED_MUSCLE_GROUPS);
+            if (selectedMuscleGroups != null) {
+                setExercises();
+                muscleGroupsHint = savedInstanceState.getString(STATE_MUSCLE_GROUP_HINT);
+                etMuscleGroup.setHint(muscleGroupsHint);
+
+                exercises = (ArrayList<ExerciseRepetition>) savedInstanceState.getSerializable(STATE_EXERCISES);
+                if (exercises != null) {
+                    adapterExercises = new ExerciseRepetitionAdapter(NewRoutineActivity.this, 0, exercises);
+                    listOfExercises.setAdapter(adapterExercises);
+                }
+            }
+
+        }
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -136,6 +168,7 @@ public class NewRoutineActivity extends AppCompatActivity {
 
                         }
                         etMuscleGroup.setHint(sb);
+                        muscleGroupsHint = sb.toString();
                         //Toast.makeText(NewRoutineActivity.this, "res: " + sb, Toast.LENGTH_SHORT).show();
                         setExercises();
                         dialog.cancel();
@@ -278,6 +311,17 @@ public class NewRoutineActivity extends AppCompatActivity {
         }
         spinnerAdapterExercises = new ArrayAdapter<>(NewRoutineActivity.this, android.R.layout.simple_spinner_item, allExercisesByName);
         spinnerExercises.setAdapter(spinnerAdapterExercises);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(STATE_ROUTINE_NAME, etRoutineName.getText().toString());
+        outState.putInt(STATE_SELECTED_DAY, selectedDay);
+        outState.putSerializable(STATE_SELECTED_MUSCLE_GROUPS, (Serializable) selectedMuscleGroups);
+        outState.putSerializable(STATE_EXERCISES, (Serializable) exercises);
+        outState.putString(STATE_MUSCLE_GROUP_HINT, muscleGroupsHint);
     }
 
     @Override
