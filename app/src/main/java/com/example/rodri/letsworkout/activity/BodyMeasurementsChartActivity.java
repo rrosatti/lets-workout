@@ -137,6 +137,10 @@ public class BodyMeasurementsChartActivity extends AppCompatActivity {
         btCompare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                entries1 = new ArrayList<>();
+                entries2 = new ArrayList<>();
+                labels = new ArrayList<>();
+                dataSets = new ArrayList<>();
                 GetDataFromDatabase task = new GetDataFromDatabase();
                 task.execute("");
             }

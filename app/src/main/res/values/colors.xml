@@ -16,6 +16,7 @@
     
     <!-- Background -->
     <color name="background_chosen_routine">#A9E190</color> <!-- This is a temporary color -->
+    <color name="background_splash_screen">#F2F3D9</color>
 
     <!-- Progress Bar -->
     <color name="preloader_start">#5D4E60</color>
