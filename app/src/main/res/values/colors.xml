@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#8FB8DE</color>
+    <color name="colorPrimaryDark">#064789</color>
+    <color name="colorAccent">#26408B</color>
 
 
     <!-- Navigation Drawer -->
     <color name="list_item_title">#fff</color>
     <color name="list_background">#303030</color>
-    <color name="list_background_pressed">#5D4E60</color>
+    <color name="list_background_pressed">#064789</color>
     <color name="list_divider">#272727</color>
 
     <!-- TextView -->
@@ -17,6 +17,7 @@
     <!-- Background -->
     <color name="background_chosen_routine">#A9E190</color> <!-- This is a temporary color -->
     <color name="background_splash_screen">#F2F3D9</color>
+    <color name="background_project">#F2F3D9</color>
 
     <!-- Progress Bar -->
     <color name="preloader_start">#5D4E60</color>
