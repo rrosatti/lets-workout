@@ -24,4 +24,12 @@
     <color name="preloader_center">#826C7F</color>
     <color name="preloader_end">#A88FAC</color>
 
+    <!-- Button -->
+    <color name="button_color">#064789</color>
+    <color name="button_text">#F2F3D9</color>
+    <color name="button_color_pressed">#446789</color>
+    <color name="button_color_2">#8FB8DE</color>
+    <color name="button_text_2">#F2F3D9</color>
+    <color name="button_color_pressed_2">#73AADD</color>
+
 </resources>

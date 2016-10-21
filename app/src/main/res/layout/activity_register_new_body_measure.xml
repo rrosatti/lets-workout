@@ -325,8 +325,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:padding="4dp"
-                android:text="@string/button_confirm"/>
+                android:text="@string/button_confirm"
+                android:background="@drawable/custom_button_states"
+                android:textColor="@drawable/button_text_color"/>
 
         </LinearLayout>
 

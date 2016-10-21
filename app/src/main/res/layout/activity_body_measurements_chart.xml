@@ -64,7 +64,8 @@
         android:layout_marginTop="8dp"
         android:layout_margin="20dp"
         android:text="@string/button_compare"
-        android:padding="4dp"/>
+        android:background="@drawable/custom_button_states"
+        android:textColor="@drawable/button_text_color"/>
 
     <ProgressBar
         android:id="@+id/activityBodyMeasurementsChart_progressBar"

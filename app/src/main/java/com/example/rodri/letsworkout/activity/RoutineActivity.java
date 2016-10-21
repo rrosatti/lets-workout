@@ -168,6 +168,8 @@ public class RoutineActivity extends AppCompatActivity implements DataTransferIn
                     etReps = (EditText) dialog.findViewById(R.id.dialogExerciseRepetition_etReps);
                     btAddNewExercise = (Button) dialog.findViewById(R.id.dialogExerciseRepetition_btConfirm);
 
+                    btAddNewExercise.setBackgroundDrawable(getResources().getDrawable(R.drawable.custom_button_states_2));
+
                     dataSource.open();
                     muscleGroups = muscleGroupSet.getMuscleGroups();
                     List<Exercise> auxExercises;

@@ -150,6 +150,8 @@ public class NewRoutineActivity extends AppCompatActivity {
 
                 ListView listOfMuscleGroup = (ListView) dialog.findViewById(R.id.dialogMuscleGroup_listOfMuscleGroups);
                 Button btConfirm = (Button) dialog.findViewById(R.id.dialogMuscleGroup_btConfirm);
+                btConfirm.setBackgroundDrawable(getResources().getDrawable(R.drawable.custom_button_states_2));
+
 
                 adapterMuscleGroup = new MuscleGroupAdapter(NewRoutineActivity.this, 0, muscleGroup);
                 listOfMuscleGroup.setAdapter(adapterMuscleGroup);

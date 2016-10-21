@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background_project">
 
     <RelativeLayout
@@ -34,7 +36,8 @@
             android:layout_below="@id/etPassword"
             android:layout_marginTop="10dp"
             android:hint="@string/button_login"
-            android:padding="4dp"/>
+            android:background="@drawable/custom_button_states"
+            android:textColor="@drawable/button_text_color" />
 
         <Button
             android:id="@+id/btSignUp"
@@ -43,7 +46,8 @@
             android:layout_below="@+id/btLogin"
             android:layout_marginTop="15dp"
             android:hint="@string/button_sign_up"
-            android:padding="4dp"/>
+            android:background="@drawable/custom_button_states_2"
+            android:textColor="@drawable/button_text_color"/>
 
     </RelativeLayout>
 

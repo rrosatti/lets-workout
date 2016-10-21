@@ -14,7 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="@string/button_new_routine"/>
+        android:text="@string/button_new_routine"
+        android:background="@drawable/custom_button_states"
+        android:textColor="@drawable/button_text_color"/>
 
 
 
