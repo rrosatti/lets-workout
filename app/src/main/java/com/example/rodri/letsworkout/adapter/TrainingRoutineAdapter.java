@@ -108,6 +108,9 @@ public class TrainingRoutineAdapter extends ArrayAdapter<Routine> {
 
         if (routines.get(position).getChosen() == 1) {
             v.setBackgroundColor(activity.getResources().getColor(R.color.background_chosen_routine));
+            holder.displayDay.setTextColor(activity.getResources().getColor(R.color.background_project));
+            holder.displayMuscleGroup.setTextColor(activity.getResources().getColor(R.color.background_project));
+            holder.displayRoutineName.setTextColor(activity.getResources().getColor(R.color.background_project));
         }
 
         holder.displayDay.setText(day.getName());

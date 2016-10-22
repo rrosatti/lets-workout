@@ -8,7 +8,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:layout_gravity="center_vertical"/>
 
     <TextView
         android:id="@+id/customRoutineItem_txtRoutineName"
@@ -21,6 +22,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:layout_gravity="center_vertical"/>
 
 </LinearLayout>

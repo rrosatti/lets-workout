@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto">
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:background="@color/button_color_2">
 
     <android.support.v7.widget.CardView
         android:id="@+id/customScheduleItem_cardView"
@@ -26,7 +27,8 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="5dp"
                     android:textStyle="bold"
-                    android:textSize="@dimen/text_view_size_large"/>
+                    android:textSize="@dimen/text_view_size_large"
+                    android:textColor="@color/background_chosen_routine"/>
 
                 <TextView
                     android:id="@+id/customScheduleItem_txtRoutineName"

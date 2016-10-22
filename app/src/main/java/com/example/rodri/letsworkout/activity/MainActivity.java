@@ -34,6 +34,7 @@ import com.example.rodri.letsworkout.model.ExerciseRepetition;
 import com.example.rodri.letsworkout.model.Routine;
 import com.example.rodri.letsworkout.model.RoutineExercises;
 import com.example.rodri.letsworkout.model.RoutineMuscleGroup;
+import com.example.rodri.letsworkout.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,7 +91,12 @@ public class MainActivity extends AppCompatActivity {
         drawerListView.setAdapter(adapter);
 
         // Enable Action Bar and make it behave as a Toggle Button
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        try {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
         getSupportActionBar().setHomeButtonEnabled(true);
 
         // "Gambiarra" used to change the Navigation Drawer Icon

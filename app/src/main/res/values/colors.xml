@@ -15,14 +15,14 @@
     <color name="text_view_text_color">#EDE7D9</color>
     
     <!-- Background -->
-    <color name="background_chosen_routine">#A9E190</color> <!-- This is a temporary color -->
+    <color name="background_chosen_routine">#446789</color> <!-- This is a temporary color -->
     <color name="background_splash_screen">#F2F3D9</color>
     <color name="background_project">#F2F3D9</color>
 
     <!-- Progress Bar -->
-    <color name="preloader_start">#5D4E60</color>
-    <color name="preloader_center">#826C7F</color>
-    <color name="preloader_end">#A88FAC</color>
+    <color name="preloader_start">#446789</color>
+    <color name="preloader_center">#064789</color>
+    <color name="preloader_end">#73AADD</color>
 
     <!-- Button -->
     <color name="button_color">#064789</color>
