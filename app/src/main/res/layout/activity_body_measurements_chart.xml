@@ -27,6 +27,7 @@
         android:layout_below="@id/activityBodyMeasurementsChart_appBarLayout"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
+        android:textAlignment="center"
         android:text="@string/text_view_body_measurements_title"
         android:textSize="@dimen/text_view_size_large"/>
 

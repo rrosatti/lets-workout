@@ -56,11 +56,13 @@
 
                 <TextView
                     android:id="@+id/txtWeight"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="1"
                     android:text="@string/text_view_weight"
-                    android:textSize="@dimen/text_view_size_normal"/>
+                    android:textSize="@dimen/text_view_size_normal"
+                    android:textAlignment="center"/>
 
                 <EditText
                     android:id="@+id/activityUpdateCurrentMeasures_etWeight"
@@ -72,12 +74,14 @@
 
                 <TextView
                     android:id="@+id/txtHeight"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="1"
                     android:text="@string/text_view_height"
-                    android:textSize="@dimen/text_view_size_normal"/>
+                    android:textSize="@dimen/text_view_size_normal"
+                    android:textAlignment="center"/>
 
                 <EditText
                     android:id="@+id/activityUpdateCurrentMeasures_etHeight"
@@ -97,11 +101,13 @@
 
                 <TextView
                     android:id="@+id/txtRightUpperArm"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="1"
                     android:text="@string/text_view_right_upper_arm"
-                    android:textSize="@dimen/text_view_size_normal"/>
+                    android:textSize="@dimen/text_view_size_normal"
+                    android:textAlignment="center"/>
 
                 <EditText
                     android:id="@+id/activityUpdateCurrentMeasures_etRightUpperArm"
@@ -113,12 +119,14 @@
 
                 <TextView
                     android:id="@+id/txtLeftUpperArm"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="1"
                     android:text="@string/text_view_left_upper_arm"
-                    android:textSize="@dimen/text_view_size_normal"/>
+                    android:textSize="@dimen/text_view_size_normal"
+                    android:textAlignment="center"/>
 
                 <EditText
                     android:id="@+id/activityUpdateCurrentMeasures_etLeftUpperArm"
@@ -138,11 +146,13 @@
 
                 <TextView
                     android:id="@+id/txtRightForearm"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="1"
                     android:text="@string/text_view_right_forearm"
-                    android:textSize="@dimen/text_view_size_normal"/>
+                    android:textSize="@dimen/text_view_size_normal"
+                    android:textAlignment="center"/>
 
                 <EditText
                     android:id="@+id/activityUpdateCurrentMeasures_etRightForearm"
@@ -154,12 +164,14 @@
 
                 <TextView
                     android:id="@+id/txtLeftForearm"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="1"
                     android:text="@string/text_view_left_forearm"
-                    android:textSize="@dimen/text_view_size_normal"/>
+                    android:textSize="@dimen/text_view_size_normal"
+                    android:textAlignment="center"/>
 
                 <EditText
                     android:id="@+id/activityUpdateCurrentMeasures_etLeftForearm"
@@ -179,11 +191,13 @@
 
                 <TextView
                     android:id="@+id/txtRightThigh"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="1"
                     android:text="@string/text_view_right_thigh"
-                    android:textSize="@dimen/text_view_size_normal"/>
+                    android:textSize="@dimen/text_view_size_normal"
+                    android:textAlignment="center"/>
 
                 <EditText
                     android:id="@+id/activityUpdateCurrentMeasures_etRightThigh"
@@ -195,12 +209,14 @@
 
                 <TextView
                     android:id="@+id/txtLeftThigh"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="1"
                     android:text="@string/text_view_left_thigh"
-                    android:textSize="@dimen/text_view_size_normal"/>
+                    android:textSize="@dimen/text_view_size_normal"
+                    android:textAlignment="center"/>
 
                 <EditText
                     android:id="@+id/activityUpdateCurrentMeasures_etLeftThigh"
@@ -220,11 +236,13 @@
 
                 <TextView
                     android:id="@+id/txtRightCalf"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="1"
                     android:text="@string/text_view_right_calf"
-                    android:textSize="@dimen/text_view_size_normal"/>
+                    android:textSize="@dimen/text_view_size_normal"
+                    android:textAlignment="center"/>
 
                 <EditText
                     android:id="@+id/activityUpdateCurrentMeasures_etRightCalf"
@@ -236,12 +254,14 @@
 
                 <TextView
                     android:id="@+id/txtLeftCalf"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="1"
                     android:text="@string/text_view_left_calf"
-                    android:textSize="@dimen/text_view_size_normal"/>
+                    android:textSize="@dimen/text_view_size_normal"
+                    android:textAlignment="center"/>
 
                 <EditText
                     android:id="@+id/activityUpdateCurrentMeasures_etLeftCalf"
@@ -261,11 +281,13 @@
 
                 <TextView
                     android:id="@+id/txtWaist"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="1"
                     android:text="@string/text_view_waist"
-                    android:textSize="@dimen/text_view_size_normal"/>
+                    android:textSize="@dimen/text_view_size_normal"
+                    android:textAlignment="center"/>
 
                 <EditText
                     android:id="@+id/activityUpdateCurrentMeasures_etWaist"
@@ -277,12 +299,14 @@
 
                 <TextView
                     android:id="@+id/txtShoulder"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="1"
                     android:text="@string/text_view_shoulder"
-                    android:textSize="@dimen/text_view_size_normal"/>
+                    android:textSize="@dimen/text_view_size_normal"
+                    android:textAlignment="center"/>
 
                 <EditText
                     android:id="@+id/activityUpdateCurrentMeasures_etShoulder"
@@ -307,7 +331,8 @@
                     android:layout_weight="1"
                     android:layout_gravity="center_vertical|center_horizontal"
                     android:text="@string/text_view_chest"
-                    android:textSize="@dimen/text_view_size_normal"/>
+                    android:textSize="@dimen/text_view_size_normal"
+                    android:textAlignment="center"/>
 
                 <EditText
                     android:id="@+id/activityUpdateCurrentMeasures_etChest"

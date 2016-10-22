@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lets Workout</string>
+
+    <!-- Muscle Groups -->
+    <string-array name="muscle_groups">
+        <item>Peito</item>
+        <item>Perna</item>
+        <item>Costa</item>
+        <item>Biceps</item>
+        <item>Triceps</item>
+        <item>Abdomen</item>
+        <item>Ombro</item>
+    </string-array>
+
+    <!-- Days -->
+    <string-array name="days">
+        <item>Segunda</item>
+        <item>Terça</item>
+        <item>Quarta</item>
+        <item>Quinta</item>
+        <item>Sexta</item>
+        <item>Sabado</item>
+        <item>Domingo</item>
+    </string-array>
+
+    <!-- Navigation Drawer Menu Items -->
+    <string-array name="nav_drawer_items">
+        <item>Página Inicial</item>
+        <item>Minhas Medidas</item>
+        <item>Rotinas de Treino</item>
+        <item>Planejamento</item>
+        <item>Estatisticas</item>
+        <item>Cronômetro</item>
+    </string-array>
+
+    <!-- Navigation Drawer Menu Icons -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_house</item>
+        <item>@drawable/ic_balance</item>
+        <item>@drawable/ic_gym_chart</item>
+        <item>@drawable/ic_time</item>
+        <item>@drawable/ic_graphic</item>
+        <item>@drawable/ic_clock</item>
+    </array>
+
+    <!-- Home message -->
+    <string name="home_message">Just do it!</string>
+
+    <!-- Toast Messages -->
+    <string name="toast_login_success">Bem vindo!</string>
+    <string name="toast_login_failure">Usuario ou senha incorretos!</string>
+    <string name="toast_name_field_empty">O campo de nome não pode estar vazio!</string>
+    <string name="toast_login_field_empty">O campo de login não pode estar vazio!</string>
+    <string name="toast_password_field_empty">O campo de senha não pode estar vazio!</string>
+    <string name="toast_sets_field_empty">O campo de séries não pode estar vazio!</string>
+    <string name="toast_reps_field_empty">O campo de repetições não pode estar vazio!</string>
+    <string name="toast_any_exercise_selected">Você precisa selecionar um exercício!</string>
+    <string name="toast_muscle_group_empty">Você precisa selecionar pelo menos um grupo muscular!</string>
+    <string name="toast_delete_routine_failed">Ops!Aconteceu algo de errado!Desculpa..</string>
+    <string name="toast_no_body_registered">Nenhuma informação para motrar!</string>
+    <string name="toast_no_data_to_show">Nenhuma informação para mostrar!</string>
+
+    <!-- Hints -->
+    <string name="hint_username">usuario</string>
+    <string name="hint_password">senha</string>
+    <string name="hint_name">nome</string>
+    <string name="hint_login">login</string>
+    <string name="hint_muscle_group">grupo muscular</string>
+    <string name="hint_routine_name">Digite um nome (opicional)</string>
+    <string name="hint_sets">Séries</string>
+    <string name="hint_reps">Repetições</string>
+
+    <!-- Buttons -->
+    <string name="button_login">Entrar</string>
+    <string name="button_sign_up">Cadastrar</string>
+    <string name="button_confirm">Confirmar</string>
+    <string name="button_update_current_measures">Atualizar Medidas Atuais</string>
+    <string name="button_register_new_measures">Cadastrar Novas Medidas</string>
+    <string name="button_new_routine">Nova Rotina</string>
+    <string name="button_add">Adicionar</string>
+    <string name="button_start">Começar</string>
+    <string name="button_reset">Resetar</string>
+    <string name="button_stop">Parar</string>
+    <string name="button_plus_sign">+</string>
+    <string name="button_delete_routine">Deletar Rotina</string>
+    <string name="button_compare">Comparar</string>
+
+    <!-- TextView -->
+    <string name="text_view_weight">Peso: </string>
+    <string name="text_view_height">Altura: </string>
+    <string name="text_view_right_upper_arm">Biceps Direito: </string>
+    <string name="text_view_left_upper_arm">Biceps Esquerdo: </string>
+    <string name="text_view_right_forearm">Antebraço Direito: </string>
+    <string name="text_view_left_forearm">Antebraço Esquerdo: </string>
+    <string name="text_view_right_thigh">Coxa Direita: </string>
+    <string name="text_view_left_thigh">Coxa Esquerda: </string>
+    <string name="text_view_right_calf">Batata da Perna Direita: </string>
+    <string name="text_view_left_calf">Batata da Perna Esquerda: </string>
+    <string name="text_view_waist">Cintura: </string>
+    <string name="text_view_shoulder">Ombro: </string>
+    <string name="text_view_chest">Peito: </string>
+    <string name="text_view_new_body_description">Digite nos campos abaixo, as medidas do seu corpo. (não é preciso preencher todos os campos)\n
+Digite os valores em centimetros.</string>
+    <string name="text_view_timer">00 : 00 : 00</string>
+    <string name="text_view_new_exercise">Novo Exercício</string>
+    <string name="text_view_weight_chart">Gráfico de Peso</string>
+    <string name="text_view_body_measurements_title">Compare as medidas de seu corpo entre duas datas.</string>
+
+    <!-- Arrays of exercises -->
+
+    <string-array name="chest_exercises">
+        <item>Peck Deck</item>
+        <item>Supino Reto</item>
+        <item>Supino Inclinado</item>
+        <item>Supino Declinado</item>
+        <item>Crucifixo</item>
+        <item>Pullover</item>
+        <item>Crossover</item>
+        <item>Supino c/ halteres</item>
+        <item>Fly</item>
+    </string-array>
+
+    <string-array name="leg_exercises">
+        <item>Extensão</item>
+        <item>Mesa Flexora</item>
+        <item>Adução</item>
+        <item>Abdução</item>
+        <item>Leg Press 45</item>
+        <item>Agachamento</item>
+        <item>Gluteos</item>
+        <item>Gemeos 45</item>
+        <item>Gemeos Sentado</item>
+        <item>4 Apoios</item>
+        <item>Gluteos Graviton</item>
+        <item>Gluteos Crossover</item>
+        <item>Stiff</item>
+        <item>Leg Press 90</item>
+    </string-array>
+
+    <string-array name="back_exercises">
+        <item>Puxador Atrás Nuca</item>
+        <item>Puxador Frente Aberto</item>
+        <item>Puxador Frente Fechado</item>
+        <item>Dorsal no Crossover</item>
+        <item>Barra Fixa</item>
+        <item>Remada Baixa</item>
+        <item>Remada Unilateral</item>
+        <item>Crucifixo Inverso</item>
+        <item>Remada Alta</item>
+        <item>Extensor Lombar</item>
+        <item>Remada Inversa</item>
+        <item>Puxada Inversa</item>
+    </string-array>
+
+    <string-array name="biceps_exercises">
+        <item>Rosca Direta</item>
+        <item>Rosca Alternada</item>
+        <item>Rosca Concentrada</item>
+        <item>Rosca Martelo</item>
+        <item>Banco Scott</item>
+        <item>Crossover Unilateral</item>
+        <item>Biceps Crossover</item>
+        <item>Antebraço</item>
+        <item>Rosca 21</item>
+    </string-array>
+
+    <string-array name="triceps_exercises">
+        <item>Puxador Frontal</item>
+        <item>Puxador Inverso</item>
+        <item>Triceps Testa</item>
+        <item>Triceps Frances</item>
+        <item>Triceps Colce</item>
+        <item>Paralela</item>
+        <item>Triceps Corda</item>
+        <item>Triceps Fechado</item>
+    </string-array>
+
+    <string-array name="abs_exercises">
+        <item>Solo</item>
+        <item>Prancha</item>
+        <item>Paralela</item>
+        <item>Bola</item>
+        <item>Elevação de Perna</item>
+    </string-array>
+
+    <string-array name="shoulder_exercises">
+        <item>Desenvolvimento Barra</item>
+        <item>Desenvolvimento com Halteres</item>
+        <item>Desenvolvimento Máquina</item>
+        <item>Elevação Lateral com Halteres</item>
+        <item>Elevação Frontal Alternada</item>
+        <item>Crucifixo Inverso</item>
+        <item>Encolhimento com Hlteres</item>
+        <item>Puxada Vertical</item>
+        <item>Desenvolvimento Arnold</item>
+        <item>Elevação Frontal Inversa</item>
+    </string-array>
+
+    <!--  Check Box  -->
+    <string name="check_main_routine">Rotina Principal?</string>
+
+    <!--  Dialog  -->
+    <string name="dialog_confirm_changes">Você tem certeza que deseja confirmar as modificações?</string>
+    <string name="dialog_delete_routine">Você deseja deletar esta rotina?</string>
+
+    <!--  Statistics Array  -->
+    <string-array name="statistics">
+        <item>Medidas do Corpo</item>
+        <item>Peso</item>
+    </string-array>
+
+    <array name="statistics_menu_icon">
+        <item>@drawable/ic_measuring_tape_64</item>
+        <item>@drawable/ic_scale_2_64</item>
+    </array>
+
+    <string-array name="body_measure_items">
+        <item>Biceps Direito</item>
+        <item>Biceps Esquerdo</item>
+        <item>Antebraço Direito</item>
+        <item>Antebraço Esquerdo</item>
+        <item>Peito</item>
+        <item>Coxa Direita</item>
+        <item>Coxa Esquerda</item>
+        <item>Batata da Perna Direita</item>
+        <item>Batata da Perna Esquerda</item>
+        <item>Cintura</item>
+        <item>Ombro</item>
+        <item>Altura</item>
+    </string-array>
+
+</resources>
