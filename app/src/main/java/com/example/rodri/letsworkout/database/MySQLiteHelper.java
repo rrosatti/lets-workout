@@ -27,7 +27,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "lets_workout_project.db";
 
     // Database Version
-    private static final int DATABASE_VERSION = 12;
+    private static final int DATABASE_VERSION = 13;
 
     // Table Names
     public static final String TABLE_EXERCISE = "exercise";
@@ -40,6 +40,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String TABLE_USER_BODY = "user_body";
     public static final String TABLE_ROUTINE_EXERCISES = "routine_exercises";
     public static final String TABLE_ROUTINE_MUSCLE_GROUP = "routine_muscle_groups";
+    public static final String TABLE_AUTO_LOGIN = "auto_login";
 
     // Common column names
     public static final String KEY_ID = "id";
@@ -89,6 +90,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     // routine_exercises { id, routine_id, exercise_repetitions_id }
     public static final String COLUMN_ROUTINE_ID = "routine_id";
     public static final String COLUMN_EXERCISE_REPETITION_ID = "exercise_repetitions_id";
+
+    // auto_login { id, login, password }
 
 
     // --- CREATE TABLES --- //
@@ -189,6 +192,13 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             + "FOREIGN KEY (" + MySQLiteHelper.COLUMN_MUSCLE_GROUP_ID + ") "
                     + "REFERENCES " + MySQLiteHelper.TABLE_MUSCLE_GROUP + "(" + KEY_ID + "));";
 
+    // create table auto_login
+    private static final String CREATE_TABLE_AUTO_LOGIN =
+            "CREATE TABLE " + MySQLiteHelper.TABLE_AUTO_LOGIN + "("
+            + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COLUMN_LOGIN + " TEXT NOT NULL, "
+            + COLUMN_PASSWORD + " TEXT NOT NULL);";
+
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         muscleGroups = context.getResources().getStringArray(R.array.muscle_groups);
@@ -223,6 +233,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_ROUTINE_EXERCISES);
         // added after version 7
         db.execSQL(CREATE_TABLE_ROUTINE_MUSCLE_GROUPS);
+        //added after version 13
+        db.execSQL(CREATE_TABLE_AUTO_LOGIN);
     }
 
     @Override
@@ -261,6 +273,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             db.execSQL(CREATE_TABLE_ROUTINE_EXERCISES);
             // added after version 7
             db.execSQL(CREATE_TABLE_ROUTINE_MUSCLE_GROUPS);
+            // added after version 13
+            db.execSQL(CREATE_TABLE_AUTO_LOGIN);
         }
 
     }

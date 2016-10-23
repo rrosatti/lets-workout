@@ -29,11 +29,21 @@
             android:textStyle="italic"
             android:inputType="textPassword"/>
 
+        <CheckBox
+            android:id="@+id/activityLogin_checkRememberMe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etPassword"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:text="@string/check_remember_me"/>
+
         <Button
             android:id="@+id/btLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/etPassword"
+            android:layout_below="@id/activityLogin_checkRememberMe"
             android:layout_marginTop="10dp"
             android:hint="@string/button_login"
             android:background="@drawable/custom_button_states"

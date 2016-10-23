@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.rodri.letsworkout.model.AutoLogin;
 import com.example.rodri.letsworkout.model.Day;
 import com.example.rodri.letsworkout.model.MuscleGroup;
 import com.example.rodri.letsworkout.model.RoutineExercises;
@@ -90,6 +91,11 @@ public class MyDataSource {
             MySQLiteHelper.KEY_ID,
             MySQLiteHelper.COLUMN_ROUTINE_ID,
             MySQLiteHelper.COLUMN_MUSCLE_GROUP_ID
+    };
+    private String[] autoLoginColumns = {
+            MySQLiteHelper.KEY_ID,
+            MySQLiteHelper.COLUMN_LOGIN,
+            MySQLiteHelper.COLUMN_PASSWORD
     };
 
 
@@ -307,6 +313,27 @@ public class MyDataSource {
         }
     }
 
+    public AutoLogin createAutoLogin(String login, String password) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_LOGIN, login);
+        values.put(MySQLiteHelper.COLUMN_PASSWORD, password);
+
+        long insertedId = database.insert(MySQLiteHelper.TABLE_AUTO_LOGIN, null, values);
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_AUTO_LOGIN, autoLoginColumns,
+                MySQLiteHelper.KEY_ID + " = " + insertedId, null, null, null, null, null);
+
+        if (!isCursorEmpty(cursor)) {
+            cursor.moveToFirst();
+
+            AutoLogin autoLogin = cursorToAutoLogin(cursor);
+            cursor.close();
+            return autoLogin;
+        } else {
+            cursor.close();
+            return null;
+        }
+    }
+
 
     /** ---------  CURSOR TO  ---------- */
 
@@ -402,6 +429,14 @@ public class MyDataSource {
         routineMuscleGroup.setRoutineId(cursor.getLong(1));
         routineMuscleGroup.setMuscleGroupId(cursor.getLong(2));
         return routineMuscleGroup;
+    }
+
+    public AutoLogin cursorToAutoLogin(Cursor cursor) {
+        AutoLogin autoLogin = new AutoLogin();
+        autoLogin.setId(cursor.getLong(0));
+        autoLogin.setLogin(cursor.getString(1));
+        autoLogin.setPassword(cursor.getString(2));
+        return autoLogin;
     }
 
     /** ----------  GET DATA  ---------- */
@@ -798,6 +833,22 @@ public class MyDataSource {
         }
     }
 
+    public AutoLogin getAutoLogin(long id) {
+        AutoLogin autoLogin;
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_AUTO_LOGIN, autoLoginColumns,
+                MySQLiteHelper.KEY_ID + " = " + id, null, null, null, null, null);
+
+        if(!isCursorEmpty(cursor)) {
+            cursor.moveToFirst();
+            autoLogin = cursorToAutoLogin(cursor);
+            cursor.close();
+            return autoLogin;
+        } else {
+            cursor.close();
+            return null;
+        }
+    }
+
     /** ----------  UPDATE  ---------- */
     public void updateExercise(long id, long muscleGroupId, String name) {
         ContentValues values = new ContentValues();
@@ -881,6 +932,11 @@ public class MyDataSource {
                 " and exercise repetition id " + exerciseRepetitionId + " will be deleted!");
         database.delete(MySQLiteHelper.TABLE_ROUTINE_EXERCISES, MySQLiteHelper.COLUMN_ROUTINE_ID + " = " + routineId +
                 " AND " + MySQLiteHelper.COLUMN_EXERCISE_REPETITION_ID + " = " + exerciseRepetitionId, null);
+    }
+
+    public void deleteAutoLogin(long id) {
+        System.out.println("The auto_login with the id " + id + " will be deleted!");
+        database.delete(MySQLiteHelper.TABLE_AUTO_LOGIN, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 
     /**

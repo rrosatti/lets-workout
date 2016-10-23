@@ -199,6 +199,7 @@ Digite os valores em centimetros.</string>
 
     <!--  Check Box  -->
     <string name="check_main_routine">Rotina Principal?</string>
+    <string name="check_remember_me">Lembrar-me</string>
 
     <!--  Dialog  -->
     <string name="dialog_confirm_changes">Você tem certeza que deseja confirmar as modificações?</string>

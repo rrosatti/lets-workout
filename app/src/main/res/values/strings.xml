@@ -198,6 +198,7 @@ The values are in centimeters.</string>
 
     <!--  Check Box  -->
     <string name="check_main_routine">Main Routine?</string>
+    <string name="check_remember_me">Remember me</string>
 
     <!--  Dialog  -->
     <string name="dialog_confirm_changes">Are you sure you want to save the changes?</string>
