@@ -25,6 +25,7 @@ import com.example.rodri.letsworkout.fragment.BodyFragment;
 import com.example.rodri.letsworkout.fragment.HomeFragment;
 import com.example.rodri.letsworkout.fragment.NewBodyFragment;
 import com.example.rodri.letsworkout.fragment.ScheduleFragment;
+import com.example.rodri.letsworkout.fragment.SettingsFragment;
 import com.example.rodri.letsworkout.fragment.StatisticsFragment;
 import com.example.rodri.letsworkout.fragment.TimerFragment;
 import com.example.rodri.letsworkout.fragment.TrainingRoutineFragment;
@@ -234,6 +235,7 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new TimerFragment();
                 break;
             case 6:
+                fragment = new SettingsFragment();
                 break;
             default:
                 break;

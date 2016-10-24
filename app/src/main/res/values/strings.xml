@@ -107,6 +107,8 @@ The values are in centimeters.</string>
     <string name="text_view_new_exercise">New Exercise</string>
     <string name="text_view_weight_chart">Weight Chart</string>
     <string name="text_view_body_measurements_title">Compare Body measurements between dates</string>
+    <string name="text_view_automatic_login">Automatic login</string>
+    <string name="text_view_language">Language</string>
 
     <!-- Arrays of exercises -->
     

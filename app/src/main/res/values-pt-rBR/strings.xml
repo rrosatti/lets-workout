@@ -108,6 +108,8 @@ Digite os valores em centimetros.</string>
     <string name="text_view_new_exercise">Novo Exercício</string>
     <string name="text_view_weight_chart">Gráfico de Peso</string>
     <string name="text_view_body_measurements_title">Compare as medidas de seu corpo entre duas datas.</string>
+    <string name="text_view_automatic_login">Login automático</string>
+    <string name="text_view_language">Idioma</string>
 
     <!-- Arrays of exercises -->
 
