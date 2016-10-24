@@ -31,6 +31,7 @@
         <item>Schedule</item>
         <item>Statistics</item>
         <item>Timer</item>
+        <item>Settings</item>
     </string-array>
 
     <!-- Navigation Drawer Menu Icons -->
@@ -41,6 +42,7 @@
         <item>@drawable/ic_time</item>
         <item>@drawable/ic_graphic</item>
         <item>@drawable/ic_clock</item>
+        <item>@drawable/ic_settings</item>
     </array>
 
     <!-- Home message -->

@@ -152,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
         drawerItems.add(new DrawerItem(menuTitles[3], menuIcons.getResourceId(3, -1)));
         drawerItems.add(new DrawerItem(menuTitles[4], menuIcons.getResourceId(4, -1)));
         drawerItems.add(new DrawerItem(menuTitles[5], menuIcons.getResourceId(5, -1)));
+        drawerItems.add(new DrawerItem(menuTitles[6], menuIcons.getResourceId(6, -1)));
 
         menuIcons.recycle();
     }
@@ -231,6 +232,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 5:
                 fragment = new TimerFragment();
+                break;
+            case 6:
                 break;
             default:
                 break;

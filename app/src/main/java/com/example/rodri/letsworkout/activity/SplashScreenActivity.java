@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.example.rodri.letsworkout.database.MyDataSource;
+import com.example.rodri.letsworkout.model.Authentication;
 import com.example.rodri.letsworkout.model.AutoLogin;
 
 /**
@@ -32,7 +33,24 @@ public class SplashScreenActivity extends AppCompatActivity {
         Intent i;
         if (checkAutoLogin()) {
             //i = new Intent(this, MainActivity.class);
-            i = new Intent(this, LoginActivity.class);
+            long id = sharedPreferences.getLong(ID, -1);
+
+            MyDataSource dataSource = new MyDataSource(SplashScreenActivity.this);
+            dataSource.open();
+            AutoLogin autoLogin = dataSource.getAutoLogin(id);
+            System.out.println("Auto login: username -> " + autoLogin.getLogin());
+            dataSource.close();
+
+            Authentication.getInstance().init(autoLogin.getLogin(), autoLogin.getPassword(), getApplicationContext());
+            boolean authenticated = Authentication.getInstance().login();
+
+            if (authenticated) {
+                i = new Intent(this, MainActivity.class);
+            } else {
+                i = new Intent(this, LoginActivity.class);
+                System.out.println("Auto login FAILED");
+            }
+
         } else {
             i = new Intent(this, LoginActivity.class);
         }
@@ -43,14 +61,6 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     public boolean checkAutoLogin() {
-        long id = sharedPreferences.getLong(ID, -1);
-        if (id != -1) {
-            MyDataSource dataSource = new MyDataSource(SplashScreenActivity.this);
-            dataSource.open();
-            AutoLogin autoLogin = dataSource.getAutoLogin(id);
-            Toast.makeText(getApplicationContext(), "Auto login: username -> " + autoLogin.getLogin(), Toast.LENGTH_SHORT);
-            dataSource.close();
-        }
         return sharedPreferences.getBoolean(AUTOLOGIN, false);
     }
 

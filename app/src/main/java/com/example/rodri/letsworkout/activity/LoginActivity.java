@@ -64,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (authenticated) {
                     if (isChecked) {
+                        dataSource = new MyDataSource(LoginActivity.this);
                         dataSource.open();
                         AutoLogin autoLogin = dataSource.createAutoLogin(username, password);
                         dataSource.close();

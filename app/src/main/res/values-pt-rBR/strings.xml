@@ -32,6 +32,7 @@
         <item>Planejamento</item>
         <item>Estatisticas</item>
         <item>Cronômetro</item>
+        <item>Preferências</item>
     </string-array>
 
     <!-- Navigation Drawer Menu Icons -->
@@ -42,6 +43,7 @@
         <item>@drawable/ic_time</item>
         <item>@drawable/ic_graphic</item>
         <item>@drawable/ic_clock</item>
+        <item>@drawable/ic_settings</item>
     </array>
 
     <!-- Home message -->
