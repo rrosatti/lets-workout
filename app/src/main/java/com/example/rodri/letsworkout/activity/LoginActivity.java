@@ -26,8 +26,8 @@ import com.example.rodri.letsworkout.util.Util;
  */
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String MyPREFERENCES = "com.example.rodri.letsworkout";
-    private static final String AUTOLOGIN = "com.example.rodri.letsworkout.autologin";
+    private static final String MY_PREFERENCES = "com.example.rodri.letsworkout";
+    private static final String AUTO_LOGIN = "com.example.rodri.letsworkout.autologin";
     private static final String ID = "com.example.rodri.letsworkout.id";
 
     private SharedPreferences sharedPreferences;
@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         iniViews();
-        sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
 
         checkAutoLogin();
 
@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                         AutoLogin autoLogin = dataSource.createAutoLogin(username, password);
                         dataSource.close();
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putBoolean(AUTOLOGIN, true);
+                        editor.putBoolean(AUTO_LOGIN, true);
                         editor.putLong(ID, autoLogin.getId());
                         editor.apply();
                     }
@@ -123,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void checkAutoLogin() {
-        isChecked = sharedPreferences.getBoolean(AUTOLOGIN, false);
+        isChecked = sharedPreferences.getBoolean(AUTO_LOGIN, false);
         if (isChecked) {
             Toast.makeText(getApplicationContext(), "IT WORKED!", Toast.LENGTH_SHORT).show();
         }

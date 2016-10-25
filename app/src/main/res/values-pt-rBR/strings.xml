@@ -235,4 +235,9 @@ Digite os valores em centimetros.</string>
         <item>Altura</item>
     </string-array>
 
+    <string-array name="languages">
+        <item>Inglês</item>
+        <item>Portugues</item>
+    </string-array>
+
 </resources>

@@ -234,4 +234,15 @@ The values are in centimeters.</string>
         <item>Height</item>
     </string-array>
 
+    <string-array name="languages">
+        <item>English</item>
+        <item>Portuguese</item>
+    </string-array>
+    
+    <string-array name="language_code">
+        <item>en_US</item>
+        <item>pt_BR</item>
+        <item>es_ES</item>
+    </string-array>
+
 </resources>

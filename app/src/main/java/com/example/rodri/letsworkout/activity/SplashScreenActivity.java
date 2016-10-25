@@ -6,11 +6,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 import com.example.rodri.letsworkout.database.MyDataSource;
 import com.example.rodri.letsworkout.model.Authentication;
 import com.example.rodri.letsworkout.model.AutoLogin;
+import com.example.rodri.letsworkout.util.LocaleHelper;
 
 /**
  * Created by rodri on 10/19/2016.
@@ -18,17 +18,24 @@ import com.example.rodri.letsworkout.model.AutoLogin;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
-    private static final String MyPREFERENCES = "com.example.rodri.letsworkout";
-    private static final String AUTOLOGIN = "com.example.rodri.letsworkout.autologin";
+    private static final String MY_PREFERENCES = "com.example.rodri.letsworkout";
+    private static final String AUTO_LOGIN = "com.example.rodri.letsworkout.autologin";
     private static final String ID = "com.example.rodri.letsworkout.id";
 
     private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        sharedPreferences = getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
+        String lang = LocaleHelper.getLanguage(this);
+        if (!lang.equals("")) {
+            System.out.println("lang: " + lang);
+            LocaleHelper.onCreate(this, lang);
+        }
+
         super.onCreate(savedInstanceState);
 
-        sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
 
         Intent i;
         if (checkAutoLogin()) {
@@ -61,7 +68,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     public boolean checkAutoLogin() {
-        return sharedPreferences.getBoolean(AUTOLOGIN, false);
+        return sharedPreferences.getBoolean(AUTO_LOGIN, false);
     }
 
 }
