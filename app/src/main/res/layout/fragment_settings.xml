@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/background_project"
-    android:padding="40dp">
+    android:background="@color/background_project">
 
     <LinearLayout
+        android:id="@+id/fragmentSettings_linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="40dp"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp">
 
         <TextView
             android:id="@+id/fragmentSettings_txtAutomaticLogin"
@@ -32,16 +34,23 @@
 
 
     <View
+        android:id="@+id/fragmentSettings_viewLine"
+        android:layout_below="@+id/fragmentSettings_linearLayout1"
         android:layout_marginTop="25dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/colorAccent"
-        android:layout_marginBottom="25dp"/>
+        android:layout_marginBottom="25dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_below="@+id/fragmentSettings_viewLine"
+        android:orientation="horizontal"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp">
 
         <TextView
             android:id="@+id/fragmentSettings_txtLanguage"
@@ -61,4 +70,14 @@
 
     </LinearLayout>
 
-</LinearLayout>
+    <Button
+        android:id="@+id/fragmentSettings_btConfirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/button_confirm"
+        android:background="@drawable/custom_button_states"
+        android:textColor="@drawable/button_text_color"
+        android:visibility="gone"/>
+
+</RelativeLayout>

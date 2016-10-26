@@ -237,12 +237,13 @@ The values are in centimeters.</string>
     <string-array name="languages">
         <item>English</item>
         <item>Portuguese</item>
+        <item>Spanish</item>
     </string-array>
     
     <string-array name="language_code">
-        <item>en_US</item>
-        <item>pt_BR</item>
-        <item>es_ES</item>
+        <item>en</item>
+        <item>pt</item>
+        <item>es</item>
     </string-array>
 
 </resources>
