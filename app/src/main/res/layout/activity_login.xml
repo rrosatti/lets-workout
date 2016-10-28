@@ -17,7 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_username"
-            android:textStyle="italic"/>
+            android:textStyle="italic"
+            android:imeOptions="actionNext"/>
 
         <EditText
             android:id="@+id/etPassword"
@@ -27,6 +28,7 @@
             android:layout_marginTop="10dp"
             android:hint="@string/hint_password"
             android:textStyle="italic"
+            android:imeOptions="actionDone"
             android:inputType="textPassword"/>
 
         <CheckBox

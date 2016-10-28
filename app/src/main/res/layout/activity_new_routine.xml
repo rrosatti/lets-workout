@@ -97,7 +97,8 @@
                     android:layout_marginEnd="10dp"
                     android:hint="@string/hint_sets"
                     android:textStyle="italic"
-                    android:inputType="numberDecimal"/>
+                    android:inputType="numberDecimal"
+                    android:imeOptions="actionNext"/>
 
                 <EditText
                     android:id="@+id/activityNewRoutine_etReps"
@@ -107,7 +108,8 @@
                     android:layout_marginEnd="10dp"
                     android:hint="@string/hint_reps"
                     android:textStyle="italic"
-                    android:inputType="numberDecimal"/>
+                    android:inputType="numberDecimal"
+                    android:imeOptions="actionDone"/>
 
                 <Button
                     android:id="@+id/activityNewRoutine_btAdd"
