@@ -3,8 +3,18 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@color/background_project">
 
+    <ImageButton
+        android:id="@+id/fragmentTimer_imgChronometer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fragmentTimer_relativeLayout"
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/img_chronometer"
+        android:layout_centerHorizontal="true"
+        android:background="@color/background_project"/>
 
     <RelativeLayout
+        android:id="@+id/fragmentTimer_relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"

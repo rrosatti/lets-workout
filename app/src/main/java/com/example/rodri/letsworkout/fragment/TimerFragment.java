@@ -1,5 +1,6 @@
 package com.example.rodri.letsworkout.fragment;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -9,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,8 +32,9 @@ public class TimerFragment extends Fragment {
     private TextView txtTimer;
     private Button btStart;
     private Button btReset;
-    private boolean isStarted = false;
+    private ImageButton imgChronometer;
 
+    private boolean isStarted = false;
     private long startTime = 0;
     private Handler handler = new Handler();
     private long timeInMillis = 0;
@@ -51,7 +55,7 @@ public class TimerFragment extends Fragment {
                 timeInMillis = savedInstanceState.getLong(STATE_TIME_IN_MILLIS);
                 btStart.setText(getResources().getText(R.string.button_stop));
 
-                timeSwap += timeInMillis;
+                //timeSwap += timeInMillis;
                 startTime = savedInstanceState.getLong(STATE_START_TIME);
                 finalTime = savedInstanceState.getLong(STATE_FINAL_TIME);
                 handler.postDelayed(updateTimerMethod, 0);
@@ -104,6 +108,30 @@ public class TimerFragment extends Fragment {
             }
         });
 
+        imgChronometer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog dialog = new Dialog(getActivity());
+                dialog.setContentView(R.layout.dialog_chronometer);
+                dialog.setTitle(R.string.dialog_set_chronometer);
+
+                Button btConfirm = (Button) dialog.findViewById(R.id.dialogChronometer_btConfirm);
+                EditText etHours = (EditText) dialog.findViewById(R.id.dialogChronometer_etHours);
+                EditText etMinutes = (EditText) dialog.findViewById(R.id.dialogChronometer_etMinutes);
+                EditText etSeconds = (EditText) dialog.findViewById(R.id.dialogChronometer_etSeconds);
+
+                btConfirm.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getContext(), "YEAH!", Toast.LENGTH_SHORT).show();
+                        dialog.cancel();
+                    }
+                });
+                dialog.show();
+
+            }
+        });
+
         return v;
     }
 
@@ -111,6 +139,7 @@ public class TimerFragment extends Fragment {
         txtTimer = (TextView) v.findViewById(R.id.fragmentTimer_txtTimer);
         btStart = (Button) v.findViewById(R.id.fragmentTimer_btStart);
         btReset = (Button) v.findViewById(R.id.fragmentTimer_btReset);
+        imgChronometer = (ImageButton) v.findViewById(R.id.fragmentTimer_imgChronometer);
     }
 
     private Runnable updateTimerMethod = new Runnable() {
