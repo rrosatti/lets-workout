@@ -2,6 +2,7 @@ package com.example.rodri.letsworkout.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -149,4 +150,5 @@ public class BodyFragment extends Fragment {
 
         }
     }
+
 }

@@ -209,6 +209,7 @@ The values are in centimeters.</string>
     <string name="dialog_confirm_changes">Are you sure you want to save the changes?</string>
     <string name="dialog_delete_routine">Are you sure you want to delete this routine?</string>
     <string name="dialog_set_chronometer">Set Chronometer</string>
+    <string name="dialog_chronometer_message">(Minute/Second)</string>
 
     <!--  Statistics Array  -->
     <string-array name="statistics">

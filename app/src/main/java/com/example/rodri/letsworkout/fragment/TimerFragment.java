@@ -1,7 +1,10 @@
 package com.example.rodri.letsworkout.fragment;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
@@ -41,12 +44,17 @@ public class TimerFragment extends Fragment {
     private long timeSwap = 0;
     private long finalTime = 0;
 
+    private CountDownTimer countDownTimer;
+    private long minutes = 0;
+    private long seconds = 0;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_timer, container, false);
 
         initViews(v);
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         if (savedInstanceState != null) {
             isStarted = savedInstanceState.getBoolean(STATE_STARTED);
@@ -73,6 +81,7 @@ public class TimerFragment extends Fragment {
         btStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                countDownTimer.cancel();
                 if (isStarted) {
                     isStarted = false;
                     btStart.setText(getResources().getText(R.string.button_start));
@@ -116,14 +125,56 @@ public class TimerFragment extends Fragment {
                 dialog.setTitle(R.string.dialog_set_chronometer);
 
                 Button btConfirm = (Button) dialog.findViewById(R.id.dialogChronometer_btConfirm);
-                EditText etHours = (EditText) dialog.findViewById(R.id.dialogChronometer_etHours);
-                EditText etMinutes = (EditText) dialog.findViewById(R.id.dialogChronometer_etMinutes);
-                EditText etSeconds = (EditText) dialog.findViewById(R.id.dialogChronometer_etSeconds);
+                final EditText etMinutes = (EditText) dialog.findViewById(R.id.dialogChronometer_etMinutes);
+                final EditText etSeconds = (EditText) dialog.findViewById(R.id.dialogChronometer_etSeconds);
 
                 btConfirm.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getContext(), "YEAH!", Toast.LENGTH_SHORT).show();
+                        minutes = Long.parseLong(etMinutes.getText().toString());
+                        seconds = Long.parseLong(etSeconds.getText().toString());
+                        Toast.makeText(getContext(), minutes+":"+seconds+"", Toast.LENGTH_SHORT).show();
+
+                        long time = (seconds*1000) + (minutes*60*1000);
+
+                        if (isStarted) {
+                            isStarted = false;
+                            //btStart.setText(getResources().getText(R.string.button_start));
+
+                            //timeSwap += timeInMillis;
+                            timeSwap = 0;
+                            handler.removeCallbacks(updateTimerMethod);
+                        }
+                        btStart.setText(getResources().getText(R.string.button_stop));
+                        isStarted = true;
+
+                        seconds = 60;
+                        countDownTimer = new CountDownTimer(time, 1000) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                long auxSeconds = millisUntilFinished/1000;
+                                if ( auxSeconds > 59) {
+                                    minutes = (auxSeconds/60);
+                                    //seconds--;
+                                    seconds = auxSeconds%60;
+                                    System.out.println("seconds: " + auxSeconds%60);
+                                    if (seconds == 0) {
+                                        minutes--;
+                                    }
+                                } else {
+                                    seconds = millisUntilFinished/1000;
+                                }
+
+                                txtTimer.setText( minutes + " : " +
+                                        seconds);
+                            }
+
+                            @Override
+                            public void onFinish() {
+
+                            }
+                        }.start();
+
                         dialog.cancel();
                     }
                 });
@@ -167,5 +218,11 @@ public class TimerFragment extends Fragment {
         outState.putLong(STATE_START_TIME, startTime);
         outState.putLong(STATE_FINAL_TIME, finalTime);
         outState.putString(STATE_TXT_TIMER, txtTimer.getText().toString());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
     }
 }
