@@ -47,6 +47,9 @@ public class TimerFragment extends Fragment {
     private CountDownTimer countDownTimer;
     private long minutes = 0;
     private long seconds = 0;
+    private boolean isChronometerStarted = false;
+    private boolean isChronometerPaused = false;
+    private long currentChronometerTime = 0;
 
     @Nullable
     @Override
@@ -81,19 +84,46 @@ public class TimerFragment extends Fragment {
         btStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                countDownTimer.cancel();
-                if (isStarted) {
-                    isStarted = false;
-                    btStart.setText(getResources().getText(R.string.button_start));
 
-                    timeSwap += timeInMillis;
-                    handler.removeCallbacks(updateTimerMethod);
+
+                /**
+                 * Here I split the Chronometer from Timer verification. In that way it is easier to control them.
+                 */
+                if (isChronometerPaused || isChronometerStarted) {
+
+                    if (isChronometerPaused) {
+                        isChronometerPaused = false;
+                        isChronometerStarted = true;
+                        //isStarted = true;
+                        btStart.setText(getResources().getText(R.string.button_stop));
+                        startCountDownTimer(currentChronometerTime);
+
+                    } else {
+                        if (isChronometerStarted) {
+                            countDownTimer.cancel();
+                            isChronometerStarted = false;
+                            //isStarted = false;
+                            btStart.setText(getResources().getText(R.string.button_start));
+                            if (currentChronometerTime > 0) isChronometerPaused = true;
+                        }
+                    }
+
                 } else {
-                    isStarted = true;
-                    btStart.setText(getResources().getText(R.string.button_stop));
 
-                    startTime = SystemClock.uptimeMillis();
-                    handler.postDelayed(updateTimerMethod, 0);
+                    if (isStarted) {
+                        isStarted = false;
+                        btStart.setText(getResources().getText(R.string.button_start));
+
+                        timeSwap += timeInMillis;
+                        handler.removeCallbacks(updateTimerMethod);
+                    } else {
+                        isStarted = true;
+                        btStart.setText(getResources().getText(R.string.button_stop));
+
+                        startTime = SystemClock.uptimeMillis();
+                        handler.postDelayed(updateTimerMethod, 0);
+                    }
+
                 }
 
             }
@@ -114,6 +144,8 @@ public class TimerFragment extends Fragment {
                     handler.removeCallbacks(updateTimerMethod);
                     txtTimer.setText(getResources().getText(R.string.text_view_timer));
                 }
+
+                if (isChronometerStarted) countDownTimer.cancel();
             }
         });
 
@@ -146,34 +178,11 @@ public class TimerFragment extends Fragment {
                             handler.removeCallbacks(updateTimerMethod);
                         }
                         btStart.setText(getResources().getText(R.string.button_stop));
-                        isStarted = true;
+                        //isStarted = true;
+                        isChronometerStarted = true;
 
-                        seconds = 60;
-                        countDownTimer = new CountDownTimer(time, 1000) {
-                            @Override
-                            public void onTick(long millisUntilFinished) {
-                                long auxSeconds = millisUntilFinished/1000;
-                                if ( auxSeconds > 59) {
-                                    minutes = (auxSeconds/60);
-                                    //seconds--;
-                                    seconds = auxSeconds%60;
-                                    System.out.println("seconds: " + auxSeconds%60);
-                                    if (seconds == 0) {
-                                        minutes--;
-                                    }
-                                } else {
-                                    seconds = millisUntilFinished/1000;
-                                }
-
-                                txtTimer.setText( minutes + " : " +
-                                        seconds);
-                            }
-
-                            @Override
-                            public void onFinish() {
-
-                            }
-                        }.start();
+                        //seconds = 60;
+                        startCountDownTimer(time);
 
                         dialog.cancel();
                     }
@@ -207,6 +216,49 @@ public class TimerFragment extends Fragment {
             handler.postDelayed(this, 0);
         }
     };
+
+    private void startCountDownTimer(long time) {
+        countDownTimer = new CountDownTimer(time, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                currentChronometerTime = millisUntilFinished;
+                long auxSeconds = millisUntilFinished/1000;
+                if ( auxSeconds > 59) {
+                    minutes = (auxSeconds/60);
+                    seconds = auxSeconds%60;
+
+                    if (seconds == 0) {
+                        minutes--;
+                    }
+                } else {
+                    seconds = millisUntilFinished/1000;
+                }
+
+                /**
+                 * If auxSeconds = 1, then it means the CountDownTimer has actually finished.
+                 * So, we need to set the variables isChronometerStarted and isChronometerPaused as false
+                 */
+                if (auxSeconds == 1) {
+                    txtTimer.setText("00 : 00");
+                    currentChronometerTime = 0;
+                    isChronometerStarted = false;
+                    isChronometerPaused = false;
+                    btStart.setText(getResources().getText(R.string.button_start));
+                } else {
+                    txtTimer.setText( minutes + " : " +
+                            seconds);
+                }
+
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        }.start();
+
+
+    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
